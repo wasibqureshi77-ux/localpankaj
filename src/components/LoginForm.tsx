@@ -33,7 +33,20 @@ const LoginForm = ({ title, subtitle, redirectTo, role }: LoginFormProps) => {
         toast.error(res.error);
       } else {
         toast.success("Login successful!");
-        router.push(redirectTo);
+        
+        // Fetch session to get the role (or we could decode JWT if using client-side decoding)
+        // For simplicity, we can also use a small trick: fetch the session and redirect
+        const sessionRes = await fetch('/api/auth/session');
+        const session = await sessionRes.json();
+        const userRole = session?.user?.role;
+
+        if (userRole === "ADMIN" || userRole === "MANAGER") {
+          router.push("/super-admin");
+        } else if (userRole === "EDITOR") {
+          router.push("/editor");
+        } else {
+          router.push("/dashboard");
+        }
       }
     } catch (error) {
       toast.error("An error occurred. Please try again.");
