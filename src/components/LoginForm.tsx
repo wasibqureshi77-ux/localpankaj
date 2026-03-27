@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { Lock, Mail, ArrowRight, Loader2 } from "lucide-react";
 
@@ -12,11 +12,32 @@ interface LoginFormProps {
   role?: string;
 }
 
-const LoginForm = ({ title, subtitle, redirectTo, role }: LoginFormProps) => {
+function LoadingSpinner() {
+  return (
+    <div className="flex items-center justify-center p-8">
+      <Loader2 className="animate-spin text-blue-600" size={32} />
+    </div>
+  );
+}
+
+const loginStyles = {
+  container: "w-full max-w-md bg-white p-12 rounded-[2.5rem] shadow-2xl shadow-blue-100 border border-gray-100",
+  header: "mb-10 text-center",
+  title: "text-3xl font-extrabold text-gray-900 mb-2 tracking-tight",
+  subtitle: "text-gray-500 font-medium",
+  form: "space-y-6",
+  label: "block text-sm font-bold text-gray-700 mb-1 leading-8",
+  input: "w-full pl-12 pr-4 py-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition font-medium text-gray-950",
+  button: "w-full py-5 bg-blue-600 text-white rounded-xl font-extrabold text-lg hover:bg-blue-700 transition shadow-xl shadow-blue-500/20 transform hover:-translate-y-1 flex items-center justify-center space-x-3"
+};
+
+const LoginFormContent = ({ title, subtitle, redirectTo, role }: LoginFormProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,23 +51,29 @@ const LoginForm = ({ title, subtitle, redirectTo, role }: LoginFormProps) => {
       });
 
       if (res?.error) {
-        toast.error(res.error);
+        toast.error(res.error || "Invalid login credentials.");
       } else {
-        toast.success("Login successful!");
+        toast.success("Login successful! Redirecting...");
         
-        // Fetch session to get the role (or we could decode JWT if using client-side decoding)
-        // For simplicity, we can also use a small trick: fetch the session and redirect
-        const sessionRes = await fetch('/api/auth/session');
-        const session = await sessionRes.json();
-        const userRole = session?.user?.role;
+        // Brief delay for session propagation
+        setTimeout(async () => {
+          const sessionRes = await fetch('/api/auth/session');
+          const session = await sessionRes.json();
+          const userRole = session?.user?.role;
 
-        if (userRole === "ADMIN" || userRole === "MANAGER") {
-          router.push("/super-admin");
-        } else if (userRole === "EDITOR") {
-          router.push("/editor");
-        } else {
-          router.push("/dashboard");
-        }
+          if (callbackUrl) {
+            window.location.href = callbackUrl;
+            return;
+          }
+
+          if (userRole === "ADMIN" || userRole === "MANAGER") {
+            window.location.href = "/super-admin";
+          } else if (userRole === "EDITOR") {
+            window.location.href = "/editor";
+          } else {
+            window.location.href = "/dashboard";
+          }
+        }, 500);
       }
     } catch (error) {
       toast.error("An error occurred. Please try again.");
@@ -56,21 +83,21 @@ const LoginForm = ({ title, subtitle, redirectTo, role }: LoginFormProps) => {
   };
 
   return (
-    <div className="w-full max-w-md bg-white p-12 rounded-[2.5rem] shadow-2xl shadow-blue-100 border border-gray-100">
-      <div className="mb-10 text-center">
-        <h2 className="text-3xl font-extrabold text-gray-900 mb-2 tracking-tight">{title}</h2>
-        <p className="text-gray-500 font-medium">{subtitle}</p>
+    <div className={loginStyles.container}>
+      <div className={loginStyles.header}>
+        <h2 className={loginStyles.title}>{title}</h2>
+        <p className={loginStyles.subtitle}>{subtitle}</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className={loginStyles.form}>
         <div>
-          <label className="block text-sm font-bold text-gray-700 mb-1 leading-8">Email Address</label>
+          <label className={loginStyles.label}>Email Address</label>
           <div className="relative">
             <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
             <input
               type="email"
               required
-              className="w-full pl-12 pr-4 py-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition font-medium text-gray-950"
+              className={loginStyles.input}
               placeholder="name@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -80,7 +107,7 @@ const LoginForm = ({ title, subtitle, redirectTo, role }: LoginFormProps) => {
 
         <div>
            <div className="flex items-center justify-between mb-1">
-             <label className="block text-sm font-bold text-gray-700 leading-8">Password</label>
+             <label className={loginStyles.label}>Password</label>
              <a href="#" className="text-xs font-bold text-blue-600 hover:text-blue-700 transition">Forgot?</a>
            </div>
           <div className="relative">
@@ -88,7 +115,7 @@ const LoginForm = ({ title, subtitle, redirectTo, role }: LoginFormProps) => {
             <input
               type="password"
               required
-              className="w-full pl-12 pr-4 py-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition font-medium text-gray-950"
+              className={loginStyles.input}
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -99,7 +126,7 @@ const LoginForm = ({ title, subtitle, redirectTo, role }: LoginFormProps) => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-5 bg-blue-600 text-white rounded-xl font-extrabold text-lg hover:bg-blue-700 transition shadow-xl shadow-blue-500/20 transform hover:-translate-y-1 flex items-center justify-center space-x-3"
+          className={loginStyles.button}
         >
           {loading ? (
              <Loader2 className="animate-spin" size={24} />
@@ -126,5 +153,13 @@ const LoginForm = ({ title, subtitle, redirectTo, role }: LoginFormProps) => {
     </div>
   );
 };
+
+const LoginForm = (props: LoginFormProps) => {
+  return (
+    <Suspense fallback={<div className={loginStyles.container}><LoadingSpinner/></div>}>
+      <LoginFormContent {...props} />
+    </Suspense>
+  );
+}
 
 export default LoginForm;
