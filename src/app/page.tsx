@@ -19,17 +19,22 @@ import LeadPopup from "@/components/LeadPopup";
 
 const HomePage = () => {
   const [services, setServices] = useState<any[]>([]);
+  const [config, setConfig] = useState<any>(null);
 
   useEffect(() => {
-    const fetchServices = async () => {
+    const fetchData = async () => {
       try {
-        const { data } = await axios.get("/api/services");
-        setServices(data || []);
+        const [servicesRes, configRes] = await Promise.all([
+          axios.get("/api/services"),
+          axios.get("/api/site-config")
+        ]);
+        setServices(servicesRes.data || []);
+        setConfig(configRes.data || null);
       } catch (err) {
-        console.error("Home services fetch error:", err);
+        console.error("Home data fetch error:", err);
       }
     };
-    fetchServices();
+    fetchData();
   }, []);
 
   const applianceServices = services.filter(s => s.category === "APPLIANCE");
@@ -55,20 +60,20 @@ const HomePage = () => {
             </div>
             
             <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-[1.1] mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
-               Reliable <span className="text-blue-500 italic">Home Services</span> at Your Doorstep.
+               {config?.heroText || "Reliable"} <span className="text-blue-500 italic">{config?.heroText ? "" : "Home Services"}</span> {config?.heroText ? "" : "at Your Doorstep."}
             </h1>
             
             <p className="text-lg md:text-xl text-gray-400 mb-10 max-w-xl animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-200">
-               Expert AC repair, RO maintenance, and professional house cleaning across Jaipur. Book in 60 seconds.
+               {config?.heroSubtitle || "Expert AC repair, RO maintenance, and professional house cleaning across Jaipur. Book in 60 seconds."}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
                <button className="w-full sm:w-auto px-10 py-5 bg-blue-600 text-white rounded-full font-bold text-lg hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/20 transform hover:-translate-y-1">
                   Book a Service
                </button>
-               <a href="tel:+919876543210" className="flex items-center space-x-3 text-white font-bold text-lg hover:text-blue-400 transition-colors group">
+               <a href={`tel:${config?.phone || "+919876543210"}`} className="flex items-center space-x-3 text-white font-bold text-lg hover:text-blue-400 transition-colors group">
                   <span className="p-3 rounded-full border border-blue-500/30 group-hover:bg-blue-500/10 transition-all">
-                     <Clock size={24} />
+                     <LucideIcons.Phone size={24} />
                   </span>
                   <span>Contact Now</span>
                </a>
@@ -157,7 +162,9 @@ const HomePage = () => {
 
                <div className="space-y-10">
                   <div className="inline-block px-4 py-2 rounded-lg bg-blue-50 text-blue-600 font-bold text-xs uppercase tracking-widest">The Local Pankaj Advantage</div>
-                  <h2 className="text-5xl font-extrabold text-gray-900 tracking-tight leading-tight">Why <span className="text-blue-600">Jaipur</span> Trusts Us.</h2>
+                  <h2 className="text-5xl font-extrabold text-gray-900 tracking-tight leading-tight">
+                    {config?.aboutTitle || "Why Jaipur Trusts Us."}
+                  </h2>
                   
                   <div className="space-y-8">
                      {features.map((f, i) => (
@@ -171,6 +178,10 @@ const HomePage = () => {
                            </div>
                         </div>
                      ))}
+                  </div>
+
+                  <div className="p-8 bg-blue-50/50 rounded-3xl border border-blue-100/50 italic text-gray-600 font-medium">
+                     "{config?.aboutText || "We are dedicated to providing the best home services in Jaipur."}"
                   </div>
 
                   <button className="px-8 py-4 bg-gray-900 text-white rounded-2xl font-bold hover:bg-black transition-all flex items-center space-x-3">

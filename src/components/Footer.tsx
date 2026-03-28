@@ -2,14 +2,30 @@ import React from "react";
 import Link from "next/link";
 import { Facebook, Twitter, Instagram, Mail, Phone, MapPin } from "lucide-react";
 
+import axios from "axios";
+
 const Footer = () => {
+  const [config, setConfig] = React.useState<any>(null);
+
+  React.useEffect(() => {
+    const fetchConfig = async () => {
+      try {
+        const { data } = await axios.get("/api/site-config");
+        if (data) setConfig(data);
+      } catch (err) {
+        console.error("Footer config fetch error:", err);
+      }
+    };
+    fetchConfig();
+  }, []);
+
   return (
-    <footer className="bg-gray-900 text-gray-300 pt-16 pb-8 border-t border-gray-800">
+    <footer className="bg-gray-900 text-gray-300 pt-16 pb-8 border-t border-gray-800 font-sans">
       <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
         <div className="space-y-4">
           <h3 className="text-white text-2xl font-bold italic tracking-tighter">LOCAL<span className="text-blue-500">PANKAJ</span></h3>
           <p className="text-sm leading-relaxed text-gray-400">
-            Jaipur's most trusted home service platform. From AC repair to plumbing, we bring the experts to your doorstep within hours.
+            {config?.footerText || "Jaipur's most trusted home service platform. From AC repair to plumbing, we bring the experts to your doorstep within hours."}
           </p>
           <div className="flex items-center space-x-4">
              <Link href="#" className="hover:text-blue-500 transition-colors"><Facebook size={20}/></Link>
@@ -49,11 +65,11 @@ const Footer = () => {
              </li>
              <li className="flex items-center space-x-3">
                 <Phone className="text-blue-500 shrink-0" size={18}/>
-                <a href="tel:+919876543210" className="hover:text-blue-500">+91 98765 43210</a>
+                <a href={`tel:${config?.phone || "+919876543210"}`} className="hover:text-blue-500">{config?.phone || "+91 98765 43210"}</a>
              </li>
              <li className="flex items-center space-x-3">
                 <Mail className="text-blue-500 shrink-0" size={18}/>
-                <a href="mailto:support@localpankaj.com" className="hover:text-blue-500">support@localpankaj.com</a>
+                <a href={`mailto:${config?.email || "support@localpankaj.com"}`} className="hover:text-blue-500">{config?.email || "support@localpankaj.com"}</a>
              </li>
           </ul>
         </div>
