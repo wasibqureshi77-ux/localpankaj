@@ -19,9 +19,10 @@ const LeadSchema = new Schema(
     address: { type: String },
     status: {
       type: String,
-      enum: ["UNASSIGNED", "FOLLOWING", "CONVERTED"],
+      enum: ["UNASSIGNED", "FOLLOWING", "CONVERTED", "COMPLETED"],
       default: "UNASSIGNED",
     },
+    verified: { type: Boolean, default: false },
     assignedTo: { type: Schema.Types.ObjectId, ref: "User" },
     assignedTechnician: { type: Schema.Types.ObjectId, ref: "Technician" },
   },

@@ -11,15 +11,61 @@ export const authOptions: NextAuthOptions = {
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
+        phone: { label: "Phone", type: "text" },
+        otp: { label: "OTP", type: "text" },
+        name: { label: "Name", type: "text" },
+        isOtp: { label: "IsOtp", type: "boolean" }
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
+        await connectDB();
+        
+        // Handle OTP Login/Registration
+        if (credentials?.isOtp === "true" && credentials?.phone && credentials?.otp) {
+          const Otp = (await import("@/models/Otp")).default;
+          
+          // 1. Verify OTP
+          const record = await Otp.findOne({ phone: credentials.phone, otp: credentials.otp });
+          if (!record || record.expiresAt < new Date()) {
+            throw new Error("Invalid or Expired OTP");
+          }
+
+          // 2. Clear OTP
+          await Otp.deleteOne({ _id: record._id });
+
+          // 3. Find or Create User
+          let user = await User.findOne({ phone: credentials.phone });
+          if (!user) {
+             const autoPass = Math.random().toString(36).slice(-10);
+             const hashedPassword = await bcrypt.hash(autoPass, 10);
+             user = await User.create({
+                name: credentials.name || "Member",
+                phone: credentials.phone,
+                email: credentials.email || `${credentials.phone}@localpankaj.com`,
+                password: hashedPassword,
+                role: "USER"
+             });
+          }
+
+          return {
+            id: user._id.toString(),
+            name: user.name,
+            email: user.email,
+            role: user.role,
+          };
+        }
+
+        // Standard Email/Phone + Password
+        const identifier = credentials?.email; // This could be email or phone
+        if (!identifier || !credentials?.password) {
           throw new Error("Missing credentials");
         }
 
-        await connectDB();
-        const user = await User.findOne({ email: credentials.email });
-
+        const user = await User.findOne({
+           $or: [
+              { email: identifier },
+              { phone: identifier }
+           ]
+        });
         if (!user || !user.password) {
           throw new Error("Invalid credentials");
         }

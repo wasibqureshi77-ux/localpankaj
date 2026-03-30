@@ -48,7 +48,7 @@ export default function AdminLayout({
   };
 
   return (
-    <div className="flex h-screen bg-gray-950 overflow-hidden font-sans text-white selection:bg-blue-600/30">
+    <div className="flex h-screen bg-gray-50 overflow-hidden font-sans text-gray-900 selection:bg-blue-600/10">
       {/* Mobile Sidebar Toggle */}
       <button 
          onClick={() => setIsSidebarOpen(!isSidebarOpen)} 
@@ -59,27 +59,25 @@ export default function AdminLayout({
 
       {/* Sidebar */}
       <aside className={`
-        fixed lg:static inset-0 z-40 w-80 bg-gray-950 border-r border-white/10 flex flex-col transform transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1)
+        fixed lg:static inset-0 z-40 w-80 bg-white border-r border-gray-200 flex flex-col transform transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1)
         ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
       `}>
-        <div className="p-12 border-b border-white/5 bg-gradient-to-br from-blue-600/10 to-transparent mb-8 relative group cursor-pointer">
+        <div className="p-12 border-b border-gray-100 bg-gradient-to-br from-blue-50 to-transparent mb-8 relative group cursor-pointer">
            <div className="absolute top-4 right-4 text-blue-500/50 group-hover:text-blue-500 transition-colors animate-pulse">
               <ShieldCheck size={20} />
            </div>
-           <Link href="/super-admin" className="text-3xl font-extrabold tracking-tighter italic text-white flex items-center space-x-2">
-              <span className="bg-blue-600 px-3 py-1 rounded-xl">P</span>
+           <Link href="/super-admin" className="text-3xl font-extrabold tracking-tighter italic text-gray-900 flex items-center space-x-2">
+              <span className="bg-blue-600 px-3 py-1 rounded-xl text-white">P</span>
               <span>ADMIN</span>
            </Link>
-           <p className="text-[10px] font-bold text-gray-500 mt-4 tracking-[0.4em] uppercase pl-1">Strategic Command</p>
+           <p className="text-[10px] font-bold text-blue-400 mt-4 tracking-[0.4em] uppercase pl-1">Strategic Command</p>
         </div>
 
         <nav className="flex-1 px-8 space-y-4 font-bold text-xs tracking-[0.1em] uppercase overflow-y-auto">
            <AdminSidebarLink href="/super-admin" icon={<BarChart3 size={20}/>} label="Executive Analytics" active={pathname === "/super-admin"} />
            <AdminSidebarLink href="/super-admin/leads" icon={<PhoneIncoming size={20}/>} label="Leads Pipeline" active={pathname === "/super-admin/leads"} />
-           <AdminSidebarLink href="/super-admin/appointments" icon={<CalendarCheck size={20}/>} label="Operations" active={pathname === "/super-admin/appointments"} />
            <AdminSidebarLink href="/super-admin/technicians" icon={<UserCog size={20}/>} label="Manage Technician" active={pathname === "/super-admin/technicians"} />
            <AdminSidebarLink href="/super-admin/website-users" icon={<Users size={20}/>} label="Website Users" active={pathname === "/super-admin/website-users"} />
-           <AdminSidebarLink href="/super-admin/management-users" icon={<UserCog size={20}/>} label="Management Users" active={pathname === "/super-admin/management-users"} />
            <AdminSidebarLink href="/super-admin/services" icon={<Settings2 size={20}/>} label="Services Catalog" active={pathname === "/super-admin/services"} />
            <AdminSidebarLink href="/super-admin/products" icon={<Package size={20}/>} label="Product Inventory" active={pathname === "/super-admin/products"} />
            
@@ -94,13 +92,13 @@ export default function AdminLayout({
            </button>
         </nav>
 
-        <div className="p-8 border-t border-white/5 mt-auto">
-           <p className="text-[8px] font-black text-gray-600 uppercase tracking-[0.5em] text-center">Protocol v1.2.0 • Secured</p>
+        <div className="p-8 border-t border-gray-100 mt-auto">
+           <p className="text-[8px] font-black text-blue-400 uppercase tracking-[0.5em] text-center">Protocol v1.2.0 • Secured</p>
         </div>
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 overflow-y-auto flex flex-col relative bg-[radial-gradient(circle_at_50%_0%,_#1e1b4b_0%,_#030712_100%)]">
+      <main className="flex-1 overflow-y-auto flex flex-col relative bg-gray-50">
           {/* Page Content */}
 
           {/* Page Content */}
@@ -118,12 +116,12 @@ function AdminSidebarLink({ href, icon, label, active }: any) {
       href={href} 
       className={`
         flex items-center space-x-5 px-6 py-5 rounded-3xl transition-all duration-500 relative overflow-hidden group
-        ${active ? 'bg-blue-600 text-white shadow-2xl shadow-blue-600/30' : 'text-gray-500 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/5'}
+        ${active ? 'bg-blue-600 text-white shadow-xl shadow-blue-600/20' : 'text-blue-600 hover:text-black hover:bg-blue-50 border border-transparent hover:border-blue-100'}
       `}
     >
-      <div className={`${active ? 'text-white' : 'text-gray-400 group-hover:text-blue-500 group-hover:scale-110 transition-all duration-300'}`}>{icon}</div>
+      <div className={`${active ? 'text-white' : 'text-blue-400 group-hover:text-blue-600 group-hover:scale-110 transition-all duration-300'}`}>{icon}</div>
       <span className="text-[10px] tracking-[0.2em] font-black">{label}</span>
-      {active && <div className="absolute right-0 top-0 bottom-0 w-1 bg-white" />}
+      {active && <div className="absolute right-0 top-0 bottom-0 w-1 bg-blue-400" />}
     </Link>
   );
 }

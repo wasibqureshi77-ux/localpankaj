@@ -1,8 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { X, CheckCircle2 } from "lucide-react";
+import { X, CheckCircle2, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const LeadPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -105,14 +106,16 @@ const LeadPopup = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post("/api/leads", formData);
+      const res = await axios.post("/api/leads", { ...formData, verified: false });
       setSubmittedRequestId(res.data.requestId);
       setIsSubmitted(true);
+      toast.success("Service Booked Successfully!");
+      
       setTimeout(() => {
         handleClose();
-      }, 5000); // 5 seconds to let them see the ID
-    } catch (error) {
-       console.error("Lead submission failed", error);
+      }, 5000);
+    } catch (error: any) {
+       toast.error(error.response?.data?.error || "Booking Failed. Please try again.");
     } finally {
        setLoading(false);
     }
@@ -142,187 +145,190 @@ const LeadPopup = () => {
                   </div>
 
                   <form onSubmit={handleSubmit} className="p-6 bg-[#3b5998] space-y-4">
-                     {/* Row 1: Basic Info */}
-                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                     <div className="space-y-4">
+                        {/* Row 1: Basic Info */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                           <div className="space-y-1">
+                              <label className="text-[11px] font-bold text-white uppercase tracking-wider ml-1">Name</label>
+                              <input
+                                 type="text"
+                                 required
+                                 className="w-full px-3 py-2 rounded bg-white text-gray-800 text-sm focus:ring-1 focus:ring-blue-400 outline-none transition"
+                                 placeholder="Name"
+                                 value={formData.name}
+                                 onChange={(e) => setFormData({...formData, name: e.target.value})}
+                              />
+                           </div>
+                           <div className="space-y-1">
+                              <label className="text-[11px] font-bold text-white uppercase tracking-wider ml-1">Mobile Number</label>
+                              <input
+                                 type="tel"
+                                 required
+                                 className="w-full px-3 py-2 rounded bg-white text-gray-800 text-sm focus:ring-1 focus:ring-blue-400 outline-none transition"
+                                 placeholder="Mobile Number"
+                                 value={formData.phone}
+                                 onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                              />
+                           </div>
+                           <div className="space-y-1">
+                              <label className="text-[11px] font-bold text-white uppercase tracking-wider ml-1">Email</label>
+                              <input
+                                 type="email"
+                                 className="w-full px-3 py-2 rounded bg-white text-gray-800 text-sm focus:ring-1 focus:ring-blue-400 outline-none transition"
+                                 placeholder="Email"
+                                 value={formData.email}
+                                 onChange={(e) => setFormData({...formData, email: e.target.value})}
+                              />
+                           </div>
+                        </div>
+
+                        {/* Row 2: Service Details */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                           <div className="space-y-1">
+                              <label className="text-[11px] font-bold text-white uppercase tracking-wider ml-1">Select Service Type</label>
+                              <select
+                                 required
+                                 className="w-full px-3 py-2 rounded bg-white text-gray-800 text-sm focus:ring-1 focus:ring-blue-400 outline-none transition"
+                                 value={formData.serviceType}
+                                 onChange={(e) => setFormData({...formData, serviceType: e.target.value, category: "", service: ""})}
+                              >
+                                 <option value="">Select</option>
+                                 {serviceTypes.map(type => (
+                                    <option key={type.value} value={type.value}>{type.label}</option>
+                                 ))}
+                              </select>
+                           </div>
+                           <div className="space-y-1">
+                              <label className="text-[11px] font-bold text-white uppercase tracking-wider ml-1">Category</label>
+                              <select
+                                 required
+                                 disabled={!formData.serviceType}
+                                 className="w-full px-3 py-2 rounded bg-white text-gray-800 text-sm focus:ring-1 focus:ring-blue-400 outline-none transition disabled:opacity-50"
+                                 value={formData.category}
+                                 onChange={(e) => setFormData({...formData, category: e.target.value, service: ""})}
+                              >
+                                 <option value="">Select</option>
+                                 {categories
+                                    .filter(c => c.category === formData.serviceType)
+                                    .map(cat => (
+                                       <option key={cat._id} value={cat.name}>{cat.name}</option>
+                                    ))
+                                 }
+                              </select>
+                           </div>
+                           <div className="space-y-1">
+                              <label className="text-[11px] font-bold text-white uppercase tracking-wider ml-1">Service</label>
+                              <select
+                                 required
+                                 disabled={!formData.category || fetchingServices}
+                                 className="w-full px-3 py-2 rounded bg-white text-gray-800 text-sm focus:ring-1 focus:ring-blue-400 outline-none transition disabled:opacity-50"
+                                 value={formData.service}
+                                 onChange={(e) => {
+                                    const svc = services.find(s => s.name === e.target.value);
+                                    setFormData({...formData, service: e.target.value, price: svc?.price?.toString() || ""});
+                                 }}
+                              >
+                                 <option value="">{fetchingServices ? "Loading..." : "Select"}</option>
+                                 {services.map(svc => (
+                                    <option key={svc._id} value={svc.name}>{svc.name}</option>
+                                 ))}
+                              </select>
+                           </div>
+                        </div>
+
+                        {/* Row 3: Location */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                           <div className="space-y-1">
+                              <label className="text-[11px] font-bold text-white uppercase tracking-wider ml-1">Select State</label>
+                              <select
+                                 className="w-full px-3 py-2 rounded bg-white text-gray-800 text-sm focus:ring-1 focus:ring-blue-400 outline-none transition"
+                                 value={formData.state}
+                                 onChange={(e) => setFormData({...formData, state: e.target.value})}
+                              >
+                                 <option value="">Select</option>
+                                 <option value="Rajasthan">Rajasthan</option>
+                              </select>
+                           </div>
+                           <div className="space-y-1">
+                              <label className="text-[11px] font-bold text-white uppercase tracking-wider ml-1">City</label>
+                              <select
+                                 className="w-full px-3 py-2 rounded bg-white text-gray-800 text-sm focus:ring-1 focus:ring-blue-400 outline-none transition"
+                                 value={formData.city}
+                                 onChange={(e) => setFormData({...formData, city: e.target.value})}
+                              >
+                                 <option value="">Select</option>
+                                 <option value="Jaipur">Jaipur</option>
+                              </select>
+                           </div>
+                           <div className="space-y-1">
+                              <label className="text-[11px] font-bold text-white uppercase tracking-wider ml-1">Pincode</label>
+                              <input
+                                 type="text"
+                                 required
+                                 className="w-full px-3 py-2 rounded bg-white text-gray-800 text-sm focus:ring-1 focus:ring-blue-400 outline-none transition"
+                                 placeholder="Pincode"
+                                 value={formData.pincode}
+                                 onChange={(e) => setFormData({...formData, pincode: e.target.value})}
+                              />
+                           </div>
+                        </div>
+
+                        {/* Row 4: Schedule */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                           <div className="space-y-1">
+                              <label className="text-[11px] font-bold text-white uppercase tracking-wider ml-1">Booking Date</label>
+                              <input
+                                 type="date"
+                                 required
+                                 min={new Date().toISOString().split('T')[0]}
+                                 className="w-full px-3 py-2 rounded bg-white text-gray-800 text-sm focus:ring-1 focus:ring-blue-400 outline-none transition"
+                                 value={formData.bookingDate}
+                                 onChange={(e) => setFormData({...formData, bookingDate: e.target.value})}
+                              />
+                           </div>
+                           <div className="space-y-1">
+                              <label className="text-[11px] font-bold text-white uppercase tracking-wider ml-1">Booking Time</label>
+                              <select
+                                 required
+                                 className="w-full px-3 py-2 rounded bg-white text-gray-800 text-sm focus:ring-1 focus:ring-blue-400 outline-none transition"
+                                 value={formData.bookingTime}
+                                 onChange={(e) => setFormData({...formData, bookingTime: e.target.value})}
+                              >
+                                 <option value="">Select Time Slot</option>
+                                 <option value="8:00 AM To 10:00 AM">8:00 AM To 10:00 AM</option>
+                                 <option value="10:00 AM To 12:00 PM">10:00 AM To 12:00 PM</option>
+                                 <option value="12:00 PM To 2:00 PM">12:00 PM To 2:00 PM</option>
+                                 <option value="2:00 PM To 4:00 PM">2:00 PM To 4:00 PM</option>
+                                 <option value="4:00 PM To 6:00 PM">4:00 PM To 6:00 PM</option>
+                                 <option value="6:00 PM To 8:00 PM">6:00 PM To 8:00 PM</option>
+                                 <option value="8:00 PM To 10:00 PM">8:00 PM To 10:00 PM</option>
+                              </select>
+                           </div>
+                        </div>
+
+                        {/* Row 5: Address */}
                         <div className="space-y-1">
-                           <label className="text-[11px] font-bold text-white uppercase tracking-wider ml-1">Name</label>
+                           <label className="text-[11px] font-bold text-white uppercase tracking-wider ml-1">Address</label>
                            <input
                               type="text"
                               required
                               className="w-full px-3 py-2 rounded bg-white text-gray-800 text-sm focus:ring-1 focus:ring-blue-400 outline-none transition"
-                              placeholder="Name"
-                              value={formData.name}
-                              onChange={(e) => setFormData({...formData, name: e.target.value})}
+                              placeholder="Address"
+                              value={formData.address}
+                              onChange={(e) => setFormData({...formData, address: e.target.value})}
                            />
                         </div>
-                        <div className="space-y-1">
-                           <label className="text-[11px] font-bold text-white uppercase tracking-wider ml-1">Mobile Number</label>
-                           <input
-                              type="tel"
-                              required
-                              className="w-full px-3 py-2 rounded bg-white text-gray-800 text-sm focus:ring-1 focus:ring-blue-400 outline-none transition"
-                              placeholder="Mobile Number"
-                              value={formData.phone}
-                              onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                           />
-                        </div>
-                        <div className="space-y-1">
-                           <label className="text-[11px] font-bold text-white uppercase tracking-wider ml-1">Email</label>
-                           <input
-                              type="email"
-                              className="w-full px-3 py-2 rounded bg-white text-gray-800 text-sm focus:ring-1 focus:ring-blue-400 outline-none transition"
-                              placeholder="Email"
-                              value={formData.email}
-                              onChange={(e) => setFormData({...formData, email: e.target.value})}
-                           />
-                        </div>
-                     </div>
 
-                     {/* Row 2: Service Details */}
-                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div className="space-y-1">
-                           <label className="text-[11px] font-bold text-white uppercase tracking-wider ml-1">Select Service Type</label>
-                           <select
-                              required
-                              className="w-full px-3 py-2 rounded bg-white text-gray-800 text-sm focus:ring-1 focus:ring-blue-400 outline-none transition"
-                              value={formData.serviceType}
-                              onChange={(e) => setFormData({...formData, serviceType: e.target.value, category: "", service: ""})}
+                        <div className="flex justify-center pt-2">
+                           <button
+                              type="submit"
+                              disabled={loading}
+                              className="bg-white text-[#3b5998] font-bold px-12 py-3 rounded-full shadow-xl transition-all hover:bg-gray-50 disabled:opacity-50 flex items-center space-x-2"
                            >
-                              <option value="">Select</option>
-                              {serviceTypes.map(type => (
-                                <option key={type.value} value={type.value}>{type.label}</option>
-                              ))}
-                           </select>
+                              {loading ? <div className="w-5 h-5 border-2 border-[#3b5998] border-t-transparent animate-spin rounded-full" /> : <span>Book Appointment</span>}
+                              {!loading && <ArrowRight size={18} />}
+                           </button>
                         </div>
-                        <div className="space-y-1">
-                           <label className="text-[11px] font-bold text-white uppercase tracking-wider ml-1">Category</label>
-                           <select
-                              required
-                              disabled={!formData.serviceType}
-                              className="w-full px-3 py-2 rounded bg-white text-gray-800 text-sm focus:ring-1 focus:ring-blue-400 outline-none transition disabled:opacity-50"
-                              value={formData.category}
-                              onChange={(e) => setFormData({...formData, category: e.target.value, service: ""})}
-                           >
-                              <option value="">Select</option>
-                              {categories
-                                .filter(c => c.category === formData.serviceType)
-                                .map(cat => (
-                                  <option key={cat._id} value={cat.name}>{cat.name}</option>
-                                ))
-                              }
-                           </select>
-                        </div>
-                        <div className="space-y-1">
-                           <label className="text-[11px] font-bold text-white uppercase tracking-wider ml-1">Service</label>
-                           <select
-                              required
-                              disabled={!formData.category || fetchingServices}
-                              className="w-full px-3 py-2 rounded bg-white text-gray-800 text-sm focus:ring-1 focus:ring-blue-400 outline-none transition disabled:opacity-50"
-                              value={formData.service}
-                              onChange={(e) => {
-                                const svc = services.find(s => s.name === e.target.value);
-                                setFormData({...formData, service: e.target.value, price: svc?.price?.toString() || ""});
-                              }}
-                           >
-                              <option value="">{fetchingServices ? "Loading..." : "Select"}</option>
-                              {services.map(svc => (
-                                <option key={svc._id} value={svc.name}>{svc.name}</option>
-                              ))}
-                           </select>
-                        </div>
-                     </div>
-
-                     {/* Row 3: Location */}
-                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div className="space-y-1">
-                           <label className="text-[11px] font-bold text-white uppercase tracking-wider ml-1">Select State</label>
-                           <select
-                              className="w-full px-3 py-2 rounded bg-white text-gray-800 text-sm focus:ring-1 focus:ring-blue-400 outline-none transition"
-                              value={formData.state}
-                              onChange={(e) => setFormData({...formData, state: e.target.value})}
-                           >
-                              <option value="">Select</option>
-                              <option value="Rajasthan">Rajasthan</option>
-                           </select>
-                        </div>
-                        <div className="space-y-1">
-                           <label className="text-[11px] font-bold text-white uppercase tracking-wider ml-1">City</label>
-                           <select
-                              className="w-full px-3 py-2 rounded bg-white text-gray-800 text-sm focus:ring-1 focus:ring-blue-400 outline-none transition"
-                              value={formData.city}
-                              onChange={(e) => setFormData({...formData, city: e.target.value})}
-                           >
-                              <option value="">Select</option>
-                              <option value="Jaipur">Jaipur</option>
-                           </select>
-                        </div>
-                        <div className="space-y-1">
-                           <label className="text-[11px] font-bold text-white uppercase tracking-wider ml-1">Pincode</label>
-                           <input
-                              type="text"
-                              required
-                              className="w-full px-3 py-2 rounded bg-white text-gray-800 text-sm focus:ring-1 focus:ring-blue-400 outline-none transition"
-                              placeholder="Pincode"
-                              value={formData.pincode}
-                              onChange={(e) => setFormData({...formData, pincode: e.target.value})}
-                           />
-                        </div>
-                     </div>
-
-                     {/* Row 4: Schedule */}
-                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="space-y-1">
-                           <label className="text-[11px] font-bold text-white uppercase tracking-wider ml-1">Booking Date</label>
-                           <input
-                              type="date"
-                              required
-                              min={new Date().toISOString().split('T')[0]}
-                              className="w-full px-3 py-2 rounded bg-white text-gray-800 text-sm focus:ring-1 focus:ring-blue-400 outline-none transition"
-                              value={formData.bookingDate}
-                              onChange={(e) => setFormData({...formData, bookingDate: e.target.value})}
-                           />
-                        </div>
-                        <div className="space-y-1">
-                           <label className="text-[11px] font-bold text-white uppercase tracking-wider ml-1">Booking Time</label>
-                           <select
-                              required
-                              className="w-full px-3 py-2 rounded bg-white text-gray-800 text-sm focus:ring-1 focus:ring-blue-400 outline-none transition"
-                              value={formData.bookingTime}
-                              onChange={(e) => setFormData({...formData, bookingTime: e.target.value})}
-                           >
-                              <option value="">Select Time Slot</option>
-                              <option value="8:00 AM To 10:00 AM">8:00 AM To 10:00 AM</option>
-                              <option value="10:00 AM To 12:00 PM">10:00 AM To 12:00 PM</option>
-                              <option value="12:00 PM To 2:00 PM">12:00 PM To 2:00 PM</option>
-                              <option value="2:00 PM To 4:00 PM">2:00 PM To 4:00 PM</option>
-                              <option value="4:00 PM To 6:00 PM">4:00 PM To 6:00 PM</option>
-                              <option value="6:00 PM To 8:00 PM">6:00 PM To 8:00 PM</option>
-                              <option value="8:00 PM To 10:00 PM">8:00 PM To 10:00 PM</option>
-                           </select>
-                        </div>
-                     </div>
-
-                     {/* Row 5: Address */}
-                     <div className="space-y-1">
-                        <label className="text-[11px] font-bold text-white uppercase tracking-wider ml-1">Address</label>
-                        <input
-                           type="text"
-                           required
-                           className="w-full px-3 py-2 rounded bg-white text-gray-800 text-sm focus:ring-1 focus:ring-blue-400 outline-none transition"
-                           placeholder="Address"
-                           value={formData.address}
-                           onChange={(e) => setFormData({...formData, address: e.target.value})}
-                        />
-                     </div>
-
-                     <div className="flex justify-center pt-2">
-                        <button
-                           type="submit"
-                           disabled={loading}
-                           className="bg-white text-gray-900 font-bold px-10 py-2 rounded shadow transition-all hover:bg-gray-100 disabled:opacity-50"
-                        >
-                           {loading ? "Submit..." : "Submit"}
-                        </button>
                      </div>
                   </form>
                </div>

@@ -100,14 +100,14 @@ const LoginFormContent = ({ title, subtitle, redirectTo, requiredRole }: LoginFo
 
       <form onSubmit={handleSubmit} className={loginStyles.form}>
         <div>
-          <label className={loginStyles.label}>Email Address</label>
+          <label className={loginStyles.label}>Email or Mobile Number</label>
           <div className="relative">
             <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
             <input
-              type="email"
+              type="text"
               required
               className={loginStyles.input}
-              placeholder="name@example.com"
+              placeholder="Email or 10-digit Mobile"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />

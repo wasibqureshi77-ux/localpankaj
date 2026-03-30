@@ -38,6 +38,22 @@ export const technicianTemplate = (data: any) => `
   </div>
 `;
 
+export const completionTemplate = (data: any) => `
+  <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 20px; border-top: 4px solid #10b981;">
+    <h2 style="color: #065f46;">Service Completed Successfully! ✅</h2>
+    <p>Hello <strong>${data.name}</strong>,</p>
+    <p>Your service request for <strong>${data.service}</strong> has been successfully fulfilled and marked as completed.</p>
+    <div style="background: #f0fdf4; padding: 15px; border-radius: 10px; margin: 20px 0;">
+      <p style="margin: 0; font-size: 13px; color: #166534;">Tracking ID:</p>
+      <p style="margin: 5px 0 0 0; font-weight: bold; font-size: 16px;">${data.requestId}</p>
+    </div>
+    <p>Thank you for choosing Local Pankaj. We hope you are satisfied with our expert's work!</p>
+    <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #888;">
+      Team Local Pankaj<br>Jaipur
+    </div>
+  </div>
+`;
+
 export const adminTemplate = (data: any) => `
   <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 20px; background: #fafafa;">
     <h2 style="color: #0f172a;">New Activity Alert 🔔</h2>

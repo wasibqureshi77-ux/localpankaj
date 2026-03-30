@@ -230,6 +230,60 @@ const HomePage = () => {
          </div>
       </section>
 
+      {/* Full-Width Video Banner */}
+      <section className="w-full h-[70vh] relative overflow-hidden bg-black group border-y-4 border-blue-600 shadow-[0_0_50px_rgba(37,99,235,0.2)]">
+         <video 
+            autoPlay 
+            muted 
+            loop 
+            playsInline 
+            className="absolute inset-0 w-full h-full object-cover opacity-60 scale-105 group-hover:scale-100 transition-transform duration-[10s]"
+         >
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-technician-working-on-an-electric-box-31623-large.mp4" type="video/mp4" />
+         </video>
+         <div className="absolute inset-0 bg-gradient-to-r from-blue-950 via-blue-900/40 to-transparent z-10" />
+         
+         <div className="container mx-auto px-4 lg:px-20 relative z-20 h-full flex flex-col justify-center">
+            <motion.div
+               initial={{ opacity: 0, x: -50 }}
+               whileInView={{ opacity: 1, x: 0 }}
+               viewport={{ once: true }}
+               transition={{ duration: 1 }}
+               className="max-w-3xl space-y-8"
+            >
+               <div className="inline-flex items-center space-x-4 px-6 py-3 bg-blue-600/90 backdrop-blur-md text-white rounded-2xl border border-white/20 shadow-2xl">
+                  <LucideIcons.ShieldCheck size={20} className="text-blue-100" />
+                  <span className="text-[11px] font-black uppercase tracking-[0.5em] italic">Jaipur's Elite Engineering Grid</span>
+               </div>
+               
+               <h2 className="text-7xl lg:text-8xl font-black text-white italic tracking-tighter leading-[0.9] drop-shadow-2xl">
+                  PROFESSIONAL <br/>
+                  <span className="text-blue-500">PRECISION.</span>
+               </h2>
+               
+               <p className="text-xl lg:text-2xl text-blue-100 font-bold max-w-xl tracking-tight leading-relaxed opacity-90">
+                  Deploying certified technical units across Jaipur with millimetric accuracy. Real-time telemetry, genuine parts, and unmatched field expertise.
+               </p>
+
+               <div className="flex items-center space-x-8 pt-4">
+                  <div className="flex flex-col">
+                     <span className="text-4xl font-black text-white italic">100%</span>
+                     <span className="text-[10px] font-black text-blue-400 uppercase tracking-widest mt-1">Genuine Parts</span>
+                  </div>
+                  <div className="h-12 w-px bg-white/20" />
+                  <div className="flex flex-col">
+                     <span className="text-4xl font-black text-white italic">60m</span>
+                     <span className="text-[10px] font-black text-blue-400 uppercase tracking-widest mt-1">SLA Response</span>
+                  </div>
+               </div>
+            </motion.div>
+         </div>
+
+         {/* Grid pattern overlay */}
+         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none mix-blend-overlay z-15" />
+         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-gray-50 to-transparent z-30" />
+      </section>
+
       {/* Testimonials */}
       <section className="py-24 bg-gray-50">
          <div className="container mx-auto px-4">

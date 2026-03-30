@@ -12,7 +12,7 @@ export async function GET() {
       total: leads.length,
       unassigned: leads.filter((l: any) => l.status === "UNASSIGNED").length,
       converted: leads.filter((l: any) => l.status === "CONVERTED").length,
-      following: leads.filter((l: any) => l.status === "FOLLOWING").length,
+      completed: leads.filter((l: any) => l.status === "COMPLETED").length,
     };
 
     return NextResponse.json({ leads, stats });
@@ -25,18 +25,75 @@ export async function POST(req: Request) {
   try {
     const data = await req.json();
     await connectDB();
+
+    const { User } = await import("@/models/User");
+    const bcrypt = await import("bcryptjs");
+    const { sendEmail } = await import("@/lib/email/sendEmail");
+    const { bookingTemplate, adminTemplate, userWelcomeTemplate } = await import("@/lib/email/templates");
+
+    // 1. Automatic Account Creation for New Users
+    let isNewUser = false;
+    let generatedPassword = "";
     
+    // Check by email or phone
+    let existingUser = await User.findOne({ 
+      $or: [
+        { email: data.email },
+        { phone: data.phone }
+      ]
+    });
+
+    if (!existingUser && data.phone) {
+      isNewUser = true;
+      generatedPassword = Math.random().toString(36).slice(-10);
+      const hashedPassword = await bcrypt.default.hash(generatedPassword, 10);
+      
+      existingUser = await User.create({
+        name: data.name,
+        email: data.email || `${data.phone}@localpankaj.com`,
+        phone: data.phone,
+        password: hashedPassword,
+        role: "USER"
+      });
+
+      // Send Account Creation Mail FIRST
+      if (data.email) {
+        try {
+          await sendEmail({
+            to: data.email,
+            subject: "Welcome to Local Pankaj 🚀 - Your Account Details",
+            html: `
+              <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 20px;">
+                <h2 style="color: #2563eb;">Welcome to Local Pankaj 🚀</h2>
+                <p>Hello <strong>${data.name}</strong>,</p>
+                <p>Your account has been successfully created. We're excited to have you on board!</p>
+                <div style="background: #f8fafc; padding: 20px; border-radius: 15px; margin: 20px 0;">
+                  <p style="margin: 0 0 10px 0; font-size: 14px; color: #64748b;">Your Login Credentials:</p>
+                  <p style="margin: 0; font-size: 16px; font-weight: bold;">User: ${data.email || data.phone}</p>
+                  <p style="margin: 5px 0 0 0; font-size: 16px; font-weight: bold; color: #2563eb;">Password: ${generatedPassword}</p>
+                </div>
+                <p>You can use these credentials to log in and track your bookings.</p>
+                <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #888;">
+                  Best Regards,<br>Team Local Pankaj
+                </div>
+              </div>
+            `
+          });
+        } catch (mailErr) {
+          console.error("Welcome email failed:", mailErr);
+        }
+      }
+    }
+    
+    // 2. Lead Generation
     // Generate unique Request ID
     const randomId = Math.random().toString(36).substring(2, 7).toUpperCase();
     data.requestId = `LP-${randomId}`;
 
     const lead = await Lead.create(data);
 
-    // Trigger Lead Alerts
+    // 3. Trigger Lead Alerts
     try {
-      const { sendEmail } = await import("@/lib/email/sendEmail");
-      const { bookingTemplate, adminTemplate } = await import("@/lib/email/templates");
-
       // To Potential Customer (Lead)
       if (data.email) {
         await sendEmail({
@@ -61,12 +118,8 @@ export async function POST(req: Request) {
             Name: <strong>${data.name}</strong><br>
             Email: <strong>${data.email || "N/A"}</strong><br>
             Phone: <strong>${data.phone}</strong><br>
-            Service Type: <strong>${data.serviceType || "N/A"}</strong><br>
-            Category: <strong>${data.category || "N/A"}</strong><br>
             Service: <strong>${data.service}</strong><br>
-            Location: <strong>${data.city}, ${data.state} (${data.pincode})</strong><br>
-            Booking Date: <strong>${data.bookingDate}</strong><br>
-            Booking Time: <strong>${data.bookingTime}</strong><br>
+            Booking Date: <strong>${data.bookingDate} (${data.bookingTime})</strong><br>
             Address: <strong>${data.address}</strong>
           `
         })
