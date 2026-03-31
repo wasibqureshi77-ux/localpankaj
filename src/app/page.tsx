@@ -39,9 +39,9 @@ const HomePage = () => {
   }, []);
 
   const slides = [
-    "/hero-slide-1.png",
-    "/hero-slide-2.png",
-    "/hero-slide-3.png"
+    "/image1.png",
+    "/image2.png",
+    "/image3.png"
   ];
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -56,7 +56,7 @@ const HomePage = () => {
   const homeServices = services.filter(s => s.category === "HOME");
 
   return (
-    <main className="min-h-screen relative font-sans text-gray-900 bg-white">
+    <main className="min-h-screen relative font-sans text-gray-800 bg-white">
       <Header />
       <LeadPopup />
 
@@ -132,7 +132,7 @@ const HomePage = () => {
                   <span className="text-orange-500 font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] text-[10px] sm:text-xs">Our Services</span>
                   <span className="text-orange-500 font-black text-[10px] sm:text-xs">« « « « «</span>
                </div>
-               <h2 className="text-5xl md:text-7xl font-black text-gray-950 italic tracking-tighter leading-none uppercase text-center">Appliance <br/> Repair</h2>
+               <h2 className="text-5xl md:text-7xl font-black text-gray-950 tracking-tighter leading-none uppercase text-center">Appliance <br/> Repair</h2>
             </div>
 
            {/* Grid */}
@@ -155,7 +155,7 @@ const HomePage = () => {
       {/* Home Repair Section */}
       <section className="py-20 bg-[#2b549e]">
         <div className="container mx-auto px-4">
-           <h2 className="text-4xl font-black text-white text-center mb-16 tracking-tight italic text-shadow-sm">Home Repair</h2>
+           <h2 className="text-4xl font-black text-white text-center mb-16 tracking-tight text-shadow-sm">Home Repair</h2>
            <div className="flex flex-wrap justify-center gap-6 max-w-4xl mx-auto">
               {homeServices.map((s) => (
                 <HomeRepairBox 
@@ -178,25 +178,14 @@ const HomePage = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                <div className="relative">
                   <div className="absolute -top-10 -left-10 w-40 h-40 bg-blue-100 rounded-full blur-3xl opacity-50" />
-                  <div className="relative rounded-[3rem] overflow-hidden shadow-2xl border border-gray-50">
+                  <div className="relative rounded-[3rem] overflow-hidden shadow-2xl border border-gray-50 bg-gray-50">
                      <Image 
-                        src="/jaipur-expert.png" 
+                        src="/expert.png" 
                         alt="Jaipur Service Expert" 
                         width={600} 
-                        height={500} 
-                        className="w-full h-[500px] object-cover"
+                        height={600} 
+                        className="w-full h-auto object-contain"
                      />
-                     <div className="absolute bottom-8 left-8 right-8 bg-white/90 backdrop-blur-sm p-6 rounded-2xl border border-white/40 shadow-xl">
-                        <div className="flex items-center space-x-4">
-                           <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white">
-                              <UserCheck size={24} />
-                           </div>
-                           <div>
-                              <div className="font-bold text-gray-900">Verified Professionals</div>
-                              <div className="text-sm text-gray-500 font-medium">Background checked experts.</div>
-                           </div>
-                        </div>
-                     </div>
                   </div>
                </div>
 

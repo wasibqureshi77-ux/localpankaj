@@ -17,6 +17,10 @@ const LeadSchema = new Schema(
     bookingDate: { type: String },
     bookingTime: { type: String },
     address: { type: String },
+    paymentMethod: { type: String, enum: ["PAY_ON_VISIT", "ONLINE"], default: "PAY_ON_VISIT" },
+    paymentStatus: { type: String, enum: ["PENDING", "COMPLETED", "FAILED"], default: "PENDING" },
+    razorpayOrderId: { type: String },
+    razorpayPaymentId: { type: String },
     status: {
       type: String,
       enum: ["UNASSIGNED", "FOLLOWING", "CONVERTED", "COMPLETED"],

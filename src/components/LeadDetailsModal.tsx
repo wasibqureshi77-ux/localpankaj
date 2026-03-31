@@ -8,7 +8,9 @@ import {
   ArrowUpRight, 
   CheckCircle2,
   Phone,
-  MessageSquare
+  MessageSquare,
+  CreditCard,
+  HandCoins
 } from "lucide-react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
@@ -179,7 +181,31 @@ export default function LeadDetailsModal({ lead, onClose, onRefresh }: LeadDetai
               <div className="grid grid-cols-3 gap-6">
                 <DataBlock label="Category" value={lead.category} />
                 <DataBlock label="Services" value={lead.service} />
-                <DataBlock label="Price Quote" value={lead.price || "Contact for Quote"} />
+                <DataBlock label="Price Quote" value={lead.price ? `₹${lead.price}` : "Contact for Quote"} />
+                <div className="col-span-full pt-4 border-t border-gray-50 flex items-center space-x-6">
+                  <div className="flex-1">
+                    <div className="text-[9px] font-black text-blue-900 uppercase tracking-widest mb-1 opacity-70">Payment Mode</div>
+                    <div className="flex items-center space-x-2">
+                       {lead.paymentMethod === "ONLINE" ? (
+                         <div className="flex items-center space-x-2 text-blue-600 font-bold text-sm">
+                            <CreditCard size={16} />
+                            <span>Online Payment</span>
+                         </div>
+                       ) : (
+                         <div className="flex items-center space-x-2 text-amber-600 font-bold text-sm">
+                            <HandCoins size={16} />
+                            <span>Pay on Visit</span>
+                         </div>
+                       )}
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-[9px] font-black text-blue-900 uppercase tracking-widest mb-1 opacity-70">Payment Status</div>
+                    <div className={`inline-block px-3 py-1 rounded-lg text-[10px] font-black uppercase ${lead.paymentStatus === "COMPLETED" ? "bg-green-100 text-green-700" : "bg-amber-100 text-amber-700"}`}>
+                       {lead.paymentStatus || "PENDING"}
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* Location Vector */}

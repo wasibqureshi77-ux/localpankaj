@@ -15,9 +15,10 @@ import {
   Zap,
   Tag,
   X,
-  Loader2,
   UserCheck,
-  ShieldCheck
+  ShieldCheck,
+  CreditCard,
+  HandCoins
 } from "lucide-react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
@@ -139,7 +140,15 @@ function LeadStub({ lead, onView, time }: any) {
                </div>
                <div>
                   <div className="text-sm font-black text-indigo-950 tracking-tight">{lead.name}</div>
-                  <div className="text-[10px] font-bold text-indigo-400 mt-0.5 font-sans">{lead.phone}</div>
+                  <div className="text-[10px] font-bold text-indigo-400 mt-0.5 font-sans flex items-center space-x-2">
+                     <span>{lead.phone}</span>
+                     <span className="w-1 h-1 bg-indigo-200 rounded-full" />
+                     {lead.paymentMethod === "ONLINE" ? (
+                       <CreditCard size={12} className={lead.paymentStatus === "COMPLETED" ? "text-emerald-500" : "text-amber-500"} />
+                     ) : (
+                       <HandCoins size={12} className="text-indigo-400" />
+                     )}
+                  </div>
                </div>
             </div>
          </td>

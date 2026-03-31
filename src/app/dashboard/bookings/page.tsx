@@ -12,7 +12,9 @@ import {
   Filter,
   UserCheck,
   ShieldCheck,
-  Loader2
+  Loader2,
+  CreditCard,
+  HandCoins
 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
@@ -135,6 +137,26 @@ function BookingCard({ lead }: { lead: any }) {
                    <div className="flex items-center space-x-3"><Calendar size={16} className="text-blue-600"/> <span>{lead.bookingDate}</span></div>
                    <div className="flex items-center space-x-3"><Clock size={16} className="text-blue-600"/> <span>{lead.bookingTime}</span></div>
                    <div className="flex items-center space-x-3 col-span-full"><MapPin size={16} className="text-blue-600"/> <span className="normal-case">{lead.address}</span></div>
+                   
+                   <div className="flex items-center space-x-3 col-span-full border-t border-gray-50 pt-4 mt-2">
+                     {lead.paymentMethod === "ONLINE" ? (
+                       <div className="flex items-center space-x-3 text-blue-600">
+                         <CreditCard size={16} />
+                         <span className="font-black">PAID ONLINE </span>
+                         <span className={`px-2 py-0.5 rounded-md text-[8px] uppercase ${lead.paymentStatus === "COMPLETED" ? "bg-green-100 text-green-700" : "bg-amber-100 text-amber-700"}`}>
+                           {lead.paymentStatus || "PENDING"}
+                         </span>
+                       </div>
+                     ) : (
+                       <div className="flex items-center space-x-3 text-amber-600">
+                         <HandCoins size={16} />
+                         <span className="font-black">PAY ON VISIT</span>
+                         <span className="px-2 py-0.5 rounded-md text-[8px] uppercase bg-gray-100 text-gray-500">
+                           {lead.price ? `₹${lead.price}` : "COLLECT ON ARRIVAL"}
+                         </span>
+                       </div>
+                     )}
+                   </div>
                 </div>
              </div>
           </div>

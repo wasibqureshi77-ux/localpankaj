@@ -52,6 +52,10 @@ export const authOptions: NextAuthOptions = {
             email: user.email,
             phone: user.phone,
             role: user.role,
+            address: user.address,
+            city: user.city,
+            pincode: user.pincode,
+            state: user.state,
           } as any;
         }
 
@@ -87,6 +91,10 @@ export const authOptions: NextAuthOptions = {
           email: user.email,
           phone: user.phone,
           role: user.role,
+          address: user.address,
+          city: user.city,
+          pincode: user.pincode,
+          state: user.state,
         };
       },
     }),
@@ -97,6 +105,10 @@ export const authOptions: NextAuthOptions = {
         token.id = user.id;
         token.role = user.role;
         token.phone = user.phone;
+        token.address = user.address;
+        token.city = user.city;
+        token.pincode = user.pincode;
+        token.state = user.state;
       }
       return token;
     },
@@ -105,6 +117,10 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.id;
         session.user.role = token.role;
         session.user.phone = token.phone;
+        session.user.address = token.address;
+        session.user.city = token.city;
+        session.user.pincode = token.pincode;
+        session.user.state = token.state;
       }
       return session;
     },

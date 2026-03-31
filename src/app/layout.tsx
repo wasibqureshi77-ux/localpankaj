@@ -34,7 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} font-sans`}>
+      <body className={`${poppins.variable} ${poppins.className} font-sans`}>
         <NextAuthProvider>
           {children}
           <Toaster position="top-center" />

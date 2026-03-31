@@ -144,10 +144,10 @@ export default function CartPage() {
                            </div>
                         </div>
 
-                        <button className="w-full flex items-center justify-center space-x-3 bg-blue-600 hover:bg-blue-700 text-white py-6 rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-2xl shadow-blue-500/10 active:scale-95 group">
+                        <Link href="/checkout" className="w-full flex items-center justify-center space-x-3 bg-blue-600 hover:bg-blue-700 text-white py-6 rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-2xl shadow-blue-500/10 active:scale-95 group">
                            <span>Initialize Checkout</span>
                            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                        </button>
+                        </Link>
                      </div>
 
                      <div className="bg-white p-6 rounded-[2rem] border border-gray-100 flex items-center space-x-4">

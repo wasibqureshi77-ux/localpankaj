@@ -53,7 +53,7 @@ export default function ServicePage({ params }: { params: Promise<{ slug: string
   const addToCart = (product: any) => {
     try {
       const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
-      const updatedCart = [...existingCart, { ...product, cartId: Date.now() }];
+      const updatedCart = [...existingCart, { ...product, category: service.category, serviceName: service.name, cartId: Date.now() }];
       localStorage.setItem("cart", JSON.stringify(updatedCart));
       
       // Manually trigger storage event for the current window (since header is in the same window)
@@ -122,21 +122,14 @@ export default function ServicePage({ params }: { params: Promise<{ slug: string
 
                <div className="relative animate-in fade-in slide-in-from-right-10 duration-700">
                   <div className="absolute -inset-4 bg-blue-50 rounded-[3rem] -z-10 transform scale-95" />
-                  <div className="rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white h-[450px] group">
+                  <div className="rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white bg-gray-50 flex items-center justify-center">
                      <Image 
-                        src="/jaipur-expert.png" 
+                        src="/expert.png" 
                         alt="Service Expert" 
                         width={800} 
-                        height={600} 
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        height={800} 
+                        className="w-full h-auto object-contain transition-transform duration-700 hover:scale-105"
                      />
-                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                     <div className="absolute bottom-8 left-8">
-                        <div className="bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-white/50">
-                           <div className="text-[10px] font-black tracking-[0.3em] text-blue-600 uppercase">Local Pankaj Jaipur</div>
-                           <div className="text-lg font-black text-gray-900 mt-1 uppercase italic">Operational Excellence</div>
-                        </div>
-                     </div>
                   </div>
                </div>
             </div>

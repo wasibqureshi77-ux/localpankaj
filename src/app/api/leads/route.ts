@@ -162,7 +162,8 @@ export async function POST(req: Request) {
             Phone: <strong>${data.phone}</strong><br>
             Service: <strong>${data.service}</strong><br>
             Booking Date: <strong>${data.bookingDate} (${data.bookingTime})</strong><br>
-            Address: <strong>${data.address}</strong>
+            Address: <strong>${data.address}</strong><br>
+            Payment Method: <strong style="color: #10b981;">${data.paymentMethod === "PAY_ON_VISIT" ? "Pay on Visit" : "Paid Online"}</strong>
           `
         })
       });
