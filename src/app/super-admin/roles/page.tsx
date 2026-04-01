@@ -129,7 +129,7 @@ function RoleDefinitionCard({ title, desc, perms, icon, color }: any) {
 
        {/* Sublte background watermark */}
        <div className="absolute -bottom-10 -right-10 opacity-[0.02] group-hover:opacity-[0.05] transition-opacity pointer-events-none">
-          {React.cloneElement(icon as React.ReactElement, { size: 160 })}
+          {React.cloneElement(icon as any, { size: 160 })}
        </div>
     </div>
   );

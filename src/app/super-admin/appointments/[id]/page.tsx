@@ -195,7 +195,7 @@ function DetailItem({ icon, label, value, highlight }: any) {
    return (
       <div className="space-y-3">
          <div className="flex items-center space-x-3 text-[9px] font-black text-gray-500 uppercase tracking-[0.3em]">
-            <span className="text-blue-500 opacity-50">{icon && React.cloneElement(icon, { size: 12 })}</span>
+            <span className="text-blue-500 opacity-50">{icon && React.cloneElement(icon as any, { size: 12 })}</span>
             <span>{label}</span>
          </div>
          <p className={`text-sm font-bold tracking-tight text-white/90 break-words ${highlight ? "text-xl font-black text-blue-500 tabular-nums italic" : ""}`}>
