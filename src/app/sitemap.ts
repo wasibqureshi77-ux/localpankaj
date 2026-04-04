@@ -5,7 +5,7 @@ import { Service } from '@/models/Service';
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
 
-  let dynamicServices = [];
+  let dynamicServices: MetadataRoute.Sitemap = [];
   try {
     await connectDB();
     const services = await Service.find({ isActive: 'ACTIVE' }).select('slug updatedAt');
