@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState, use } from "react";
+import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import LeadPopup from "@/components/LeadPopup";
@@ -19,10 +20,12 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 
 export default function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
+  const router = useRouter();
   const { slug } = use(params);
   const [service, setService] = useState<any>(null);
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -78,7 +81,14 @@ export default function ServicePage({ params }: { params: Promise<{ slug: string
   return (
     <main className="min-h-screen bg-white text-gray-900 selection:bg-blue-50 selection:text-blue-700">
       <Header />
-      <LeadPopup />
+      <LeadPopup 
+        isOpen={isPopupOpen} 
+        onClose={() => setIsPopupOpen(false)} 
+        initialData={{
+          serviceType: service?.category, // e.g. "APPLIANCE" or "HOME"
+          category: service?.name        // e.g. "Washing Machine"
+        }}
+      />
 
       {/* Breadcrumbs */}
       <nav className="bg-white border-b border-gray-100 py-3">
@@ -115,13 +125,13 @@ export default function ServicePage({ params }: { params: Promise<{ slug: string
 
                   <div className="flex flex-wrap gap-4 pt-2">
                     <button 
-                      onClick={() => scrollToSection('section-service')}
+                      onClick={() => setIsPopupOpen(true)}
                       className="px-8 py-4 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition shadow-lg shadow-blue-600/10 active:scale-95"
                     >
                       Book Service Now
                     </button>
                     <button 
-                      onClick={() => scrollToSection('section-repair')}
+                      onClick={() => router.push('/contact#inquiry-form')}
                       className="px-8 py-4 bg-white text-gray-700 border border-gray-200 font-bold rounded-lg hover:bg-gray-50 transition active:scale-95"
                     >
                       View Fixes & Repairs

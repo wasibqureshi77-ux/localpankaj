@@ -242,10 +242,13 @@ const HomePage = () => {
                      "{config?.aboutText || "We are dedicated to providing the best home services in Jaipur."}"
                   </div>
 
-                  <button className="px-8 py-4 bg-gray-900 text-white rounded-2xl font-bold hover:bg-black transition-all flex items-center space-x-3">
+                  <Link 
+                    href="/about"
+                    className="px-8 py-4 bg-gray-900 text-white rounded-2xl font-bold hover:bg-black transition-all inline-flex items-center space-x-3 w-fit"
+                  >
                      <span>Learn More About Us</span>
                      <ArrowRight size={18} />
-                  </button>
+                  </Link>
                </div>
             </div>
          </div>

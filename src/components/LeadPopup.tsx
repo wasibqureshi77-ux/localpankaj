@@ -104,9 +104,30 @@ const SecondaryButton = ({ children, className, ...props }: any) => (
   </button>
 );
 
-const LeadPopup = () => {
+interface LeadPopupProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+  initialData?: {
+    serviceType?: string;
+    category?: string;
+    service?: string;
+  };
+}
+
+const LeadPopup = ({ isOpen: controlledIsOpen, onClose: controlledOnClose, initialData }: LeadPopupProps) => {
   const { data: session }: any = useSession();
-  const [isOpen, setIsOpen] = useState(false);
+  const [internalIsOpen, setInternalIsOpen] = useState(false);
+  
+  const isOpen = controlledIsOpen !== undefined ? controlledIsOpen : internalIsOpen;
+
+  const setOpenState = (open: boolean) => {
+    if (controlledIsOpen !== undefined) {
+      if (!open && controlledOnClose) controlledOnClose();
+    } else {
+      setInternalIsOpen(open);
+    }
+  };
+
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [submittedRequestId, setSubmittedRequestId] = useState("");
@@ -129,6 +150,18 @@ const LeadPopup = () => {
     bookingTime: "",
     address: "",
   });
+
+  // Sync initialData with formData when popup opens
+  useEffect(() => {
+    if (isOpen && initialData) {
+      setFormData(prev => ({
+        ...prev,
+        serviceType: initialData.serviceType || prev.serviceType,
+        category: initialData.category || prev.category,
+        service: initialData.service || prev.service,
+      }));
+    }
+  }, [isOpen, initialData]);
 
   const [categories, setCategories] = useState<any[]>([]);
   const [services, setServices] = useState<any[]>([]);
@@ -203,12 +236,12 @@ const LeadPopup = () => {
   ];
 
   useEffect(() => {
-    (window as any).showLeadPopup = () => setIsOpen(true);
+    (window as any).showLeadPopup = () => setOpenState(true);
 
     const timer = setTimeout(() => {
       const hasSeenPopup = sessionStorage.getItem("hasSeenPopup");
       if (!hasSeenPopup) {
-         setIsOpen(true);
+         setOpenState(true);
       }
     }, 5000); 
 
@@ -219,7 +252,7 @@ const LeadPopup = () => {
   }, []);
 
   const handleClose = () => {
-    setIsOpen(false);
+    setOpenState(false);
     setTimeout(() => {
         setIsSubmitted(false);
         setStep(1);
