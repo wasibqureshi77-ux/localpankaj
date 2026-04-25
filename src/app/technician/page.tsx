@@ -80,7 +80,7 @@ export default function TechnicianDashboard() {
                 <stat.icon size={20} />
              </div>
              <div>
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-tight">{stat.label}</p>
+                <p className="text-xs font-semibold text-gray-500">{stat.label}</p>
                 <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
              </div>
           </div>
@@ -90,8 +90,8 @@ export default function TechnicianDashboard() {
       {/* Structured Job Feed */}
       <div className="space-y-4">
          <div className="flex items-center justify-between px-2">
-            <h3 className="text-sm font-bold text-gray-900">Current Assignments</h3>
-            <span className="text-[10px] font-bold text-gray-400 uppercase">Total: {jobs.length}</span>
+            <h3 className="app-h3 ">Current Assignments</h3>
+            <span className="text-[10px] font-bold text-gray-400">Total: {jobs.length}</span>
          </div>
 
          <div className="bg-white border border-gray-200 rounded-lg divide-y divide-gray-100">
@@ -140,7 +140,7 @@ function JobListItem({ job, onUpdate, isUpdating, onSelect }: any) {
          <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Job Identity */}
             <div className="space-y-1">
-               <p className="text-[10px] font-bold text-gray-400 uppercase">Service</p>
+               <p className="text-[10px] font-bold text-gray-400">Service</p>
                <h4 className="text-sm font-bold text-gray-900 leading-tight">{lead?.service}</h4>
                <div className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold border ${statusColors[job.status] || "bg-gray-50 text-gray-600"}`}>
                   {job.status.replace(/_/g, ' ')}
@@ -149,14 +149,14 @@ function JobListItem({ job, onUpdate, isUpdating, onSelect }: any) {
 
             {/* Customer Details */}
             <div className="space-y-1">
-               <p className="text-[10px] font-bold text-gray-400 uppercase">Customer</p>
+               <p className="text-[10px] font-bold text-gray-400">Customer</p>
                <p className="text-sm font-medium text-gray-800">{lead?.name}</p>
                <p className="text-xs text-gray-500 tabular-nums">{lead?.phone}</p>
             </div>
 
             {/* Logistics */}
             <div className="space-y-1">
-               <p className="text-[10px] font-bold text-gray-400 uppercase">Deployment Details</p>
+               <p className="text-[10px] font-bold text-gray-400">Deployment Details</p>
                <div className="flex items-center gap-2 text-xs text-gray-600">
                   <MapPin size={12} className="text-gray-400" />
                   <span className="line-clamp-2">{lead?.address}</span>
@@ -196,4 +196,5 @@ function JobListItem({ job, onUpdate, isUpdating, onSelect }: any) {
       </div>
    );
 }
+
 

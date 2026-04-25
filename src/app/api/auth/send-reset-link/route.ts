@@ -52,7 +52,7 @@ export async function POST(req: Request) {
         <div style="font-family: sans-serif; max-width: 500px; margin: auto; padding: 40px; border: 1px solid #1e293b; border-radius: 30px; text-align: center; background: #0f172a; color: white;">
           <h2 style="color: #3b82f6; margin-bottom: 20px;">Secure Account Recovery</h2>
           <p style="color: #94a3b8; font-size: 14px; margin-bottom: 40px;">A secure password reset was requested for your account. Click the button below to establish new credentials.</p>
-          <a href="${resetUrl}" style="display: inline-block; padding: 20px 40px; background: #2563eb; color: white; text-decoration: none; border-radius: 15px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; font-size: 12px; box-shadow: 0 10px 20px rgba(37, 99, 235, 0.4);">
+          <a href="${resetUrl}" style="display: inline-block; padding: 20px 40px; background: #2563eb; color: white; text-decoration: none; border-radius: 15px; font-weight: 900; letter-spacing: 2px; text-transform:; font-size: 12px; box-shadow: 0 10px 20px rgba(37, 99, 235, 0.4);">
             Reset Credentials
           </a>
           <p style="color: #64748b; font-size: 12px; margin-top: 40px;">This link expires in 60 minutes. If you did not request this, please disregard.</p>

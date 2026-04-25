@@ -23,9 +23,15 @@ import {
   X,
   ChevronRight,
   MoreVertical,
-  Star
+  Star,
+  Camera,
+  Play,
+  Loader2,
+  ImageIcon,
+  Video
 } from "lucide-react";
 import { toast } from "react-hot-toast";
+import Image from "next/image";
 
 const ICON_OPTIONS = [
   { name: "WashingMachine", icon: <WashingMachine size={20}/> },
@@ -42,6 +48,8 @@ const ICON_OPTIONS = [
 export default function ServicesManagement() {
   const [services, setServices] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [uploadingVideo, setUploadingVideo] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
@@ -51,7 +59,9 @@ export default function ServicesManagement() {
     category: "APPLIANCE",
     iconName: "WashingMachine",
     description: "",
-    isBestSeller: false
+    isBestSeller: false,
+    heroImage: "",
+    heroVideo: ""
   });
 
   useEffect(() => {
@@ -66,6 +76,32 @@ export default function ServicesManagement() {
       toast.error("Failed to load services");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleMediaUpload = async (e: React.ChangeEvent<HTMLInputElement>, type: 'image' | 'video') => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (type === 'image') setUploadingImage(true);
+    else setUploadingVideo(true);
+
+    const data = new FormData();
+    data.append("file", file);
+
+    try {
+      const res = await axios.post("/api/upload", data);
+      if (type === 'image') {
+        setFormData({ ...formData, heroImage: res.data.url });
+      } else {
+        setFormData({ ...formData, heroVideo: res.data.url });
+      }
+      toast.success(`${type === 'image' ? 'Image' : 'Video'} uploaded successfully`);
+    } catch (err) {
+      toast.error(`${type === 'image' ? 'Image' : 'Video'} upload failed`);
+    } finally {
+      if (type === 'image') setUploadingImage(false);
+      else setUploadingVideo(false);
     }
   };
 
@@ -93,7 +129,9 @@ export default function ServicesManagement() {
       category: service.category,
       iconName: service.iconName,
       description: service.description || "",
-      isBestSeller: service.isBestSeller || false
+      isBestSeller: service.isBestSeller || false,
+      heroImage: service.heroImage || "",
+      heroVideo: service.heroVideo || ""
     });
     setShowModal(true);
   };
@@ -117,7 +155,9 @@ export default function ServicesManagement() {
         category: "APPLIANCE", 
         iconName: "WashingMachine", 
         description: "",
-        isBestSeller: false 
+        isBestSeller: false,
+        heroImage: "",
+        heroVideo: "" 
     });
   };
 
@@ -143,7 +183,7 @@ export default function ServicesManagement() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-8">
         <div>
-           <h1 className="text-3xl font-bold tracking-tight text-slate-900">Service Catalog</h1>
+           <h1 className="text-3xl font-bold text-slate-900">Service Catalog</h1>
            <p className="text-sm text-slate-500 mt-1">Manage public offerings, pricing, and display categorization.</p>
         </div>
         <button 
@@ -175,20 +215,78 @@ export default function ServicesManagement() {
       {showModal && (
         <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
            <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={handleCloseModal} />
-           <div className="relative bg-white w-full max-w-lg rounded-xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
-              <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-                 <h3 className="text-base font-bold text-slate-900">{editId ? 'Update Service Details' : 'Register New Service'}</h3>
+           <div className="relative bg-white w-full max-w-2xl rounded-xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200 flex flex-col max-h-[90vh]">
+              <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between shrink-0">
+                 <h3 className="app-h3 ">{editId ? 'Update Service Details' : 'Register New Service'}</h3>
                  <button onClick={handleCloseModal} className="text-slate-400 hover:text-slate-900"><X size={20}/></button>
               </div>
-              <form onSubmit={handleSubmit} className="p-6 space-y-6">
+              <form onSubmit={handleSubmit} className="p-6 space-y-6 overflow-y-auto">
                  <div className="space-y-1.5">
-                    <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Service Name</label>
+                    <label className="text-[11px] font-bold text-slate-500 tracking-widest">Service Name</label>
                     <input 
                       required value={formData.name}
                       onChange={(e) => setFormData({...formData, name: e.target.value})}
-                      className="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:ring-1 focus:ring-blue-500 outline-none uppercase tracking-wide"
+                      className="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:ring-1 focus:ring-blue-500 outline-none tracking-wide"
                       placeholder="e.g. AC DEEP CLEANING"
                     />
+                 </div>
+
+                 {/* Media Uploads */}
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Hero Image */}
+                    <div className="p-4 bg-slate-50 border border-slate-100 rounded-xl space-y-3">
+                       <div className="flex items-center justify-between">
+                          <label className="text-[11px] font-bold text-slate-500 tracking-widest">Hero Image</label>
+                          {formData.heroImage && (
+                            <button type="button" onClick={() => setFormData({...formData, heroImage: ""})} className="text-rose-500 hover:text-rose-700">
+                               <X size={14} />
+                            </button>
+                          )}
+                       </div>
+                       <div className="h-32 bg-white border border-slate-200 rounded-lg overflow-hidden flex items-center justify-center relative">
+                          {uploadingImage ? (
+                             <Loader2 className="animate-spin text-blue-600" size={20} />
+                          ) : formData.heroImage ? (
+                             <Image src={formData.heroImage} alt="Hero Preview" fill className="object-contain" />
+                          ) : (
+                             <ImageIcon className="text-slate-300" size={32} />
+                          )}
+                       </div>
+                       <label className="flex items-center justify-center gap-2 w-full py-2 bg-white border border-slate-200 rounded-lg text-[10px] font-bold text-slate-600 tracking-widest cursor-pointer hover:bg-slate-50 transition-all">
+                          <Camera size={14} />
+                          {formData.heroImage ? 'Change Image' : 'Upload Image'}
+                          <input type="file" className="hidden" accept="image/*" onChange={(e) => handleMediaUpload(e, 'image')} disabled={uploadingImage} />
+                       </label>
+                    </div>
+
+                    {/* Hero Video */}
+                    <div className="p-4 bg-slate-50 border border-slate-100 rounded-xl space-y-3">
+                       <div className="flex items-center justify-between">
+                          <label className="text-[11px] font-bold text-slate-500 tracking-widest">Hero Video</label>
+                          {formData.heroVideo && (
+                            <button type="button" onClick={() => setFormData({...formData, heroVideo: ""})} className="text-rose-500 hover:text-rose-700">
+                               <X size={14} />
+                            </button>
+                          )}
+                       </div>
+                       <div className="h-32 bg-white border border-slate-200 rounded-lg overflow-hidden flex items-center justify-center relative">
+                          {uploadingVideo ? (
+                             <Loader2 className="animate-spin text-blue-600" size={20} />
+                          ) : formData.heroVideo ? (
+                             <div className="flex flex-col items-center gap-2">
+                                <Play className="text-blue-600" size={24} />
+                                <span className="text-[10px] text-slate-400 font-bold truncate max-w-[150px]">Video Uploaded</span>
+                             </div>
+                          ) : (
+                             <Video className="text-slate-300" size={32} />
+                          )}
+                       </div>
+                       <label className="flex items-center justify-center gap-2 w-full py-2 bg-white border border-slate-200 rounded-lg text-[10px] font-bold text-slate-600 tracking-widest cursor-pointer hover:bg-slate-50 transition-all">
+                          <Video size={14} />
+                          {formData.heroVideo ? 'Change Video' : 'Upload Video'}
+                          <input type="file" className="hidden" accept="video/*" onChange={(e) => handleMediaUpload(e, 'video')} disabled={uploadingVideo} />
+                       </label>
+                    </div>
                  </div>
                  
                  <div className="flex items-center gap-3 p-4 bg-orange-50 border border-orange-100 rounded-xl group/best transition-all cursor-pointer select-none"
@@ -199,14 +297,14 @@ export default function ServicesManagement() {
                         {formData.isBestSeller && <Star size={14} fill="currentColor" />}
                     </div>
                     <div>
-                        <div className="text-[11px] font-black text-orange-600 uppercase tracking-[0.1em]">Best Seller Recognition</div>
+                        <div className="text-[11px] font-black text-orange-600 tracking-[0.1em]">Best Seller Recognition</div>
                         <div className="text-[10px] font-bold text-orange-400 mt-0.5">Toggle this to mark this service as a top-selling offering.</div>
                     </div>
                  </div>
 
                  <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                       <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Display Category</label>
+                       <label className="text-[11px] font-bold text-slate-500 tracking-widest">Display Category</label>
                        <select 
                          value={formData.category}
                          onChange={(e) => setFormData({...formData, category: e.target.value})}
@@ -217,7 +315,7 @@ export default function ServicesManagement() {
                        </select>
                     </div>
                     <div className="space-y-1.5">
-                       <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Visual Icon</label>
+                       <label className="text-[11px] font-bold text-slate-500 tracking-widest">Visual Icon</label>
                        <div className="flex flex-wrap gap-2">
                           {ICON_OPTIONS.map(opt => (
                             <button
@@ -236,9 +334,9 @@ export default function ServicesManagement() {
                     </div>
                  </div>
 
-                 <div className="pt-4 flex gap-3">
+                 <div className="pt-4 flex gap-3 sticky bottom-0 bg-white">
                     <button type="button" onClick={handleCloseModal} className="flex-1 py-2 text-sm font-semibold text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50">Cancel</button>
-                    <button type="submit" className="flex-1 py-2 text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 shadow-sm shadow-blue-100">
+                    <button type="submit" disabled={uploadingImage || uploadingVideo} className="flex-1 py-2 text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 shadow-sm shadow-blue-100 disabled:opacity-50">
                        {editId ? 'Apply Changes' : 'Publish Service'}
                     </button>
                  </div>
@@ -254,8 +352,8 @@ function ServiceSection({ title, services, onEdit, onDelete }: any) {
   return (
     <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col h-full">
        <div className="px-6 py-4 border-b border-slate-100 bg-slate-50/50 flex items-center justify-between">
-          <h3 className="text-base font-bold text-slate-900 tracking-tight">{title}</h3>
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{services.length} items</span>
+          <h3 className="app-h3 ">{title}</h3>
+          <span className="text-[10px] font-bold text-slate-400 tracking-widest">{services.length} items</span>
        </div>
        <div className="divide-y divide-slate-50 p-2 overflow-y-auto max-h-[500px]">
           {services.length > 0 ? (
@@ -272,9 +370,9 @@ function ServiceSection({ title, services, onEdit, onDelete }: any) {
                       </div>
                       <div>
                          <div className="flex items-center gap-2">
-                             <div className="font-bold text-sm text-slate-900 uppercase tracking-tight">{s.name}</div>
+                             <div className="font-bold text-sm text-slate-900">{s.name}</div>
                              {s.isBestSeller && (
-                                <span className="bg-orange-100 text-orange-600 text-[8px] font-black uppercase px-2 py-0.5 rounded-full border border-orange-200 tracking-widest">Best Seller</span>
+                                <span className="bg-orange-100 text-orange-600 text-[8px] font-black px-2 py-0.5 rounded-full border border-orange-200 tracking-widest">Best Seller</span>
                              )}
                          </div>
                          <div className="text-[10px] font-bold text-slate-400 mt-0.5 tracking-wider font-mono">/{s.slug}</div>
@@ -291,9 +389,10 @@ function ServiceSection({ title, services, onEdit, onDelete }: any) {
                 </div>
              ))
           ) : (
-             <div className="p-12 text-center text-slate-400 text-xs font-medium uppercase tracking-widest italic opacity-50">Empty Manifest</div>
+             <div className="p-12 text-center text-slate-400 text-xs font-medium tracking-widest  opacity-50">Empty Manifest</div>
           )}
        </div>
     </div>
   );
 }
+

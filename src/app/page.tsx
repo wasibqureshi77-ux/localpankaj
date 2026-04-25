@@ -155,11 +155,11 @@ const HomePage = () => {
            {/* Section Label */}
             <div className="mb-12 flex flex-col items-center text-center px-4">
                <div className="flex items-center justify-center space-x-2 sm:space-x-4 mb-4">
-                  <span className="text-orange-500 font-black text-xs sm:text-sm tracking-tight">»»»»»</span>
-                  <span className="text-orange-500 font-bold uppercase tracking-[0.2em] sm:tracking-[0.4em] text-[10px] sm:text-xs">Our Services</span>
-                  <span className="text-orange-500 font-black text-xs sm:text-sm tracking-tight">«««««</span>
+                  <span className="text-orange-500 font-black text-xs sm:text-sm">»»»»»</span>
+                  <span className="text-orange-500 font-bold tracking-[0.2em] sm:tracking-[0.4em] text-[10px] sm:text-xs">Our Services</span>
+                  <span className="text-orange-500 font-black text-xs sm:text-sm">«««««</span>
                </div>
-               <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-gray-950 tracking-tight leading-[1.1] text-center">Appliance <br className="sm:hidden" /> Repair</h2>
+               <h2 className="app-h2 md:text-6xl text-center">Appliance <br className="sm:hidden" /> Repair</h2>
             </div>
 
            {/* Grid */}
@@ -174,7 +174,7 @@ const HomePage = () => {
                 />
               ))}
               {applianceServices.length === 0 && (
-                 <div className="col-span-full py-20 text-center text-gray-400 font-bold uppercase tracking-widest italic opacity-50">Configuring Appliance Grid...</div>
+                 <div className="col-span-full py-20 text-center text-gray-400 font-bold tracking-widest  opacity-50">Configuring Appliance Grid...</div>
               )}
            </div>
         </div>
@@ -182,7 +182,7 @@ const HomePage = () => {
 
       <section className="py-16 bg-[#2b549e]">
         <div className="container mx-auto px-4">
-           <h2 className="text-4xl sm:text-5xl font-black text-white text-center mb-12 tracking-tight">Home Repair</h2>
+           <h2 className="app-h2 text-white text-center mb-12">Home Repair</h2>
            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 max-w-5xl mx-auto">
               {homeServices.map((s) => (
                 <HomeRepairBox 
@@ -194,7 +194,7 @@ const HomePage = () => {
                 />
               ))}
               {homeServices.length === 0 && (
-                 <div className="w-full py-20 text-center text-white/30 font-bold uppercase tracking-widest italic">Configuring Home Registry...</div>
+                 <div className="w-full py-20 text-center text-white/30 font-bold tracking-widest">Configuring Home Registry...</div>
               )}
            </div>
         </div>
@@ -218,8 +218,8 @@ const HomePage = () => {
                </div>
 
                <div className="space-y-10">
-                  <div className="inline-block px-4 py-2 rounded-lg bg-blue-50 text-blue-600 font-bold text-xs uppercase tracking-widest">The Local Pankaj Advantage</div>
-                  <h2 className="text-5xl font-extrabold text-gray-900 tracking-tight leading-tight">
+                  <div className="inline-block px-4 py-2 rounded-lg bg-blue-50 text-blue-600 font-bold text-xs tracking-widest">The Local Pankaj Advantage</div>
+                  <h2 className="app-h2 ">
                     {config?.aboutTitle || "Why Jaipur Trusts Us."}
                   </h2>
                   
@@ -237,7 +237,7 @@ const HomePage = () => {
                      ))}
                   </div>
 
-                  <div className="p-8 bg-blue-50/50 rounded-3xl border border-blue-100/50 italic text-gray-600 font-medium">
+                  <div className="p-8 bg-blue-50/50 rounded-3xl border border-blue-100/50  text-gray-600 font-medium">
                      "{config?.aboutText || "We are dedicated to providing the best home services in Jaipur."}"
                   </div>
 
@@ -257,7 +257,7 @@ const HomePage = () => {
       <section className="py-16 bg-white overflow-hidden">
          {/* Top Header */}
          <div className="container mx-auto px-4 text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight">Our Management Team</h2>
+            <h2 className="app-h2 ">Our Management Team</h2>
          </div>
 
          {/* Stats Full-Width Orange Strip */}
@@ -266,25 +266,25 @@ const HomePage = () => {
                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 max-w-7xl mx-auto">
                   <StatCard 
                      icon={<LucideIcons.Users size={isMobile ? 32 : 48} />} 
-                     stat="25K" 
+                     stat="750" 
                      label="Client Satisfaction" 
                      isMobile={isMobile}
                   />
                   <StatCard 
                      icon={<LucideIcons.Settings2 size={isMobile ? 32 : 48} />} 
-                     stat="100K" 
+                     stat="5k+" 
                      label="Services" 
                      isMobile={isMobile}
                   />
                   <StatCard 
                      icon={<LucideIcons.RotateCw size={isMobile ? 32 : 48} />} 
-                     stat="10K" 
+                     stat="8K" 
                      label="Appliance Repair" 
                      isMobile={isMobile}
                   />
                   <StatCard 
                      icon={<LucideIcons.Home size={isMobile ? 32 : 48} />} 
-                     stat="5K" 
+                     stat="3K" 
                      label="Home Repair" 
                      isMobile={isMobile}
                   />
@@ -316,27 +316,27 @@ const HomePage = () => {
             >
                <div className="inline-flex items-center space-x-3 sm:space-x-4 px-4 sm:px-6 py-3 bg-blue-600/90 backdrop-blur-md text-white rounded-2xl border border-white/20 shadow-2xl">
                   <LucideIcons.ShieldCheck className="text-blue-100 h-4 w-4 sm:h-5 sm:w-5" />
-                  <span className="text-[9px] sm:text-[11px] font-black uppercase tracking-[0.2em] sm:tracking-[0.5em] italic">Jaipur's Elite Engineering Grid</span>
+                  <span className="text-[9px] sm:text-[11px] font-black tracking-[0.2em] sm:tracking-[0.5em]">Jaipur's Elite Engineering Grid</span>
                </div>
                
-               <h2 className="text-4xl sm:text-6xl lg:text-8xl font-black text-white italic tracking-tighter leading-[0.9] drop-shadow-2xl">
+               <h2 className="app-h2 text-white">
                   PROFESSIONAL <br/>
-                  <span className="text-blue-500">PRECISION.</span>
+                  <span className="text-blue-500">Precision.</span>
                </h2>
                
-               <p className="text-lg lg:text-2xl text-blue-100 font-bold max-w-xl tracking-tight leading-relaxed opacity-90">
+               <p className="text-lg lg:text-2xl text-blue-100 font-bold max-w-xl leading-loose opacity-90">
                   Deploying certified technical units across Jaipur with millimetric accuracy. Real-time telemetry, genuine parts, and unmatched field expertise.
                </p>
 
                <div className="flex items-center space-x-6 sm:space-x-8 pt-4">
                   <div className="flex flex-col">
-                     <span className="text-2xl sm:text-4xl font-black text-white italic">100%</span>
-                     <span className="text-[8px] sm:text-[10px] font-black text-blue-400 uppercase tracking-widest mt-1">Genuine Parts</span>
+                     <span className="text-2xl sm:text-4xl font-black text-white">100%</span>
+                     <span className="text-[8px] sm:text-[10px] font-black text-blue-400 tracking-widest mt-1">Genuine Parts</span>
                   </div>
                   <div className="h-8 sm:h-12 w-px bg-white/20" />
                   <div className="flex flex-col">
-                     <span className="text-2xl sm:text-4xl font-black text-white italic">60m</span>
-                     <span className="text-[8px] sm:text-[10px] font-black text-blue-400 uppercase tracking-widest mt-1">SLA Response</span>
+                     <span className="text-2xl sm:text-4xl font-black text-white">60m</span>
+                     <span className="text-[8px] sm:text-[10px] font-black text-blue-400 tracking-widest mt-1">SLA Response</span>
                   </div>
                </div>
             </motion.div>
@@ -353,8 +353,8 @@ const HomePage = () => {
       {/* Testimonials Section */}
       <section className="py-24 bg-white overflow-hidden relative">
          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
-         <div className="container text-center">
-            <h2 className="text-4xl sm:text-6xl font-black pb-4 text-gray-950 tracking-tight leading-none">
+         <div className="container mx-auto text-center">
+            <h2 className="app-h2 pb-4">
                What Our Clients <br className="sm:hidden" /> Say About Us
             </h2>
          </div>
@@ -376,7 +376,7 @@ const HomePage = () => {
                   <article
                      key={`${testimonial.author}-${index}`}
                      className="group relative flex-shrink-0 w-[240px] sm:w-[260px] lg:w-[280px] xl:w-[300px]"
-                  >
+                  >  
                      <div className="h-full rounded-[1.5rem] border border-gray-100 bg-white p-4 sm:p-5 shadow-[0_12px_40px_rgba(15,23,42,0.05)] transition-transform duration-300 group-hover:-translate-y-1">
                         <div className="mb-4 flex items-start gap-3">
                            <div className="h-10 w-10 sm:h-12 sm:w-12 overflow-hidden rounded-xl border-3 border-white shadow-md shadow-gray-200/60">
@@ -384,13 +384,13 @@ const HomePage = () => {
                                  src={testimonial.image}
                                  alt={testimonial.author}
                                  className="h-full w-full object-cover"
-                              />
+                              /> 
                            </div>
                            <div className="flex-1 min-w-0">
-                              <div className="font-black text-gray-950 text-base sm:text-lg tracking-tight leading-none">
+                              <div className="font-black text-gray-950 text-base sm:text-lg leading-none">
                                  {testimonial.author}
                               </div>
-                              <div className="mt-1 text-[10px] sm:text-xs font-black uppercase tracking-[0.24em] text-gray-400">
+                              <div className="mt-1 text-[10px] sm:text-xs font-black tracking-[0.24em] text-gray-400">
                                  {testimonial.location}
                               </div>
                               <div className="mt-2 flex items-center gap-0.5 text-amber-400">
@@ -402,7 +402,7 @@ const HomePage = () => {
                            <LucideIcons.Quote size={20} className="text-gray-100 fill-gray-50 shrink-0" />
                         </div>
 
-                        <p className="text-xs sm:text-sm leading-6 sm:leading-7 text-gray-600 italic">
+                        <p className="text-xs sm:text-sm leading-6 sm:leading-7 text-gray-600">
                            "{testimonial.text}"
                         </p>
                      </div>
@@ -472,7 +472,7 @@ const ServiceBox = ({ iconName, label, href, isBestSeller }: any) => (
           {label}
         </div>
         {isBestSeller && (
-            <span className="text-[8px] sm:text-[9px] font-black bg-orange-100 text-orange-600 px-3 py-1 rounded-full uppercase tracking-wider border border-orange-200">
+            <span className="text-[8px] sm:text-[9px] font-black bg-orange-100 text-orange-600 px-3 py-1 rounded-full tracking-wider border border-orange-200">
               Best Seller
             </span>
         )}
@@ -498,7 +498,7 @@ const HomeRepairBox = ({ iconName, label, href, isBestSeller }: any) => (
      <div className="flex flex-col items-center space-y-2">
         <div className="text-[14px] sm:text-[18px] font-black text-white tracking-wide leading-tight px-1 sm:px-4 break-words">{label}</div>
         {isBestSeller && (
-            <span className="text-[8px] sm:text-[9px] font-black bg-white/20 text-white px-3 py-1 rounded-full uppercase tracking-wider border border-white/30 backdrop-blur-sm">Best Seller</span>
+            <span className="text-[8px] sm:text-[9px] font-black bg-white/20 text-white px-3 py-1 rounded-full tracking-wider border border-white/30 backdrop-blur-sm">Best Seller</span>
         )}
      </div>
   </Link>
@@ -559,8 +559,8 @@ const StatCard = ({ icon, stat, label }: any) => {
    return (
       <div className="bg-[#f8f9fa] sm:bg-[#f8f9fa] rounded-sm p-8 sm:p-12 flex flex-col items-center text-center space-y-4 shadow-sm group hover:shadow-md transition-all">
          <div className="text-gray-800 opacity-90 group-hover:scale-105 transition-transform duration-300">{icon}</div>
-         <div className="text-3xl sm:text-4xl font-black text-gray-950 tracking-tighter transition-colors">{stat}</div>
-         <div className="text-[10px] sm:text-[12px] font-bold text-gray-400 uppercase tracking-widest leading-tight">
+         <div className="text-3xl sm:text-4xl font-black text-gray-950 transition-colors">{stat}</div>
+         <div className="text-[10px] sm:text-[12px] font-bold text-gray-400 tracking-widest leading-tight">
             {label}
          </div>
       </div>
@@ -568,3 +568,4 @@ const StatCard = ({ icon, stat, label }: any) => {
 };
 
 export default HomePage;
+

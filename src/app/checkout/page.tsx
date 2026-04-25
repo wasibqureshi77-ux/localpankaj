@@ -34,11 +34,11 @@ export default function CheckoutPage() {
             <div className="w-16 h-16 bg-gray-50 border border-gray-100 rounded-[8px] flex items-center justify-center mx-auto mb-6 text-gray-400">
                <ShoppingCart size={32} />
             </div>
-            <h1 className="text-2xl font-bold text-gray-900 tracking-tight mb-3">Your basket is empty</h1>
-            <p className="text-sm font-medium text-gray-500 mb-8 leading-relaxed">It seems you haven't added any services to your list yet. Explore our professional categories to get started.</p>
+            <h1 className="text-2xl font-bold text-gray-900 mb-3">Your basket is empty</h1>
+            <p className="text-sm font-medium text-gray-500 mb-8 leading-loose">It seems you haven't added any services to your list yet. Explore our professional categories to get started.</p>
             <Link 
               href="/" 
-              className="inline-flex h-11 items-center px-8 bg-blue-600 text-white rounded-[6px] text-xs font-bold uppercase tracking-widest hover:bg-blue-700 transition-all shadow-sm active:scale-95"
+              className="inline-flex h-11 items-center px-8 bg-blue-600 text-white rounded-[6px] text-xs font-bold tracking-widest hover:bg-blue-700 transition-all shadow-sm active:scale-95"
             >
               Explore Services
             </Link>
@@ -57,3 +57,4 @@ export default function CheckoutPage() {
     </main>
   );
 }
+

@@ -17,8 +17,8 @@ export default function TechnicianLoginPage() {
          <div className="bg-blue-600 p-5 rounded-3xl inline-flex items-center justify-center text-white mb-6 shadow-xl shadow-blue-200">
             <Wrench size={40} />
          </div>
-         <h1 className="text-3xl font-black text-gray-900 tracking-tight">TECH<span className="text-blue-600">PORTAL</span></h1>
-         <p className="text-gray-400 font-bold uppercase tracking-widest text-[10px] mt-3">Technician Field Access</p>
+         <h1 className="app-h1 ">Tech<span className="text-blue-600">Portal</span></h1>
+         <p className="text-gray-400 font-bold tracking-widest text-[10px] mt-3">Technician Field Access</p>
       </div>
 
       <LoginForm 
@@ -34,3 +34,4 @@ export default function TechnicianLoginPage() {
     </div>
   );
 }
+

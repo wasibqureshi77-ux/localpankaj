@@ -43,7 +43,7 @@ export default function JobDetailModal({ job, onClose, onUpdateStatus }: JobDeta
         <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-white sticky top-0 z-10 font-sans">
            <div className="flex items-center gap-3">
               <h3 className="text-base font-semibold text-gray-900 leading-none">{lead?.service || "Assignment Details"}</h3>
-              <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-tight ${statusColors[job.status] || "bg-gray-100 text-gray-600"}`}>
+              <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${statusColors[job.status] || "bg-gray-100 text-gray-600"}`}>
                  {job.status.replace("_", " ")}
               </span>
            </div>
@@ -62,7 +62,7 @@ export default function JobDetailModal({ job, onClose, onUpdateStatus }: JobDeta
            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Left: Customer Info */}
               <div className="space-y-4">
-                 <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest border-b border-gray-50 pb-2">Customer Dossier</h4>
+                 <h4 className="text-[10px] font-bold text-gray-400 tracking-widest border-b border-gray-50 pb-2">Customer Dossier</h4>
                  <div className="space-y-3">
                     <InfoRow icon={<User size={14}/>} label="Client" value={lead?.name} />
                     <InfoRow icon={<Phone size={14}/>} label="Phone" value={lead?.phone} />
@@ -72,7 +72,7 @@ export default function JobDetailModal({ job, onClose, onUpdateStatus }: JobDeta
 
               {/* Right: Schedule Info */}
               <div className="space-y-4">
-                 <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest border-b border-gray-50 pb-2">Booking Schedule</h4>
+                 <h4 className="text-[10px] font-bold text-gray-400 tracking-widest border-b border-gray-50 pb-2">Booking Schedule</h4>
                  <div className="space-y-3">
                     <InfoRow icon={<Calendar size={14}/>} label="Date" value={lead?.bookingDate} />
                     <InfoRow icon={<Clock size={14}/>} label="Time Slot" value={lead?.bookingTime} />
@@ -84,29 +84,29 @@ export default function JobDetailModal({ job, onClose, onUpdateStatus }: JobDeta
            {/* Location Block */}
            <div className="space-y-3 p-4 bg-gray-50 rounded-md border border-gray-100">
               <div className="flex items-center justify-between">
-                 <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Target Location</h4>
+                 <h4 className="text-[10px] font-bold text-gray-400 tracking-widest">Target Location</h4>
                  <a 
                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(lead?.address)}`}
                    target="_blank"
                    rel="noopener noreferrer"
-                   className="flex items-center gap-1.5 text-[10px] font-bold text-blue-600 hover:text-blue-700 transition-all uppercase tracking-tight"
+                   className="flex items-center gap-1.5 text-[10px] font-bold text-blue-600 hover:text-blue-700 transition-all"
                  >
                     <ExternalLink size={12}/> Open in Maps
                  </a>
               </div>
-              <p className="text-sm text-gray-700 font-medium leading-relaxed">{lead?.address}</p>
+              <p className="text-sm text-gray-700 font-medium leading-loose">{lead?.address}</p>
            </div>
 
            {/* Payment & Notes */}
            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-2">
               <div className="space-y-1">
-                 <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Collection Amount</p>
+                 <p className="text-[10px] font-bold text-gray-400 tracking-widest">Collection Amount</p>
                  <p className="text-xl font-bold text-gray-900">₹{lead?.price || "---"}</p>
-                 <p className="text-[10px] font-medium text-gray-500 italic">Method: {lead?.paymentMethod === "ONLINE" ? "Paid Online" : "Cash on Visit"}</p>
+                 <p className="text-[10px] font-medium text-gray-500">Method: {lead?.paymentMethod === "ONLINE" ? "Paid Online" : "Cash on Visit"}</p>
               </div>
               <div className="space-y-1">
-                 <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Internal Notes</p>
-                 <p className="text-xs text-gray-600 leading-relaxed font-medium">
+                 <p className="text-[10px] font-bold text-gray-400 tracking-widest">Internal Notes</p>
+                 <p className="text-xs text-gray-600 leading-loose font-medium">
                     {lead?.notes || "No additional briefing provided for this visit."}
                  </p>
               </div>
@@ -149,9 +149,10 @@ function InfoRow({ icon, label, value }: { icon: any; label: string; value: stri
       <div className="flex items-center gap-3">
          <div className="text-gray-400 shrink-0">{icon}</div>
          <div className="flex-1">
-            <p className="text-[9px] font-bold text-gray-400 uppercase tracking-tight leading-none mb-1">{label}</p>
+            <p className="text-[9px] font-bold text-gray-400 leading-none mb-1">{label}</p>
             <p className="text-xs font-semibold text-gray-800 leading-none">{value || "---"}</p>
          </div>
       </div>
    );
 }
+

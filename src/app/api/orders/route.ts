@@ -3,6 +3,7 @@ import connectDB from "@/lib/mongodb";
 import { Order } from "@/models/Order";
 import { Lead } from "@/models/Lead";
 import { User } from "@/models/User";
+import { Counter } from "@/models/Counter";
 import { getServerSession } from "next-auth";
 
 // GET - List all orders (Admin only)
@@ -64,9 +65,24 @@ export async function POST(req: Request) {
 
     console.log("Creating order with data:", JSON.stringify(data, null, 2));
 
-    // Generate Order ID
-    const randomNum = Math.floor(1000 + Math.random() * 9000);
-    const orderId = `ORD-${Date.now().toString().slice(-6)}${randomNum}`;
+    // Generate Sequential Order ID starting from 1001
+    const counter = await Counter.findOneAndUpdate(
+      { id: "orderId" },
+      { $inc: { seq: 1 } },
+      { new: true, upsert: true }
+    );
+
+    let currentSeq = counter.seq;
+    if (currentSeq < 1001) {
+      const updated = await Counter.findOneAndUpdate(
+        { id: "orderId" },
+        { $set: { seq: 1001 } },
+        { new: true }
+      );
+      currentSeq = updated.seq;
+    }
+
+    const orderId = currentSeq.toString();
 
     const order = await Order.create({
       ...data,

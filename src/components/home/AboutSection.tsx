@@ -14,8 +14,8 @@ const FeatureItem: React.FC<FeatureProps> = ({ title, desc, icon }) => (
       {icon}
     </div>
     <div>
-      <h4 className="text-lg sm:text-xl font-bold text-gray-900 mb-1 leading-none tracking-tight">{title}</h4>
-      <p className="text-gray-500 font-medium text-sm sm:text-base leading-relaxed">{desc}</p>
+      <h4 className="text-lg sm:text-xl font-bold text-gray-900 mb-1 leading-none">{title}</h4>
+      <p className="text-gray-500 font-medium text-sm sm:text-base leading-loose">{desc}</p>
     </div>
   </div>
 );
@@ -74,19 +74,19 @@ const AboutSection: React.FC<AboutSectionProps> = ({ config }) => {
                 </div>
                 <div>
                    <div className="text-lg font-black text-gray-900 leading-none">10k+</div>
-                   <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">Clients Verified</div>
+                   <div className="text-[10px] font-bold text-gray-400 tracking-widest mt-1">Clients Verified</div>
                 </div>
              </div>
           </div>
 
           {/* Content Column */}
           <div className="flex flex-col">
-            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-blue-50 text-blue-600 font-bold text-[10px] sm:text-xs uppercase tracking-[0.2em] mb-8 w-fit shadow-inner">
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-blue-50 text-blue-600 font-bold text-[10px] sm:text-xs tracking-[0.2em] mb-8 w-fit shadow-inner">
                <span className="h-1.5 w-1.5 bg-blue-600 rounded-full animate-pulse" />
                The Local Pankaj Advantage
             </div>
             
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-gray-900 tracking-tight leading-[1.05] mb-10 max-w-xl">
+            <h2 className="app-h2 md:text-6xl mb-10 max-w-xl">
                {config?.aboutTitle || "Engineered for Jaipur's Trust."}
             </h2>
             
@@ -98,7 +98,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ config }) => {
 
             <div className="p-8 bg-gray-50 border border-gray-100 rounded-3xl mb-10 group relative overflow-hidden">
                <div className="absolute top-0 right-0 w-2 h-full bg-blue-600/10 group-hover:bg-blue-600/50 transition-all duration-500" />
-               <p className="text-gray-600 font-medium italic text-sm sm:text-lg leading-relaxed relative z-10">
+               <p className="text-gray-600 font-medium  text-sm sm:text-lg leading-loose relative z-10">
                  "{config?.aboutText || "We are dedicated to providing the gold standard of home maintenance services in Jaipur, combining technical precision with human-centric care."}"
                </p>
             </div>
@@ -115,3 +115,4 @@ const AboutSection: React.FC<AboutSectionProps> = ({ config }) => {
 };
 
 export default AboutSection;
+

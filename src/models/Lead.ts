@@ -23,7 +23,7 @@ const LeadSchema = new Schema(
     razorpayPaymentId: { type: String },
     status: {
       type: String,
-      enum: ["NEW", "CONTACTED", "CONVERTED", "CLOSED"],
+      enum: ["NEW", "CONTACTED", "CONVERTED", "CLOSED", "COMPLETED"],
       default: "NEW",
     },
     source: { type: String, default: "WEBSITE" },

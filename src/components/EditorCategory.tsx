@@ -14,11 +14,12 @@ export function EditorCategory({ icon, title, desc, children }: CategoryProps) {
       <div className="flex items-center space-x-6 mb-10 pb-10 border-b border-indigo-50">
         <div className="p-4 bg-indigo-50 text-indigo-600 rounded-2xl shadow-inner">{icon}</div>
         <div>
-          <h3 className="text-2xl font-black text-indigo-950 tracking-tight">{title}</h3>
-          <p className="text-[10px] font-extrabold text-indigo-400 uppercase tracking-widest mt-1">{desc}</p>
+          <h3 className="app-h3 ">{title}</h3>
+          <p className="text-[10px] font-extrabold text-indigo-400 tracking-widest mt-1">{desc}</p>
         </div>
       </div>
       {children}
     </div>
   );
 }
+

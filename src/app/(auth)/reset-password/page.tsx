@@ -42,9 +42,9 @@ function ResetPasswordContent() {
         <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
            <div className="w-full max-w-md bg-white p-12 rounded-[2.5rem] shadow-2xl shadow-red-900/5 border border-red-50 text-center">
               <XCircle className="mx-auto text-red-500 mb-6" size={60} />
-              <h1 className="text-2xl font-black text-gray-900 mb-4 uppercase italic">Access Denied.</h1>
-              <p className="text-gray-500 font-bold uppercase tracking-widest text-[10px] mb-8 leading-relaxed">Identity token signature missing or corrupt. Restart the recovery protocol.</p>
-              <Link href="/forgot-password" title="Request Recovery Link" className="inline-block py-4 px-8 bg-gray-900 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest">Request New Link</Link>
+              <h1 className="app-h1 mb-4">Access Denied.</h1>
+              <p className="text-gray-500 font-bold tracking-widest text-[10px] mb-8 leading-loose">Identity token signature missing or corrupt. Restart the recovery protocol.</p>
+              <Link href="/forgot-password" title="Request Recovery Link" className="inline-block py-4 px-8 bg-gray-900 text-white rounded-2xl font-black text-[10px] tracking-widest">Request New Link</Link>
            </div>
         </div>
      );
@@ -64,19 +64,19 @@ function ResetPasswordContent() {
            <div className="inline-flex p-4 bg-blue-50 text-blue-600 rounded-2xl mb-6">
               <ShieldCheck size={32} />
            </div>
-           <h1 className="text-3xl font-black text-gray-900 tracking-tight italic uppercase">Final <span className="text-blue-600">Verification.</span></h1>
-           <p className="text-gray-500 font-bold uppercase tracking-widest text-[10px] mt-4">Security Link Hash Verified.</p>
+           <h1 className="app-h1 ">Final <span className="text-blue-600">Verification.</span></h1>
+           <p className="text-gray-500 font-bold tracking-widest text-[10px] mt-4">Security Link Hash Verified.</p>
         </div>
 
         {success ? (
            <div className="py-12 text-center animate-in zoom-in-95 duration-700">
               <CheckCircle className="mx-auto text-emerald-500 mb-6" size={80} />
-              <p className="text-[11px] font-black text-gray-900 uppercase tracking-[0.5em] italic">Identity Repaired. Redirecting...</p>
+              <p className="text-[11px] font-black text-gray-900 tracking-[0.5em]">Identity Repaired. Redirecting...</p>
            </div>
         ) : (
            <form onSubmit={handleReset} className="space-y-6">
               <div>
-                 <label className="block text-xs font-black text-gray-700 uppercase tracking-widest mb-3 pl-1">Establish New Password</label>
+                 <label className="block text-xs font-black text-gray-700 tracking-widest mb-3 pl-1">Establish New Password</label>
                  <div className="relative">
                     <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                     <input 
@@ -92,7 +92,7 @@ function ResetPasswordContent() {
               <button 
                  type="submit" 
                  disabled={loading}
-                 className="w-full py-5 bg-blue-600 text-white rounded-2xl font-black text-[11px] uppercase tracking-[0.3em] hover:bg-black transition shadow-xl shadow-blue-600/20 flex items-center justify-center space-x-3 active:scale-95 disabled:opacity-50"
+                 className="w-full py-5 bg-blue-600 text-white rounded-2xl font-black text-[11px] tracking-[0.3em] hover:bg-black transition shadow-xl shadow-blue-600/20 flex items-center justify-center space-x-3 active:scale-95 disabled:opacity-50"
               >
                  {loading ? <Loader2 className="animate-spin" size={20} /> : (
                     <>
@@ -139,3 +139,4 @@ export default function ResetPasswordPage() {
     </Suspense>
   );
 }
+

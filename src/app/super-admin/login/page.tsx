@@ -17,8 +17,8 @@ export default function AdminLoginPage() {
          <div className="bg-blue-600/10 border border-blue-500/20 p-4 rounded-3xl inline-flex items-center justify-center text-blue-500 mb-8 w-20 h-20 shadow-2xl shadow-blue-500/10">
             <ShieldCheck size={40} />
          </div>
-         <h1 className="text-4xl font-extrabold tracking-tighter italic mb-2">ADMIN<span className="text-blue-500">CONTROL</span></h1>
-         <p className="text-gray-500 font-bold uppercase tracking-widest text-xs mt-4">Local Pankaj Management Panel</p>
+         <h1 className="app-h1 mb-2">Admin<span className="text-blue-500">Control</span></h1>
+         <p className="text-gray-500 font-bold tracking-widest text-xs mt-4">Local Pankaj Management Panel</p>
       </div>
 
       <LoginForm 
@@ -30,3 +30,4 @@ export default function AdminLoginPage() {
     </div>
   );
 }
+

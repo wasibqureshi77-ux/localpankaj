@@ -102,3 +102,4 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ isMobile }) => {
 };
 
 export default HeroSlider;
+

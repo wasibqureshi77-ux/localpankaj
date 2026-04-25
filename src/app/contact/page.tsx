@@ -21,8 +21,8 @@ const ContactCard = ({ icon: Icon, title, description, link, linkText }: any) =>
     <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center mb-6">
       <Icon size={24} />
     </div>
-    <h3 className="text-xl font-bold text-gray-900 mb-2">{title}</h3>
-    <p className="text-gray-600 text-sm mb-6 flex-grow leading-relaxed">{description}</p>
+    <h3 className="app-h3 mb-2">{title}</h3>
+    <p className="text-gray-600 text-sm mb-6 flex-grow leading-loose">{description}</p>
     <a 
       href={link} 
       className="text-blue-600 font-semibold text-sm hover:text-blue-700 inline-flex items-center group"
@@ -85,13 +85,13 @@ export default function ContactPage() {
         <div className="container mx-auto max-w-7xl relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8 max-w-xl">
-              <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider">
+              <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold tracking-wider">
                 Support Center
               </div>
-              <h1 className="text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight">
+              <h1 className="app-h1 ">
                 How can we help <span className="text-blue-600">your home</span> today?
               </h1>
-              <p className="text-lg text-gray-600 leading-relaxed">
+              <p className="text-lg text-gray-600 leading-loose">
                 Whether you need an emergency repair or a routine maintenance check, our expert technicians in Jaipur are ready to assist you.
               </p>
               <div className="flex flex-wrap gap-4">
@@ -126,8 +126,8 @@ export default function ContactPage() {
       <section className="py-20 px-4 bg-white">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Multiple Ways to Reach Us</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto italic">Choose the most convenient method for your request. Our team monitors all channels hourly.</p>
+            <h2 className="app-h2 mb-4">Multiple Ways to Reach Us</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">Choose the most convenient method for your request. Our team monitors all channels hourly.</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -197,8 +197,8 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             <div className="space-y-12">
               <div>
-                <h2 className="text-4xl font-extrabold text-gray-900 mb-6 uppercase italic tracking-tight">Need a professional repair?</h2>
-                <p className="text-gray-600 text-lg leading-relaxed italic">
+                <h2 className="app-h2 mb-6">Need a professional repair?</h2>
+                <p className="text-gray-600 text-lg leading-loose">
                   Complete the form and our technical desk will evaluate your requirement and assign the best-suited specialist for your location.
                 </p>
               </div>
@@ -234,7 +234,7 @@ export default function ContactPage() {
                   <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
                     <CheckCircle2 size={40} />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">Request Received!</h3>
+                  <h3 className="app-h3 mb-2">Request Received!</h3>
                   <p className="text-gray-600">Our team will call you within 30 minutes to confirm your slot.</p>
                   <button 
                     onClick={() => setFormStatus('idle')}
@@ -284,7 +284,7 @@ export default function ContactPage() {
                     )}
                     <span>{formStatus === 'submitting' ? 'Processing...' : 'Send Inquiry Now'}</span>
                   </button>
-                  <p className="text-center text-[11px] text-gray-400 uppercase tracking-widest font-bold">
+                  <p className="text-center text-[11px] text-gray-400 tracking-widest font-bold">
                     By submitting, you agree to our Terms of Service
                   </p>
                 </form>
@@ -299,3 +299,4 @@ export default function ContactPage() {
     </main>
   );
 }
+

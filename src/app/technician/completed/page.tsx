@@ -43,7 +43,7 @@ export default function TechnicianCompletedPage() {
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-           <h1 className="text-xl font-bold text-gray-900 tracking-tight">Assignment History</h1>
+           <h1 className="text-xl font-bold text-gray-900">Assignment History</h1>
            <p className="text-xs text-gray-500 mt-1">Tactical registry of all successfully completed field operations.</p>
         </div>
       </div>
@@ -53,10 +53,10 @@ export default function TechnicianCompletedPage() {
             <table className="w-full text-left border-collapse">
                <thead>
                   <tr className="bg-gray-50 border-b border-gray-200">
-                     <th className="px-6 py-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest w-[35%]">Operation</th>
-                     <th className="px-6 py-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest w-[25%]">Client Identity</th>
-                     <th className="px-6 py-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest w-[20%]">Closure Date</th>
-                     <th className="px-6 py-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-right">Status</th>
+                     <th className="px-6 py-3 text-[10px] font-bold text-gray-400 tracking-widest w-[35%]">Operation</th>
+                     <th className="px-6 py-3 text-[10px] font-bold text-gray-400 tracking-widest w-[25%]">Client Identity</th>
+                     <th className="px-6 py-3 text-[10px] font-bold text-gray-400 tracking-widest w-[20%]">Closure Date</th>
+                     <th className="px-6 py-3 text-[10px] font-bold text-gray-400 tracking-widest text-right">Status</th>
                   </tr>
                </thead>
                <tbody className="divide-y divide-gray-100">
@@ -66,7 +66,7 @@ export default function TechnicianCompletedPage() {
                            <td className="px-6 py-4">
                               <div className="space-y-0.5">
                                  <p className="text-sm font-bold text-gray-900">{job.leadId?.service}</p>
-                                 <p className="text-[10px] font-medium text-gray-400 uppercase tracking-tighter line-clamp-1 italic">{job.leadId?.address}</p>
+                                 <p className="text-[10px] font-medium text-gray-400 line-clamp-1">{job.leadId?.address}</p>
                               </div>
                            </td>
                            <td className="px-6 py-4">
@@ -75,7 +75,7 @@ export default function TechnicianCompletedPage() {
                            </td>
                            <td className="px-6 py-4">
                               <p className="text-sm text-gray-700 font-medium tabular-nums">{new Date(job.updatedAt).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}</p>
-                              <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Validated</p>
+                              <p className="text-[10px] text-gray-400 font-bold tracking-widest">Validated</p>
                            </td>
                            <td className="px-6 py-4 text-right">
                               <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-100">
@@ -87,7 +87,7 @@ export default function TechnicianCompletedPage() {
                   ) : (
                      <tr>
                         <td colSpan={4} className="py-24 text-center">
-                           <p className="text-sm text-gray-400 font-medium italic">No historical data available in current archive.</p>
+                           <p className="text-sm text-gray-400 font-medium">No historical data available in current archive.</p>
                         </td>
                      </tr>
                   )}
@@ -98,3 +98,4 @@ export default function TechnicianCompletedPage() {
     </div>
   );
 }
+

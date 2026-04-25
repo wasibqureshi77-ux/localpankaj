@@ -70,7 +70,7 @@ export default function ServicePage({ params }: { params: Promise<{ slug: string
   };
 
   if (loading) return <div className="min-h-screen bg-white" />;
-  if (!service) return <div className="min-h-screen bg-white flex items-center justify-center text-gray-400 font-medium tracking-tight">Service Unavailable</div>;
+  if (!service) return <div className="min-h-screen bg-white flex items-center justify-center text-gray-400 font-medium">Service Unavailable</div>;
 
   const groupedProducts = {
     SERVICE: products.filter(p => p.subCategory === "SERVICE"),
@@ -92,7 +92,7 @@ export default function ServicePage({ params }: { params: Promise<{ slug: string
 
       {/* Breadcrumbs */}
       <nav className="bg-white border-b border-gray-100 py-3">
-        <div className="max-w-[1240px] mx-auto px-5 flex items-center space-x-2 text-xs font-medium text-gray-500 uppercase tracking-widest">
+        <div className="max-w-[1240px] mx-auto px-5 flex items-center space-x-2 text-xs font-medium text-gray-500 tracking-widest">
             <a href="/" className="hover:text-blue-600 transition-colors">Home</a>
             <ChevronRight size={10} strokeWidth={3} className="text-gray-300" />
             <span className="text-gray-400">{service.category}</span>
@@ -105,16 +105,16 @@ export default function ServicePage({ params }: { params: Promise<{ slug: string
       <section className="bg-white pt-12 sm:pt-20 pb-16 sm:pb-24 overflow-hidden border-b border-gray-50">
          <div className="max-w-[1240px] mx-auto px-5">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-               <div className="space-y-8 max-w-2xl">
+               <div className="space-y-8">
                   {service.isBestSeller && (
-                    <div className="inline-flex items-center space-x-2 px-3 py-1 bg-amber-50 text-amber-700 rounded-md border border-amber-100 text-[11px] font-bold uppercase tracking-wider">
+                    <div className="inline-flex items-center space-x-2 px-3 py-1 bg-amber-50 text-amber-700 rounded-md border border-amber-100 text-[11px] font-bold tracking-wider">
                        <Star size={12} fill="currentColor" />
                        <span>Highest Rated Service</span>
                     </div>
                   )}
                   
-                  <div className="space-y-4">
-                    <h1 className="text-4xl sm:text-6xl font-extrabold text-gray-900 tracking-tight leading-[1.1]">
+                  <div className="space-y-8">
+                    <h1 className="app-hero-h1">
                       {service.name} <br/> <span className="text-blue-600">Experts in Jaipur</span>
                     </h1>
                     <p className="text-lg sm:text-xl text-gray-500 font-medium leading-relaxed max-w-xl">
@@ -141,29 +141,49 @@ export default function ServicePage({ params }: { params: Promise<{ slug: string
                   <div className="flex items-center space-x-8 pt-4">
                     <div className="flex flex-col">
                       <span className="text-xl font-bold text-gray-900">4.8/5</span>
-                      <span className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mt-0.5">Rating</span>
+                      <span className="text-[11px] font-bold text-gray-400 tracking-widest mt-0.5">Rating</span>
                     </div>
                     <div className="w-px h-8 bg-gray-100" />
                     <div className="flex flex-col">
                       <span className="text-xl font-bold text-gray-900">1500+</span>
-                      <span className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mt-0.5">Visits</span>
+                      <span className="text-[11px] font-bold text-gray-400 tracking-widest mt-0.5">Visits</span>
                     </div>
                   </div>
                </div>
 
-               <div className="relative flex justify-center lg:justify-end">
-                  <div className="relative w-full max-w-[500px]">
-                     <div className="absolute inset-0 bg-blue-50 rounded-full blur-[100px] opacity-40 -z-10" />
-                     <Image 
-                        src="/expert.png" 
-                        alt="Service Expert" 
-                        width={800} 
-                        height={800} 
-                        className="w-full h-auto object-contain scale-110 lg:scale-125 transition-transform duration-[2s] hover:translate-y-[-10px]"
-                        priority
-                     />
-                  </div>
-               </div>
+                <div className="relative flex justify-center lg:justify-end">
+                   <div className="relative w-full max-w-[500px]">
+                      <div className="absolute inset-0 bg-blue-50 rounded-full blur-[100px] opacity-40 -z-10" />
+                      {service.heroVideo ? (
+                        <video 
+                          src={service.heroVideo} 
+                          autoPlay 
+                          loop 
+                          muted 
+                          playsInline
+                          className="w-full h-auto rounded-3xl shadow-2xl border-4 border-white object-cover aspect-square sm:aspect-auto"
+                        />
+                      ) : service.heroImage ? (
+                        <Image 
+                          src={service.heroImage} 
+                          alt={service.name} 
+                          width={800} 
+                          height={800} 
+                          className="w-full h-auto object-cover rounded-3xl transition-transform duration-[2s] hover:scale-105"
+                          priority
+                        />
+                      ) : (
+                        <Image 
+                          src="/expert.png" 
+                          alt="Service Expert" 
+                          width={800} 
+                          height={800} 
+                          className="w-full h-auto object-contain scale-110 lg:scale-125 transition-transform duration-[2s] hover:translate-y-[-10px]"
+                          priority
+                        />
+                      )}
+                   </div>
+                </div>
             </div>
          </div>
       </section>
@@ -236,7 +256,7 @@ const CategoryTab = ({ label, count, onClick, active }: any) => (
     onClick={onClick}
     className={`flex items-center space-x-2 py-4 border-b-2 transition-all whitespace-nowrap ${active ? "border-blue-600 text-blue-600" : "border-transparent text-gray-500 hover:text-gray-900"}`}
   >
-    <span className="text-[11px] sm:text-[13px] font-bold tracking-widest uppercase">{label}</span>
+    <span className="text-[11px] sm:text-[13px] font-bold tracking-widest">{label}</span>
     {count > 0 && <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${active ? "bg-blue-100 text-blue-700" : "bg-gray-100 text-gray-400"}`}>{count}</span>}
   </button>
 );
@@ -244,15 +264,15 @@ const CategoryTab = ({ label, count, onClick, active }: any) => (
 const InventorySection = ({ id, tag, title, desc, products, onAdd }: any) => (
   <div id={id} className="scroll-mt-32 space-y-6">
      <div className="space-y-1 px-1">
-        <h2 className="text-4xl font-black text-gray-900 tracking-tighter">{title.split(' ')[1] || title}</h2>
+        <h2 className="app-h2 ">{title.split(' ')[1] || title}</h2>
      </div>
      
-     <div className="flex flex-col space-y-4">
+     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {products.map((p: any) => (
           <ProductCard key={p._id} product={p} onAdd={() => onAdd(p)} />
         ))}
         {products.length === 0 && (
-          <div className="py-12 px-8 border border-dashed border-gray-200 rounded-2xl text-center text-gray-400 font-medium text-sm">
+          <div className="col-span-full py-12 px-8 border border-dashed border-gray-200 rounded-2xl text-center text-gray-400 font-medium text-sm">
             Configuring service units in Jaipur...
           </div>
         )}
@@ -264,7 +284,7 @@ const ProductCard = ({ product, onAdd }: any) => (
   <div className="bg-white border border-gray-200 rounded-3xl p-3 flex items-start justify-between group transition-all duration-300 hover:shadow-lg hover:shadow-gray-200/50">
      <div className="flex-1 space-y-4 pr-4">
         <div className="space-y-1">
-           <h4 className="text-[16px] sm:text-[16px] font-bold text-gray-900 tracking-tight leading-tight">
+           <h4 className="text-[16px] sm:text-[16px] font-bold text-gray-900 leading-tight">
              {product.name}
            </h4>
            <div className="flex text-[16px] items-center space-x-2 text-gray-500 font-medium">
@@ -296,7 +316,7 @@ const ProductCard = ({ product, onAdd }: any) => (
         {/* Absolute Add Button - Shifted lower for more overlap */}
         <button 
            onClick={onAdd}
-           className="absolute -bottom-4 left-1/2 -translate-x-1/2 min-w-[80px] sm:min-w-[100px] py-2 px-4 bg-blue-700 text-white font-black rounded-xl shadow-[0_8px_20px_rgba(29,78,216,0.3)] active:scale-95 transition-all text-sm tracking-tight border-2 border-white z-10"
+           className="absolute -bottom-4 left-1/2 -translate-x-1/2 min-w-[80px] sm:min-w-[100px] py-2 px-4 bg-blue-700 text-white font-black rounded-xl shadow-[0_8px_20px_rgba(29,78,216,0.3)] active:scale-95 transition-all text-sm border-2 border-white z-10"
         >
            Add
         </button>

@@ -38,7 +38,7 @@ const SERVICE_DATA: ServiceData = {
 // --- Reusable UI Components ---
 
 const Label = ({ children, htmlFor, required }: { children: React.ReactNode; htmlFor: string; required?: boolean }) => (
-  <label htmlFor={htmlFor} className="block text-[15px] font-black text-zinc-900 mb-3 leading-none uppercase tracking-tight">
+  <label htmlFor={htmlFor} className="block text-[15px] font-black text-zinc-900 mb-3 leading-none">
     {children}
     {required && <span className="text-red-500 ml-1 font-black">*</span>}
   </label>
@@ -150,7 +150,7 @@ const Button = ({
   return (
     <button
       disabled={disabled}
-      className={`flex items-center justify-center px-8 py-5 rounded-2xl text-[18px] font-black transition-all duration-200 active:scale-[0.98] disabled:cursor-not-allowed uppercase tracking-widest ${variants[variant]} ${className}`}
+      className={`flex items-center justify-center px-8 py-5 rounded-2xl text-[18px] font-black transition-all duration-200 active:scale-[0.98] disabled:cursor-not-allowed tracking-widest ${variants[variant]} ${className}`}
       {...props}
     >
       {children}
@@ -318,8 +318,8 @@ export default function BookingForm({ cartItems = [] }: { cartItems?: any[] }) {
         <div className="w-24 h-24 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-10 border-2 border-blue-100 shadow-inner">
           <Check size={56} strokeWidth={4} />
         </div>
-        <h2 className="text-4xl font-black text-zinc-900 mb-6 tracking-tighter uppercase">Booking Confirmed</h2>
-        <p className="text-zinc-600 mb-14 text-2xl leading-relaxed font-bold">
+        <h2 className="app-h2 mb-6">Booking Confirmed</h2>
+        <p className="text-zinc-600 mb-14 text-2xl leading-loose font-bold">
           Request for <span className="text-blue-700">#{formData.specificService}</span> received. 
           Expert assigned to Jaipur region.
         </p>
@@ -335,8 +335,8 @@ export default function BookingForm({ cartItems = [] }: { cartItems?: any[] }) {
       {/* Step Indicator */}
       <div className="mb-16">
         <div className="flex items-center justify-between mb-6">
-            <span className="text-[14px] font-black uppercase tracking-[0.3em] text-zinc-400">Step {step} of 3</span>
-            <span className="text-[16px] font-black uppercase tracking-[0.1em] text-blue-600">
+            <span className="text-[14px] font-black tracking-[0.3em] text-zinc-400">Step {step} of 3</span>
+            <span className="text-[16px] font-black tracking-[0.1em] text-blue-600">
                 {step === 1 ? "User Information" : step === 2 ? "Configure Service" : "Schedule Deployment"}
             </span>
         </div>
@@ -357,7 +357,7 @@ export default function BookingForm({ cartItems = [] }: { cartItems?: any[] }) {
             {step === 1 && (
               <div className="space-y-10 animate-in fade-in slide-in-from-bottom-6 duration-400">
                 <header>
-                    <h2 className="text-3xl font-black text-zinc-900 tracking-tighter uppercase">Who's Booking?</h2>
+                    <h2 className="app-h2 ">Who's Booking?</h2>
                     <p className="text-zinc-500 text-lg mt-3 font-bold">Please provide accurate contact information.</p>
                 </header>
                 
@@ -413,7 +413,7 @@ export default function BookingForm({ cartItems = [] }: { cartItems?: any[] }) {
             {step === 2 && (
               <div className="space-y-10 animate-in fade-in slide-in-from-bottom-6 duration-400">
                 <header>
-                    <h2 className="text-3xl font-black text-zinc-900 tracking-tighter uppercase">Configure Service</h2>
+                    <h2 className="app-h2 ">Configure Service</h2>
                     <p className="text-zinc-500 text-lg mt-3 font-bold">Select parameters for your service request.</p>
                 </header>
 
@@ -460,7 +460,7 @@ export default function BookingForm({ cartItems = [] }: { cartItems?: any[] }) {
             {step === 3 && (
               <div className="space-y-10 animate-in fade-in slide-in-from-bottom-6 duration-400">
                 <header>
-                    <h2 className="text-3xl font-black text-zinc-900 tracking-tighter uppercase">Schedule Deployment</h2>
+                    <h2 className="app-h2 ">Schedule Deployment</h2>
                     <p className="text-zinc-500 text-lg mt-3 font-bold">Define location and preferred time slots.</p>
                 </header>
 
@@ -573,9 +573,10 @@ export default function BookingForm({ cartItems = [] }: { cartItems?: any[] }) {
         </form>
       </div>
 
-      <p className="mt-16 text-center text-[14px] text-zinc-400 font-extrabold uppercase tracking-[0.4em]">
+      <p className="mt-16 text-center text-[14px] text-zinc-400 font-extrabold tracking-[0.4em]">
         Verified Experts &bull; Secure Checkout &bull; 24/7 Support
       </p>
     </div>
   );
 }
+

@@ -81,22 +81,22 @@ function AuthErrorContent({ searchParams }: { searchParams: { error?: string } }
              <ErrorIcon type={error} />
           </div>
 
-          <h1 className="text-4xl font-black text-white mb-4 tracking-tighter italic uppercase">{title}</h1>
-          <p className="text-gray-400 font-medium text-lg mb-12 leading-relaxed">
+          <h1 className="app-h1 mb-4">{title}</h1>
+          <p className="text-gray-400 font-medium text-lg mb-12 leading-loose">
             {message}
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Link 
               href="/login" 
-              className="px-8 py-5 bg-blue-600 text-white rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/20 flex items-center justify-center space-x-3 group/btn"
+              className="px-8 py-5 bg-blue-600 text-white rounded-2xl font-black text-[10px] tracking-[0.2em] hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/20 flex items-center justify-center space-x-3 group/btn"
             >
               <RefreshCw size={16} className="group-hover/btn:rotate-180 transition-transform duration-500" />
               <span>{action}</span>
             </Link>
             <Link 
               href="/" 
-              className="px-8 py-5 bg-white/5 text-gray-400 border border-white/10 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-white/10 hover:text-white transition-all flex items-center justify-center space-x-3"
+              className="px-8 py-5 bg-white/5 text-gray-400 border border-white/10 rounded-2xl font-black text-[10px] tracking-[0.2em] hover:bg-white/10 hover:text-white transition-all flex items-center justify-center space-x-3"
             >
               <Home size={16} />
               <span>Identity Hub</span>
@@ -104,7 +104,7 @@ function AuthErrorContent({ searchParams }: { searchParams: { error?: string } }
           </div>
 
           <div className="mt-12 pt-8 border-t border-white/5 flex flex-col items-center">
-             <Link href="/contact" className="text-blue-500 font-bold text-xs uppercase tracking-widest flex items-center space-x-2 hover:underline">
+             <Link href="/contact" className="text-blue-500 font-bold text-xs tracking-widest flex items-center space-x-2 hover:underline">
                 <MessageCircleOff size={14} />
                 <span>Contact System Architect</span>
              </Link>
@@ -112,17 +112,17 @@ function AuthErrorContent({ searchParams }: { searchParams: { error?: string } }
         </div>
 
         {/* Role Portal Links */}
-        <div className="mt-12 flex flex-wrap justify-center gap-8 text-[10px] font-black uppercase tracking-[0.3em] text-gray-600">
+        <div className="mt-12 flex flex-wrap justify-center gap-8 text-[10px] font-black tracking-[0.3em] text-gray-600">
            <Link href="/super-admin/login" className="hover:text-blue-500 transition-colors">Admin Portal</Link>
            <Link href="/editor/login" className="hover:text-indigo-400 transition-colors">Editor Hub</Link>
            <Link href="/login" className="hover:text-white transition-colors">User Access</Link>
         </div>
       </div>
       
-      <div className="mt-20 text-[9px] font-bold text-gray-700 uppercase tracking-[0.5em] flex items-center space-x-4">
+      <div className="mt-20 text-[9px] font-bold text-gray-700 tracking-[0.5em] flex items-center space-x-4">
          <span>LOCAL PANKAJ</span>
          <span className="w-1 h-1 bg-gray-800 rounded-full" />
-         <span>SECURE AUTHENTICATION LAYER v4.2</span>
+         <span>Secure Authentication Layer v4.2</span>
       </div>
     </div>
   );
@@ -132,10 +132,11 @@ export default function AuthErrorPage({ searchParams }: { searchParams: { error?
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-gray-950 flex items-center justify-center">
-        <div className="text-blue-500 animate-pulse font-black text-xs uppercase tracking-[0.5em]">Initializing Secure Layer...</div>
+        <div className="text-blue-500 animate-pulse font-black text-xs tracking-[0.5em]">Initializing Secure Layer...</div>
       </div>
     }>
       <AuthErrorContent searchParams={searchParams} />
     </Suspense>
   );
 }
+

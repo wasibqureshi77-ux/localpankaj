@@ -99,19 +99,19 @@ function DispatcherCenter() {
                      <div className="flex items-center gap-1.5 p-1 bg-white border border-slate-200 rounded-xl shadow-sm mr-2">
                         <button 
                            onClick={() => setActiveFilter("ALL")}
-                           className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all whitespace-nowrap ${activeFilter === "ALL" ? "bg-blue-600 text-white shadow-md active:scale-95" : "text-slate-500 hover:bg-slate-50"}`}
+                           className={`px-3 py-1.5 rounded-lg text-[10px] font-bold tracking-wider transition-all whitespace-nowrap ${activeFilter === "ALL" ? "bg-blue-600 text-white shadow-md active:scale-95" : "text-slate-500 hover:bg-slate-50"}`}
                         >
                            All Services
                         </button>
                         <button 
                            onClick={() => setActiveFilter("PENDING")}
-                           className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all whitespace-nowrap ${activeFilter === "PENDING" ? "bg-orange-500 text-white shadow-md active:scale-95" : "text-slate-500 hover:bg-slate-50"}`}
+                           className={`px-3 py-1.5 rounded-lg text-[10px] font-bold tracking-wider transition-all whitespace-nowrap ${activeFilter === "PENDING" ? "bg-orange-500 text-white shadow-md active:scale-95" : "text-slate-500 hover:bg-slate-50"}`}
                         >
                            Pending Services
                         </button>
                         <button 
                            onClick={() => setActiveFilter("COMPLETED")}
-                           className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all whitespace-nowrap ${activeFilter === "COMPLETED" ? "bg-emerald-600 text-white shadow-md active:scale-95" : "text-slate-500 hover:bg-slate-50"}`}
+                           className={`px-3 py-1.5 rounded-lg text-[10px] font-bold tracking-wider transition-all whitespace-nowrap ${activeFilter === "COMPLETED" ? "bg-emerald-600 text-white shadow-md active:scale-95" : "text-slate-500 hover:bg-slate-50"}`}
                         >
                            Completed Services
                         </button>
@@ -154,10 +154,10 @@ function DispatcherCenter() {
                   <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
                      <Wrench size={20}/>
                   </div>
-                  <h3 className="font-bold text-slate-900">Service Performance</h3>
+                  <h3 className="app-h3 ">Service Performance</h3>
                </div>
                
-               <p className="text-xs text-slate-500 mb-6 leading-relaxed">
+               <p className="text-xs text-slate-500 mb-6 leading-loose">
                   Jaipur field operations are currently at <span className="font-bold text-blue-600">82%</span> capacity across all divisions.
                </p>
                
@@ -171,7 +171,7 @@ function DispatcherCenter() {
             <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6">
                <div className="flex items-center gap-2 text-slate-900 mb-4">
                   <UserCheck size={18} className="text-emerald-600" />
-                  <h4 className="text-xs font-bold uppercase tracking-wider">Technicians Online</h4>
+                  <h4 className="text-xs font-bold tracking-wider">Technicians Online</h4>
                </div>
                <div className="flex -space-x-2 mb-4">
                   {[1,2,3,4,5].map(i => (
@@ -183,7 +183,7 @@ function DispatcherCenter() {
                      +9
                   </div>
                </div>
-               <p className="text-[11px] text-slate-500 leading-relaxed">14 technicians are currently logged into the field execution portal.</p>
+               <p className="text-[11px] text-slate-500 leading-loose">14 technicians are currently logged into the field execution portal.</p>
             </div>
          </div>
       </div>
@@ -223,7 +223,7 @@ function AppointmentItem({ apt }: any) {
                    {apt.customer[0]}
                 </div>
                 <div>
-                   <h4 className="text-base font-bold text-slate-900 group-hover:text-blue-700 transition-colors uppercase tracking-tight">{apt.customer}</h4>
+                   <h4 className="text-base font-bold text-slate-900 group-hover:text-blue-700 transition-colors">{apt.customer}</h4>
                    <div className="flex items-center gap-1.5 mt-1">
                       <MapPin size={12} className="text-slate-400" />
                       <span className="text-xs text-slate-500 truncate max-w-[200px]">{apt.location}</span>
@@ -233,7 +233,7 @@ function AppointmentItem({ apt }: any) {
 
              <div className="flex items-center gap-8 lg:gap-12">
                 <div className="hidden md:block text-right">
-                   <div className="text-[10px] font-bold text-blue-600 mb-1 uppercase tracking-tight">{apt.service}</div>
+                   <div className="text-[10px] font-bold text-blue-600 mb-1">{apt.service}</div>
                    <div className="flex items-center justify-end gap-1.5 text-[11px] text-slate-500 font-medium whitespace-nowrap">
                       <User size={12} className="text-slate-400" />
                       <span>{apt.tech || "Unassigned"}</span>
@@ -245,7 +245,7 @@ function AppointmentItem({ apt }: any) {
                       <Clock size={14} className="text-slate-400" />
                       <span className="text-lg font-bold text-slate-900 tabular-nums">{apt.time}</span>
                    </div>
-                   <div className={`px-3 py-1 rounded-lg border text-[10px] font-bold uppercase tracking-tight flex items-center gap-2 ${statusStyles[apt.status] || "bg-slate-50 border-slate-100"}`}>
+                   <div className={`px-3 py-1 rounded-lg border text-[10px] font-bold flex items-center gap-2 ${statusStyles[apt.status] || "bg-slate-50 border-slate-100"}`}>
                        <div className={`w-1.5 h-1.5 rounded-full ${
                           apt.status === "COMPLETED" ? "bg-emerald-500" : 
                           apt.status === "PENDING_APPROVAL" ? "bg-orange-500" :
@@ -279,4 +279,5 @@ function ResourceRow({ label, current, total, color }: any) {
      </div>
   );
 }
+
 

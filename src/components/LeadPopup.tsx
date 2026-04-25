@@ -344,7 +344,7 @@ const LeadPopup = ({ isOpen: controlledIsOpen, onClose: controlledOnClose, initi
             <div className="px-6 pt-8 pb-4 sticky top-0 bg-white z-10">
                <div className="flex justify-between items-start mb-2">
                   <div className="space-y-1">
-                     <h2 className="text-2xl font-semibold text-zinc-900 tracking-tight">Book a Service</h2>
+                     <h2 className="text-2xl font-semibold text-zinc-900">Book a Service</h2>
                      <p className="text-zinc-500 text-sm">Quick & easy booking in under 30 seconds</p>
                   </div>
                   <button
@@ -357,7 +357,7 @@ const LeadPopup = ({ isOpen: controlledIsOpen, onClose: controlledOnClose, initi
                </div>
                
                <div className="flex items-center justify-between py-3 border-y border-zinc-50 mt-4">
-                  <span className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Step {step} of 3</span>
+                  <span className="text-xs font-semibold text-zinc-400 tracking-wider">Step {step} of 3</span>
                   <div className="flex gap-1.5">
                      {[1, 2, 3].map((s) => (
                         <div 
@@ -601,9 +601,9 @@ const LeadPopup = ({ isOpen: controlledIsOpen, onClose: controlledOnClose, initi
                     <div className="mx-auto w-16 h-16 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mb-6">
                         <CheckCircle2 size={32} />
                     </div>
-                    <h3 className="text-2xl font-bold text-zinc-900 mb-2">Booking Confirmed!</h3>
-                    <p className="text-zinc-600 mb-8 text-sm leading-relaxed px-4">
-                      We've received your request. Your booking ID is <span className="font-mono font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">#{submittedRequestId}</span>. 
+                    <h3 className="app-h3 mb-2">Booking Confirmed!</h3>
+                    <p className="text-zinc-600 mb-8 text-sm leading-loose px-4">
+                      We've received your request. Your ORDER ID is <span className="font-mono font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">#{submittedRequestId}</span>. 
                       A technician will contact you shortly.
                     </p>
                     <PrimaryButton onClick={handleClose} className="max-w-[200px] mx-auto">
@@ -620,3 +620,4 @@ const LeadPopup = ({ isOpen: controlledIsOpen, onClose: controlledOnClose, initi
 };
 
 export default LeadPopup;
+

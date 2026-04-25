@@ -61,15 +61,15 @@ export default function TechnicianProfilePage() {
          </div>
          <div className="space-y-1 flex-1">
             <h1 className="text-2xl font-bold text-gray-900">{session?.user?.name || "Technician"}</h1>
-            <p className="text-sm font-medium text-gray-500 uppercase tracking-tighter">{stats.category} • Field Operations Unit</p>
+            <p className="text-sm font-medium text-gray-500">{stats.category} • Field Operations Unit</p>
             <div className="flex items-center gap-4 mt-4">
-               <div className="flex items-center gap-1.5 text-xs font-bold text-gray-400 uppercase tracking-tight">
+               <div className="flex items-center gap-1.5 text-xs font-bold text-gray-400">
                   <Star size={14} className="text-amber-400 fill-amber-400" /> {stats.rating} Rating
                </div>
-               <div className="flex items-center gap-1.5 text-xs font-bold text-gray-400 uppercase tracking-tight">
+               <div className="flex items-center gap-1.5 text-xs font-bold text-gray-400">
                   <CheckCircle size={14} className="text-emerald-500" /> {stats.completed} Completed
                </div>
-               <div className="flex items-center gap-1.5 text-xs font-bold text-gray-400 uppercase tracking-tight">
+               <div className="flex items-center gap-1.5 text-xs font-bold text-gray-400">
                   <Activity size={14} className="text-indigo-500" /> 98% Success
                </div>
             </div>
@@ -81,7 +81,7 @@ export default function TechnicianProfilePage() {
 
       {/* Personnel Dossier */}
       <div className="space-y-6">
-         <h3 className="text-sm font-bold text-gray-900 uppercase tracking-tight">Personnel Dossier</h3>
+         <h3 className="app-h3 ">Personnel Dossier</h3>
          
          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 bg-white border border-gray-200 p-8 rounded-lg">
             <DossierLink icon={<User size={16} />} label="Full Name" value={session?.user?.name} />
@@ -98,7 +98,7 @@ export default function TechnicianProfilePage() {
          <Shield size={24} className="text-gray-400" />
          <div>
             <p className="text-xs font-bold text-gray-800">Operational Encryption Active</p>
-            <p className="text-[10px] text-gray-500 uppercase tracking-tight">Your personnel data is secured with military-grade protocols for field safety.</p>
+            <p className="text-[10px] text-gray-500">Your personnel data is secured with military-grade protocols for field safety.</p>
          </div>
       </div>
     </div>
@@ -110,9 +110,10 @@ function DossierLink({ icon, label, value }: { icon: any; label: string; value: 
       <div className="flex items-start gap-3">
          <div className="mt-1 text-gray-400">{icon}</div>
          <div>
-            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{label}</p>
+            <p className="text-[10px] font-bold text-gray-400 tracking-widest">{label}</p>
             <p className="text-sm font-semibold text-gray-900 mt-0.5">{value || "DEPLOYMENT PENDING"}</p>
          </div>
       </div>
    );
 }
+

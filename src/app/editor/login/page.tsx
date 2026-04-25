@@ -17,8 +17,8 @@ export default function EditorLoginPage() {
          <div className="bg-indigo-600 text-white p-4 rounded-3xl inline-flex items-center justify-center mb-8 w-20 h-20 shadow-2xl shadow-indigo-500/10">
             <Edit3 size={40} />
          </div>
-         <h1 className="text-4xl font-extrabold tracking-tighter italic mb-2 text-indigo-900 uppercase tracking-widest">EDITOR<span className="text-indigo-600">HUB</span></h1>
-         <p className="text-indigo-400 font-bold uppercase tracking-widest text-xs mt-4">Jaipur Service Customization</p>
+         <h1 className="app-h1 mb-2">Editor<span className="text-indigo-600">Hub</span></h1>
+         <p className="text-indigo-400 font-bold tracking-widest text-xs mt-4">Jaipur Service Customization</p>
       </div>
 
       <LoginForm 
@@ -30,3 +30,4 @@ export default function EditorLoginPage() {
     </div>
   );
 }
+

@@ -57,3 +57,4 @@ export const SlideOver = ({ isOpen, onClose, title, description, children, foote
     </div>
   );
 };
+

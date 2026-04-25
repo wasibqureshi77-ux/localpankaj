@@ -72,11 +72,11 @@ export default function SuperAdminLeadsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-8">
         <div>
-           <h1 className="text-3xl font-bold tracking-tight text-slate-900">Leads Management</h1>
+           <h1 className="text-3xl font-bold text-slate-900">Leads Management</h1>
            <p className="text-sm font-semibold text-slate-400 mt-1">Manage and track your service inquiries and customer prospects.</p>
         </div>
         <div className="flex items-center gap-3">
-           <button className="flex items-center gap-2 px-4 py-2 border border-slate-200 bg-white rounded-lg text-xs font-bold text-slate-600 hover:bg-slate-50 transition-all uppercase tracking-wider">
+           <button className="flex items-center gap-2 px-4 py-2 border border-slate-200 bg-white rounded-lg text-xs font-bold text-slate-600 hover:bg-slate-50 transition-all tracking-wider">
               <Download size={14} />
               Export Data
            </button>
@@ -89,10 +89,10 @@ export default function SuperAdminLeadsPage() {
           <div key={i} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:border-slate-300 transition-all">
              <div className="flex items-center justify-between mb-4">
                 <div className={`p-2.5 bg-slate-50 rounded-xl ${stat.color}`}><stat.icon size={20}/></div>
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{stat.status}</span>
+                <span className="text-[10px] font-bold text-slate-400 tracking-widest">{stat.status}</span>
              </div>
              <p className="text-3xl font-bold text-slate-900">{stat.value}</p>
-             <h3 className="text-xs font-bold text-slate-500 mt-1 uppercase tracking-wider">{stat.label}</h3>
+             <h3 className="app-h3 mt-1">{stat.label}</h3>
           </div>
         ))}
       </div>
@@ -112,7 +112,7 @@ export default function SuperAdminLeadsPage() {
          <div className="flex items-center gap-2">
             <button 
               onClick={() => setIsFilterOpen(!isFilterOpen)}
-              className={`flex items-center gap-2 px-4 py-2.5 border rounded-lg text-xs font-bold uppercase tracking-widest transition-all ${
+              className={`flex items-center gap-2 px-4 py-2.5 border rounded-lg text-xs font-bold tracking-widest transition-all ${
                 isFilterOpen ? "bg-slate-900 text-white border-slate-900 font-bold" : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50 font-bold"
               }`}
             >
@@ -128,10 +128,10 @@ export default function SuperAdminLeadsPage() {
             <table className="w-full text-left">
                <thead>
                   <tr className="bg-slate-50/50 border-b border-slate-100">
-                     <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest ">Customer Details</th>
-                     <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest ">Requested Service</th>
-                     <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest ">Status</th>
-                     <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest ">Date Logged</th>
+                     <th className="px-6 py-4 text-[10px] font-bold text-slate-400 tracking-widest ">Customer Details</th>
+                     <th className="px-6 py-4 text-[10px] font-bold text-slate-400 tracking-widest ">Requested Service</th>
+                     <th className="px-6 py-4 text-[10px] font-bold text-slate-400 tracking-widest ">Status</th>
+                     <th className="px-6 py-4 text-[10px] font-bold text-slate-400 tracking-widest ">Date Logged</th>
                      <th className="px-6 py-3"></th>
                   </tr>
                </thead>
@@ -188,7 +188,7 @@ export default function SuperAdminLeadsPage() {
             </table>
          </div>
          <div className="px-6 py-4 border-t border-slate-100 bg-slate-50/30">
-            <p className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.2em] text-center">Sync Ready • {filteredLeads.length} items logged</p>
+            <p className="text-[9px] font-bold text-slate-400 tracking-[0.2em] text-center">Sync Ready • {filteredLeads.length} items logged</p>
          </div>
       </div>
 
@@ -202,3 +202,4 @@ export default function SuperAdminLeadsPage() {
     </div>
   );
 }
+

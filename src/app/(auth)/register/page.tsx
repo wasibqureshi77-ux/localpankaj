@@ -41,13 +41,13 @@ export default function RegisterPage() {
       </div>
 
       <div className="mb-12 text-center">
-         <div className="text-4xl font-extrabold text-gray-900 tracking-tighter mb-2 italic shadow-sm bg-blue-600 inline-block px-4 text-white">LOCAL<span className="text-black">PANKAJ</span></div>
-         <p className="text-gray-500 font-bold uppercase tracking-widest text-xs mt-4">Join Modern Home Services</p>
+         <div className="text-4xl font-extrabold text-gray-900 mb-2  shadow-sm bg-blue-600 inline-block px-4 text-white">Local<span className="text-black">Pankaj</span></div>
+         <p className="text-gray-500 font-bold tracking-widest text-xs mt-4">Join Modern Home Services</p>
       </div>
 
       <div className="w-full max-w-md bg-white p-12 rounded-[2.5rem] shadow-2xl shadow-blue-100 border border-gray-100">
         <div className="mb-10 text-center">
-          <h2 className="text-3xl font-extrabold text-gray-900 mb-2 tracking-tight">Create Account</h2>
+          <h2 className="app-h2 mb-2">Create Account</h2>
           <p className="text-gray-500 font-medium">Start your journey with Jaipur's best.</p>
         </div>
 
@@ -136,3 +136,4 @@ export default function RegisterPage() {
     </div>
   );
 }
+

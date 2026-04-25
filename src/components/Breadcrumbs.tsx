@@ -17,7 +17,7 @@ const Breadcrumbs = ({ items, className = "" }: BreadcrumbsProps) => {
   return (
     <nav
       aria-label="Breadcrumb"
-      className={`flex items-center justify-center text-[10px] sm:text-[11px] font-[900] uppercase tracking-[0.3em] py-5 border-y border-gray-100 bg-white ${className}`}
+      className={`flex items-center justify-center text-[10px] sm:text-[11px] font-[900] tracking-[0.3em] py-5 border-y border-gray-100 bg-white ${className}`}
     >
       <div className="max-w-[1240px] px-5 w-full flex items-center justify-center flex-wrap gap-y-2">
         {items.map((item, index) => (
@@ -50,3 +50,4 @@ const Breadcrumbs = ({ items, className = "" }: BreadcrumbsProps) => {
 };
 
 export default Breadcrumbs;
+

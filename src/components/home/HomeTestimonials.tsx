@@ -20,19 +20,19 @@ const TestimonialCard: React.FC<TestimonialItemProps> = ({ text, author, locatio
         {[1, 2, 3, 4, 5].map(s => <Star key={s} size={18} fill="currentColor" />)}
       </div>
       
-      <p className="text-gray-700 font-medium italic mb-10 leading-relaxed text-sm sm:text-lg whitespace-normal pointer-events-none tracking-tight">
+      <p className="text-gray-700 font-medium  mb-10 leading-loose text-sm sm:text-lg whitespace-normal pointer-events-none">
         "{text}"
       </p>
       
       <div className="flex items-center gap-5 pointer-events-none border-t border-gray-50 pt-8 sm:pt-10">
-        <div className="w-12 h-12 sm:w-16 sm:h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-black text-xl italic shadow-lg shadow-blue-600/20">
+        <div className="w-12 h-12 sm:w-16 sm:h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-black text-xl  shadow-lg shadow-blue-600/20">
           {author[0]}
         </div>
         <div>
-          <h4 className="font-black text-gray-900 uppercase italic tracking-tighter text-sm sm:text-lg leading-none mb-2">
+          <h4 className="font-black text-gray-900  text-sm sm:text-lg leading-none mb-2">
             {author}
           </h4>
-          <span className="text-[10px] sm:text-[11px] font-black text-blue-500/60 uppercase tracking-widest italic">
+          <span className="text-[10px] sm:text-[11px] font-black text-blue-500/60 tracking-widest">
             {location}
           </span>
         </div>
@@ -75,7 +75,7 @@ const HomeTestimonials: React.FC = () => {
           <div className="inline-block px-4 py-2 bg-blue-600 text-white rounded-xl font-black text-lg sm:text-xl transform -skew-x-6 shadow-xl shadow-blue-600/20 mb-6 group hover:translate-y-[-2px] transition-transform">
              Clients Love Us.
           </div>
-          <p className="text-[10px] font-black text-gray-400 tracking-[0.6em] uppercase mt-4 italic block opacity-70">
+          <p className="text-[10px] font-black text-gray-400 tracking-[0.6em] mt-4  block opacity-70">
             Real-time Feedback Registry
           </p>
         </div>
@@ -109,3 +109,4 @@ const HomeTestimonials: React.FC = () => {
 };
 
 export default HomeTestimonials;
+

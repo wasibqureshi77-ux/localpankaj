@@ -21,7 +21,7 @@ export async function GET(req: Request) {
     }
 
     let baseQuery: any = { source: { $ne: "ORDER" } };
-    let orderQuery: any = {};
+    let orderQuery: any = { _id: { $exists: false } }; // Default: Don't fetch orders for general admin view
 
     if (email || phone) {
       const orConditions = [];
@@ -48,10 +48,22 @@ export async function GET(req: Request) {
       const { Order } = await import("@/models/Order");
 
       // Fetch Leads
-      const baseLeads = await Lead.find(baseQuery).sort({ createdAt: -1 }).populate({
+      const baseLeadsRaw = await Lead.find(baseQuery).sort({ createdAt: -1 }).populate({
         path: "assignedTechnician",
         model: User,
         strictPopulate: false
+      });
+
+      // Transform Leads to Unified Format
+      const mappedLeads = baseLeadsRaw.map((l: any) => {
+        const obj = l.toObject();
+        // Unify Status for Dashboard
+        if (obj.status === "NEW" || obj.status === "CONTACTED") {
+          obj.status = "UNASSIGNED";
+        } else if (obj.status === "CONVERTED") {
+          obj.status = "FOLLOWING";
+        }
+        return obj;
       });
 
       // Fetch Orders
@@ -79,7 +91,7 @@ export async function GET(req: Request) {
       }));
 
       // Merge and Sort
-      leads = [...baseLeads, ...mappedOrders].sort(
+      leads = [...mappedLeads, ...mappedOrders].sort(
         (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       );
 
@@ -87,15 +99,24 @@ export async function GET(req: Request) {
        console.error("POPULATION_FAILURE:", popErr);
        leads = await Lead.find(baseQuery).sort({ createdAt: -1 }); // Fallback
     }    
-    // Calculate stats
+    // Calculate stats using UNIFIED labels
     const stats = {
       total: leads.length,
       unassigned: leads.filter((l: any) => l.status === "UNASSIGNED").length,
-      converted: leads.filter((l: any) => l.status === "CONVERTED" || l.status === "FOLLOWING").length,
+      converted: leads.filter((l: any) => l.status === "FOLLOWING").length,
       completed: leads.filter((l: any) => l.status === "COMPLETED").length,
     };
 
-    return NextResponse.json({ leads, stats });
+    return NextResponse.json(
+      { leads, stats },
+      {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+          "Pragma": "no-cache",
+          "Expires": "0",
+        },
+      }
+    );
   } catch (error: any) {
     console.error("TELEMETRY_SYNC_CRASH:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -167,9 +188,25 @@ export async function POST(req: Request) {
     }
     
     // 2. Lead Generation
-    // Generate unique Request ID
-    const randomId = Math.random().toString(36).substring(2, 7).toUpperCase();
-    data.requestId = `LP-${randomId}`;
+    // Generate Sequential Request ID starting from 1001
+    const { Counter } = await import("@/models/Counter");
+    const counter = await Counter.findOneAndUpdate(
+      { id: "requestId" },
+      { $inc: { seq: 1 } },
+      { new: true, upsert: true }
+    );
+
+    let currentSeq = counter.seq;
+    if (currentSeq < 1001) {
+      const updated = await Counter.findOneAndUpdate(
+        { id: "requestId" },
+        { $set: { seq: 1001 } },
+        { new: true }
+      );
+      currentSeq = updated.seq;
+    }
+
+    data.requestId = currentSeq.toString();
 
     const lead = await Lead.create(data);
 
@@ -179,9 +216,9 @@ export async function POST(req: Request) {
       if (data.email) {
         await sendEmail({
           to: data.email,
-          subject: `Service Request Received [${data.requestId}] - Local Pankaj ✅`,
+          subject: `Service Order Received [${data.requestId}] - Local Pankaj ✅`,
           html: bookingTemplate({
-            service: `${data.service} (Req ID: ${data.requestId})`,
+            service: `${data.service} (Order ID: ${data.requestId})`,
             date: data.bookingDate || "Reviewing Schedule",
             location: data.address || "Jaipur"
           })
@@ -191,11 +228,11 @@ export async function POST(req: Request) {
       // To Admin
       await sendEmail({
         to: process.env.ADMIN_EMAIL || "admin@localpankaj.com",
-        subject: `New Lead Generated - ${data.requestId} 📞`,
+        subject: `New Order Generated - ${data.requestId} 📞`,
         html: adminTemplate({
-          message: `New service lead captured: <strong>${data.service}</strong>`,
+          message: `New service order captured: <strong>${data.service}</strong>`,
           details: `
-            Request ID: <strong style="color: #2563eb;">${data.requestId}</strong><br>
+            Order ID: <strong style="color: #2563eb;">${data.requestId}</strong><br>
             Name: <strong>${data.name}</strong><br>
             Email: <strong>${data.email || "N/A"}</strong><br>
             Phone: <strong>${data.phone}</strong><br>

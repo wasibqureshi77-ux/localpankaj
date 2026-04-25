@@ -85,7 +85,7 @@ export default function SuperAdminLayout({
           {!isSidebarCollapsed && (
             <Link href="/super-admin" className="flex items-center gap-2 px-2">
               <div className="h-8 w-8 rounded-md bg-blue-600 flex items-center justify-center text-white font-bold">P</div>
-              <span className="font-semibold text-lg tracking-tight">LOCALPANKAJ</span>
+              <span className="font-semibold text-lg">LocalPankaj</span>
             </Link>
           )}
           {isSidebarCollapsed && (
@@ -142,7 +142,7 @@ export default function SuperAdminLayout({
         <div className="flex h-16 items-center justify-between px-6 border-b border-slate-100">
           <Link href="/super-admin" className="flex items-center gap-2">
             <div className="h-8 w-8 rounded-md bg-blue-600 flex items-center justify-center text-white font-bold">P</div>
-            <span className="font-semibold text-lg tracking-tight">LOCALPANKAJ</span>
+            <span className="font-semibold text-lg">LocalPankaj</span>
           </Link>
           <button onClick={() => setIsMobileMenuOpen(false)} className="p-1 text-slate-400 rounded-lg hover:bg-slate-50">
             <X size={20} />
@@ -202,7 +202,7 @@ export default function SuperAdminLayout({
                 >
                   <div className="text-right hidden sm:block">
                     <div className="text-xs font-bold text-slate-900 leading-none">{session?.user?.name || "Admin User"}</div>
-                    <div className="text-[10px] font-semibold text-blue-600 mt-1 uppercase tracking-wider">Super Administrator</div>
+                    <div className="text-[10px] font-semibold text-blue-600 mt-1 tracking-wider">Super Administrator</div>
                   </div>
                   <div className="h-9 w-9 rounded-full bg-blue-100 border border-blue-200 flex items-center justify-center text-blue-700 font-bold text-sm shadow-sm">
                     {session?.user?.name ? session.user.name[0] : "A"}
@@ -214,7 +214,7 @@ export default function SuperAdminLayout({
                      <div className="fixed inset-0 z-40" onClick={() => setIsProfileOpen(false)} />
                      <div className="absolute top-12 right-0 w-48 bg-white border border-slate-200 rounded-xl shadow-xl py-2 z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-200 origin-top-right">
                         <div className="px-4 py-2 border-b border-slate-100 mb-1">
-                           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Active Identity</p>
+                           <p className="text-[10px] font-bold text-slate-400 tracking-widest">Active Identity</p>
                            <p className="text-xs font-bold text-slate-900 truncate">{session?.user?.email || "admin@localpankaj.com"}</p>
                         </div>
                         <button 
@@ -255,14 +255,14 @@ export default function SuperAdminLayout({
                <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
                   <div className="flex items-center gap-2">
                      <Lock size={18} className="text-blue-600" />
-                     <h3 className="text-sm font-bold text-slate-900 uppercase tracking-tight">Security Update</h3>
+                     <h3 className="app-h3 ">Security Update</h3>
                   </div>
                   <button onClick={() => setIsPasswordModalOpen(false)} className="text-slate-400 hover:text-slate-900 transition-colors"><X size={20}/></button>
                </div>
                
                <form onSubmit={handlePasswordChange} className="p-6 space-y-5">
                   <div className="space-y-1.5">
-                     <label className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">Current Secret</label>
+                     <label className="text-[10px] font-bold text-slate-500 tracking-[0.2em]">Current Secret</label>
                      <input 
                         type="password" required
                         value={passwordData.old}
@@ -272,7 +272,7 @@ export default function SuperAdminLayout({
                      />
                   </div>
                   <div className="space-y-1.5 pt-2 border-t border-slate-50">
-                     <label className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">New Credential</label>
+                     <label className="text-[10px] font-bold text-slate-500 tracking-[0.2em]">New Credential</label>
                      <input 
                         type="password" required
                         value={passwordData.new}
@@ -282,7 +282,7 @@ export default function SuperAdminLayout({
                      />
                   </div>
                   <div className="space-y-1.5">
-                     <label className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">Verify Credential</label>
+                     <label className="text-[10px] font-bold text-slate-500 tracking-[0.2em]">Verify Credential</label>
                      <input 
                         type="password" required
                         value={passwordData.confirm}
@@ -296,13 +296,13 @@ export default function SuperAdminLayout({
                      <button 
                         type="button" 
                         onClick={() => setIsPasswordModalOpen(false)}
-                        className="flex-1 py-2 text-xs font-bold text-slate-500 border border-slate-200 rounded-lg hover:bg-slate-50 transition-all uppercase tracking-widest"
+                        className="flex-1 py-2 text-xs font-bold text-slate-500 border border-slate-200 rounded-lg hover:bg-slate-50 transition-all tracking-widest"
                      >
                         Cancel
                      </button>
                      <button 
                         type="submit" 
-                        className="flex-1 py-2 text-xs font-bold text-white bg-blue-600 rounded-lg hover:bg-blue-700 shadow-sm shadow-blue-100 transition-all active:scale-95 uppercase tracking-widest"
+                        className="flex-1 py-2 text-xs font-bold text-white bg-blue-600 rounded-lg hover:bg-blue-700 shadow-sm shadow-blue-100 transition-all active:scale-95 tracking-widest"
                      >
                         Confirm Change
                      </button>
@@ -314,3 +314,4 @@ export default function SuperAdminLayout({
     </div>
   );
 }
+

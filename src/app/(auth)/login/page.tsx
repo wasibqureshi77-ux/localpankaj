@@ -14,8 +14,8 @@ export default function UserLoginPage() {
       </div>
       
       <div className="mb-12 text-center">
-         <div className="text-4xl font-extrabold text-gray-900 tracking-tighter mb-2 italic shadow-sm bg-blue-600 inline-block px-4 text-white">LOCAL<span className="text-black">PANKAJ</span></div>
-         <p className="text-gray-500 font-bold uppercase tracking-widest text-xs mt-4">Jaipur's Trusted Partner</p>
+         <div className="text-4xl font-extrabold text-gray-900 mb-2  shadow-sm bg-blue-600 inline-block px-4 text-white">Local<span className="text-black">Pankaj</span></div>
+         <p className="text-gray-500 font-bold tracking-widest text-xs mt-4">Jaipur's Trusted Partner</p>
       </div>
 
       <LoginForm 
@@ -27,3 +27,4 @@ export default function UserLoginPage() {
     </div>
   );
 }
+

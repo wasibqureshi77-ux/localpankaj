@@ -5,6 +5,7 @@ import { Toaster } from "react-hot-toast";
 import connectDB from "@/lib/mongodb";
 import { SiteConfig } from "@/models/SiteConfig";
 import { NextAuthProvider } from "@/components/SessionProvider";
+import FloatingActions from "@/components/FloatingActions";
 
 const poppins = Poppins({ 
   subsets: ["latin"],
@@ -38,8 +39,10 @@ export default function RootLayout({
         <NextAuthProvider>
           {children}
           <Toaster position="top-center" />
+          <FloatingActions />
         </NextAuthProvider>
       </body>
     </html>
   );
 }
+

@@ -81,13 +81,13 @@ function ServicesContent() {
   return (
     <div>
        {loading ? (
-         <div className="py-20 text-center text-zinc-400 font-black uppercase tracking-[0.5em] text-sm">Accessing Catalog...</div>
+         <div className="py-20 text-center text-zinc-400 font-black tracking-[0.5em] text-sm">Accessing Catalog...</div>
        ) : (
          <>
            {/* Section Header */}
             <div className="bg-[#1a1a1a] py-12 px-8 mb-12 rounded-2xl sm:rounded-[2rem] shadow-xl relative overflow-hidden">
                <div className="relative z-10 text-center sm:text-left">
-                  <h1 className="text-3xl sm:text-5xl font-bold text-white tracking-tight">
+                  <h1 className="text-3xl sm:text-6xl font-black text-white leading-tight">
                     {categoryFilter === 'APPLIANCE' ? 'Appliance Repair' : categoryFilter === 'HOME' ? 'Home Repair' : 'All Services'}
                   </h1>
                </div>
@@ -114,7 +114,7 @@ function ServicesContent() {
                   </div>
                   
                   <div className="flex flex-col items-center">
-                    <div className="text-[13px] sm:text-[22px] font-bold text-blue-950 leading-tight tracking-tight px-1">
+                    <div className="text-[13px] sm:text-[22px] font-bold text-blue-950 leading-tight px-1">
                       {s.name}
                     </div>
                   </div>
@@ -134,7 +134,7 @@ export default function ServicesPage() {
       
       <section className="py-12 sm:py-24 px-4 bg-white">
          <div className="container mx-auto">
-            <Suspense fallback={<div className="py-20 text-center text-zinc-400 font-black uppercase tracking-[0.5em] text-sm">Loading Catalog...</div>}>
+            <Suspense fallback={<div className="py-20 text-center text-zinc-400 font-black tracking-[0.5em] text-sm">Loading Catalog...</div>}>
                <ServicesContent />
             </Suspense>
          </div>
@@ -144,3 +144,4 @@ export default function ServicesPage() {
     </main>
   );
 }
+

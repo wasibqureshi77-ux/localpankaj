@@ -26,16 +26,16 @@ import axios from "axios";
 const PageHeader = ({ title, subtext, breadcrumbs }: { title: string, subtext: string, breadcrumbs: { label: string, href: string }[] }) => (
   <section className="bg-white border-b border-gray-100 py-12 px-4">
     <div className="container mx-auto max-w-7xl">
-      <nav className="flex items-center space-x-2 text-xs font-semibold text-gray-400 mb-4 tracking-tight">
+      <nav className="flex items-center space-x-2 text-xs font-semibold text-gray-400 mb-4">
         {breadcrumbs.map((crumb, idx) => (
           <React.Fragment key={idx}>
-            <Link href={crumb.href} className="hover:text-blue-600 transition-colors uppercase tracking-widest">{crumb.label}</Link>
+            <Link href={crumb.href} className="hover:text-blue-600 transition-colors tracking-widest">{crumb.label}</Link>
             {idx < breadcrumbs.length - 1 && <span className="text-gray-300">/</span>}
           </React.Fragment>
         ))}
       </nav>
       <div className="space-y-1">
-        <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">{title}</h1>
+        <h1 className="text-3xl font-extrabold text-gray-900">{title}</h1>
         <p className="text-gray-500 font-medium text-sm">{subtext}</p>
       </div>
     </div>
@@ -53,11 +53,11 @@ const CartItemCard = ({ item, onRemove }: any) => (
         )}
       </div>
       <div className="flex-grow space-y-1">
-        <div className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">{item.subCategory || "Service"}</div>
-        <h3 className="text-lg font-bold text-gray-900 leading-tight">{item.name}</h3>
+        <div className="text-[10px] font-bold text-blue-600 tracking-widest">{item.subCategory || "Service"}</div>
+        <h3 className="app-h3 ">{item.name}</h3>
         <div className="flex items-center gap-4 pt-1">
            <span className="text-xl font-extrabold text-gray-900">₹{item.price}</span>
-           <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Estimated Cost</span>
+           <span className="text-[10px] text-gray-400 font-bold tracking-wider">Estimated Cost</span>
         </div>
       </div>
     </div>
@@ -83,16 +83,16 @@ const PopularServiceCard = ({ service, onAdd }: any) => (
          )}
       </div>
       <div>
-        <h4 className="font-bold text-gray-900 leading-tight mb-1 uppercase italic tracking-tight">{service.name}</h4>
+        <h4 className="font-bold text-gray-900 leading-tight mb-1 ">{service.name}</h4>
         <div className="flex items-center gap-2">
             <span className="text-blue-600 font-extrabold text-lg">₹{service.price}</span>
-            <span className="text-gray-400 text-[10px] uppercase font-black tracking-widest">Base Rate</span>
+            <span className="text-gray-400 text-[10px] font-black tracking-widest">Base Rate</span>
         </div>
       </div>
     </div>
     <button 
       onClick={() => onAdd(service)}
-      className="px-6 py-3 bg-gray-900 hover:bg-black text-white rounded-xl font-bold text-xs uppercase tracking-widest flex items-center gap-2 transition-all active:scale-95 shadow-lg shadow-gray-900/10"
+      className="px-6 py-3 bg-gray-900 hover:bg-black text-white rounded-xl font-bold text-xs tracking-widest flex items-center gap-2 transition-all active:scale-95 shadow-lg shadow-gray-900/10"
     >
       <Plus size={16} />
       <span>Add</span>
@@ -176,13 +176,13 @@ export default function CartPage() {
               <div className="flex flex-col lg:flex-row items-center gap-16 bg-white p-10 lg:p-20 rounded-[2rem] border border-gray-100 shadow-xl relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-blue-100/30 blur-3xl rounded-full -mr-32 -mt-32" />
                 <div className="w-full lg:w-1/2 text-center lg:text-left space-y-8 relative z-10">
-                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-[10px] font-bold uppercase tracking-widest">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-[10px] font-bold tracking-widest">
                     <ShieldCheck size={14} />
                     <span>Trusted by 5000+ Homes</span>
                   </div>
                   <div className="space-y-4">
-                    <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight">Your basket is <br/> looking a bit light.</h2>
-                    <p className="text-gray-500 text-lg font-medium leading-relaxed max-w-md italic">
+                    <h2 className="app-h2 ">Your basket is <br/> looking a bit light.</h2>
+                    <p className="text-gray-500 text-lg font-medium leading-loose max-w-md">
                       It looks like you haven't added any services to your dispatch list yet. Let's find some experts for you.
                     </p>
                   </div>
@@ -205,7 +205,7 @@ export default function CartPage() {
                 <div className="space-y-10">
                   <div className="flex items-center justify-between gap-6 border-l-4 border-blue-600 pl-6">
                     <div>
-                      <h3 className="text-2xl font-extrabold text-gray-900 tracking-tight">Popular Services</h3>
+                      <h3 className="app-h3 ">Popular Services</h3>
                       <p className="text-gray-500 text-sm font-medium">Frequently booked services in your area</p>
                     </div>
                   </div>
@@ -246,7 +246,7 @@ export default function CartPage() {
               {/* Right Column (30%) - Order Summary */}
               <div className="lg:col-span-4 lg:sticky lg:top-32">
                 <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-xl space-y-8">
-                  <h3 className="text-xl font-bold text-gray-900 mb-6">Order Summary</h3>
+                  <h3 className="app-h3 mb-6">Order Summary</h3>
                   
                   <div className="space-y-4 text-sm font-medium">
                     <div className="flex justify-between items-center text-gray-500">
@@ -255,14 +255,14 @@ export default function CartPage() {
                     </div>
                     <div className="flex justify-between items-center text-gray-500">
                       <span>Service Charges</span>
-                      <span className="text-green-600 font-bold uppercase text-[10px] tracking-wider">Free</span>
+                      <span className="text-green-600 font-bold text-[10px] tracking-wider">Free</span>
                     </div>
                     {/* Potential Discount Row can go here */}
                   </div>
 
                   <div className="pt-6 border-t border-gray-100">
                     <div className="flex justify-between items-center mb-8">
-                      <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">Total Amount</span>
+                      <span className="text-sm font-bold text-gray-400 tracking-widest">Total Amount</span>
                       <span className="text-3xl font-extrabold text-gray-900">₹{total}</span>
                     </div>
 
@@ -286,22 +286,22 @@ export default function CartPage() {
                   </div>
 
                   <div className="space-y-4 pt-6 border-t border-gray-50">
-                    <div className="flex items-center gap-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+                    <div className="flex items-center gap-3 text-[11px] font-bold text-gray-400 tracking-wider">
                       <Zap size={14} className="text-blue-500" />
                       Instant service in Jaipur
                     </div>
-                    <div className="flex items-center gap-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+                    <div className="flex items-center gap-3 text-[11px] font-bold text-gray-400 tracking-wider">
                       <ShieldCheck size={14} className="text-blue-500" />
                       Verified Professionals
                     </div>
-                    <div className="flex items-center gap-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+                    <div className="flex items-center gap-3 text-[11px] font-bold text-gray-400 tracking-wider">
                       <Info size={14} className="text-blue-500" />
                       Secure Checkout Guarantee
                     </div>
                   </div>
                 </div>
                 
-                <p className="mt-6 text-center text-xs font-medium text-gray-400 italic">
+                <p className="mt-6 text-center text-xs font-medium text-gray-400">
                   Trusted by 5000+ happy customers in Jaipur
                 </p>
               </div>
@@ -317,3 +317,4 @@ export default function CartPage() {
 
 // Mobile check logic placeholder
 const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
+

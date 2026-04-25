@@ -84,7 +84,7 @@ export default function UsersManagementTable({ title, subtitle, roleFilter }: Us
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-8">
         <div>
-           <h1 className="text-3xl font-bold tracking-tight text-slate-900">{title}</h1>
+           <h1 className="text-3xl font-bold text-slate-900">{title}</h1>
            <p className="text-sm text-slate-500 mt-1">{subtitle}</p>
         </div>
         <div className="flex items-center gap-3">
@@ -104,18 +104,18 @@ export default function UsersManagementTable({ title, subtitle, roleFilter }: Us
          <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
             <div className="flex items-center justify-between mb-3">
                <div className="p-2 bg-blue-50 text-blue-600 rounded-lg"><Users size={18}/></div>
-               <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">LIVE</span>
+               <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">Live</span>
             </div>
             <p className="text-2xl font-bold text-slate-900">{users.length}</p>
-            <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-widest mt-1">Total Records</h3>
+            <h3 className="text-xs font-semibold text-slate-500 tracking-widest mt-1">Total Records</h3>
          </div>
          <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
             <div className="flex items-center justify-between mb-3">
                <div className="p-2 bg-slate-50 text-slate-600 rounded-lg"><Shield size={18}/></div>
-               <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">AUTH</span>
+               <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">Auth</span>
             </div>
             <p className="text-2xl font-bold text-slate-900">{verifiedPercent}%</p>
-            <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-widest mt-1">Authority Stream</h3>
+            <h3 className="text-xs font-semibold text-slate-500 tracking-widest mt-1">Authority Stream</h3>
          </div>
       </div>
 
@@ -145,10 +145,10 @@ export default function UsersManagementTable({ title, subtitle, roleFilter }: Us
             <table className="w-full text-left">
                <thead>
                   <tr className="bg-slate-50/50 border-b border-slate-100">
-                     <th className="px-6 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-widest px-6">Identity Portal</th>
-                     <th className="px-6 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-widest">Privilege Level</th>
-                     <th className="px-6 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-widest">Registration</th>
-                     <th className="px-6 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-widest text-blue-600">Requests Processed</th>
+                     <th className="px-6 py-3 text-[11px] font-bold text-slate-500 tracking-widest px-6">Identity Portal</th>
+                     <th className="px-6 py-3 text-[11px] font-bold text-slate-500 tracking-widest">Privilege Level</th>
+                     <th className="px-6 py-3 text-[11px] font-bold text-slate-500 tracking-widest">Registration</th>
+                     <th className="px-6 py-3 text-[11px] font-bold text-slate-500 tracking-widest text-blue-600">Requests Processed</th>
                      <th className="px-6 py-3"></th>
                   </tr>
                </thead>
@@ -162,16 +162,16 @@ export default function UsersManagementTable({ title, subtitle, roleFilter }: Us
                                     {user.name ? user.name[0] : "U"}
                                  </div>
                                  <div className="min-w-0">
-                                    <div className="text-sm font-bold text-slate-900 uppercase tracking-tight truncate">{user.name}</div>
+                                    <div className="text-sm font-bold text-slate-900 truncate">{user.name}</div>
                                     <div className="flex flex-col mt-0.5">
-                                       <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider font-mono">{user.phone}</span>
+                                       <span className="text-[10px] font-bold text-slate-400 tracking-wider font-mono">{user.phone}</span>
                                        <span className="text-[10px] font-bold text-blue-600 opacity-60 lowercase truncate">{user.email}</span>
                                     </div>
                                  </div>
                               </div>
                            </td>
                            <td className="px-6 py-5">
-                              <span className={`px-2.5 py-1 rounded-md text-[10px] font-bold tracking-widest border uppercase ${
+                              <span className={`px-2.5 py-1 rounded-md text-[10px] font-bold tracking-widest border ${
                                  ["ADMIN", "MANAGER", "EDITOR"].includes(user.role) 
                                  ? "bg-blue-50 text-blue-700 border-blue-100" 
                                  : "bg-slate-50 text-slate-500 border-slate-100"
@@ -180,14 +180,14 @@ export default function UsersManagementTable({ title, subtitle, roleFilter }: Us
                               </span>
                            </td>
                            <td className="px-6 py-5 whitespace-nowrap">
-                              <div className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">
+                              <div className="text-[11px] font-bold text-slate-500 tracking-widest">
                                  {new Date(user.createdAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}
                               </div>
                            </td>
                            <td className="px-6 py-5">
                               <div className="flex items-center gap-3">
                                  <div className="text-xl font-bold text-slate-900 tabular-nums">{user.requestCount || 0}</div>
-                                 <div className="text-[8px] font-bold text-slate-400 uppercase tracking-widest leading-3 line-clamp-2">Inquiries<br/>Captured</div>
+                                 <div className="text-[8px] font-bold text-slate-400 tracking-widest leading-3 line-clamp-2">Inquiries<br/>Captured</div>
                               </div>
                            </td>
                            <td className="px-6 py-5 text-right">
@@ -199,16 +199,17 @@ export default function UsersManagementTable({ title, subtitle, roleFilter }: Us
                      ))
                   ) : (
                      <tr>
-                        <td colSpan={5} className="px-6 py-20 text-center text-slate-400 text-sm font-medium italic">No matching records found in the directory.</td>
+                        <td colSpan={5} className="px-6 py-20 text-center text-slate-400 text-sm font-medium">No matching records found in the directory.</td>
                      </tr>
                   )}
                </tbody>
             </table>
          </div>
          <div className="px-6 py-4 border-t border-slate-100 bg-slate-50/10 flex items-center justify-between">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Global Authority Stream Sync: {new Date().toLocaleTimeString()}</p>
+            <p className="text-[10px] font-bold text-slate-400 tracking-widest">Global Authority Stream Sync: {new Date().toLocaleTimeString()}</p>
          </div>
       </div>
     </div>
   );
 }
+

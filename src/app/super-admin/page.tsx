@@ -73,7 +73,7 @@ export default function SuperAdminDashboard() {
       {/* Executive Navbar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
         <div>
-           <h1 className="text-3xl font-black tracking-tight text-slate-800">Executive Dashboard</h1>
+           <h1 className="app-h1 ">Executive Dashboard</h1>
            <p className="text-[12px] font-medium text-slate-400 mt-1">Holistic oversight of operational modules and unit performance.</p>
         </div>
         <div className="flex items-center gap-3">
@@ -101,18 +101,18 @@ export default function SuperAdminDashboard() {
             <div className="px-8 py-6 border-b border-slate-50 flex items-center justify-between">
                <div className="flex items-center gap-3">
                   <Activity size={18} className="text-blue-600" />
-                  <h3 className="text-sm font-black uppercase tracking-widest text-slate-800">Live Lead Pipeline</h3>
+                  <h3 className="app-h3 ">Live Lead Pipeline</h3>
                </div>
-               <Link href="/super-admin/leads" className="text-[10px] font-black text-blue-600 uppercase tracking-widest hover:underline">Explore Portfolio</Link>
+               <Link href="/super-admin/leads" className="text-[10px] font-black text-blue-600 tracking-widest hover:underline">Explore Portfolio</Link>
             </div>
             
             <div className="overflow-x-auto">
                <table className="w-full text-left">
                   <thead>
                      <tr className="bg-slate-50/50 border-b border-slate-50">
-                        <th className="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Client Identity</th>
-                        <th className="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Service Unit</th>
-                        <th className="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Status Indicator</th>
+                        <th className="px-8 py-4 text-[10px] font-black text-slate-400 tracking-[0.2em]">Client Identity</th>
+                        <th className="px-8 py-4 text-[10px] font-black text-slate-400 tracking-[0.2em]">Service Unit</th>
+                        <th className="px-8 py-4 text-[10px] font-black text-slate-400 tracking-[0.2em]">Status Indicator</th>
                         <th className="px-8 py-4"></th>
                      </tr>
                   </thead>
@@ -120,11 +120,11 @@ export default function SuperAdminDashboard() {
                      {data?.recentLeads?.map((lead: any) => (
                         <tr key={lead._id} className="hover:bg-slate-50/50 transition-colors group">
                            <td className="px-8 py-5">
-                              <p className="text-xs font-black text-slate-900 uppercase">{lead.name}</p>
+                              <p className="text-xs font-black text-slate-900">{lead.name}</p>
                               <p className="text-[9px] font-bold text-slate-300 mt-1">{lead.phone}</p>
                            </td>
                            <td className="px-8 py-5">
-                              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{lead.category || "UNITLESS"}</span>
+                              <span className="text-[10px] font-bold text-slate-500 tracking-widest">{lead.category || "UNITLESS"}</span>
                            </td>
                            <td className="px-8 py-5">
                               <StatusBadge status={lead.status || "NEW"} />
@@ -145,20 +145,20 @@ export default function SuperAdminDashboard() {
                <div className="flex items-center justify-between px-2">
                   <div className="flex items-center gap-3">
                      <Users size={18} className="text-slate-400" />
-                     <h3 className="text-sm font-black text-slate-800 tracking-tight">Unit Operators</h3>
+                     <h3 className="app-h3 ">Unit Operators</h3>
                   </div>
-                  <Link href="/super-admin/technicians" className="text-[9px] font-black text-slate-400 uppercase tracking-widest hover:text-blue-600">Manage All</Link>
+                  <Link href="/super-admin/technicians" className="text-[9px] font-black text-slate-400 tracking-widest hover:text-blue-600">Manage All</Link>
                </div>
                
                <div className="space-y-4">
                   {data?.technicians?.slice(0, 3).map((tech: any, i: number) => (
                      <div key={i} className="flex items-center justify-between p-5 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-all group">
                         <div className="flex items-center gap-4">
-                           <div className="w-10 h-10 bg-slate-900 text-white rounded-xl flex items-center justify-center font-black text-xs uppercase relative">
+                           <div className="w-10 h-10 bg-slate-900 text-white rounded-xl flex items-center justify-center font-black text-xs relative">
                               {tech.name[0]}
                               <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-orange-400 border-2 border-white rounded-full" />
                            </div>
-                           <p className="text-xs font-black text-slate-800 uppercase tracking-tight">{tech.name}</p>
+                           <p className="text-xs font-black text-slate-800">{tech.name}</p>
                         </div>
                         <ArrowUpRight size={14} className="text-slate-200 group-hover:text-blue-600 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                      </div>
@@ -166,7 +166,7 @@ export default function SuperAdminDashboard() {
                </div>
             </div>
 
-            <button className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase text-[11px] tracking-[0.2em] flex items-center justify-center gap-3 hover:bg-blue-600 transition-all shadow-xl shadow-slate-900/10 active:scale-95">
+            <button className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black text-[11px] tracking-[0.2em] flex items-center justify-center gap-3 hover:bg-blue-600 transition-all shadow-xl shadow-slate-900/10 active:scale-95">
                <Activity size={16} />
                Deploy All Units
             </button>
@@ -180,7 +180,8 @@ function QuickLink({ title, href }: { title: string; href: string }) {
    return (
       <Link href={href} className="p-8 bg-white border border-slate-100 rounded-[2rem] shadow-lg shadow-slate-200/40 hover:scale-[1.02] transition-all flex flex-col justify-between group">
          <ArrowUpRight className="text-slate-300 group-hover:text-blue-600 transition-colors" size={20} />
-         <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-900 mt-4 leading-tight">{title}</p>
+         <p className="text-[10px] font-black tracking-[0.2em] text-slate-900 mt-4 leading-tight">{title}</p>
       </Link>
    );
 }
+

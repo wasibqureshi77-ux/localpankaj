@@ -74,7 +74,7 @@ export default function SuperAdminOrdersPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-8">
         <div>
-           <h1 className="text-3xl font-bold tracking-tight text-slate-900">Orders Management</h1>
+           <h1 className="text-3xl font-bold text-slate-900">Orders Management</h1>
            <p className="text-sm text-slate-500 mt-1">Lifecycle control for all checkout-generated service contracts.</p>
         </div>
         <div className="flex items-center gap-3">
@@ -110,7 +110,7 @@ export default function SuperAdminOrdersPage() {
                <button
                  key={filter}
                  onClick={() => setActiveFilter(filter)}
-                 className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider whitespace-nowrap transition-all ${
+                 className={`px-3 py-1.5 rounded-lg text-[10px] font-bold tracking-wider whitespace-nowrap transition-all ${
                    activeFilter === filter 
                    ? "bg-slate-900 text-white" 
                    : "bg-slate-50 text-slate-500 hover:bg-slate-100"
@@ -154,14 +154,14 @@ export default function SuperAdminOrdersPage() {
                                  {order.name[0]}
                               </div>
                               <div className="space-y-1">
-                                 <div className="text-lg font-black text-slate-900 tracking-tight">{order.name.charAt(0).toUpperCase() + order.name.slice(1).toLowerCase()}</div>
+                                 <div className="text-lg font-black text-slate-900">{order.name.charAt(0).toUpperCase() + order.name.slice(1).toLowerCase()}</div>
                                  <div className="text-sm font-bold text-slate-400">{order.phone}</div>
                               </div>
                            </div>
                         </td>
                         <td className="px-6 py-4">
                            <div className="text-base font-black text-slate-900 font-mono">₹{order.totalAmount}</div>
-                           <div className="text-xs text-slate-400 font-bold italic">{order.items?.length || 0} items</div>
+                           <div className="text-xs text-slate-400 font-bold">{order.items?.length || 0} items</div>
                         </td>
                         <td className="px-6 py-4">
                            <StatusBadge status={order.paymentStatus} />
@@ -186,7 +186,7 @@ export default function SuperAdminOrdersPage() {
                     <tr>
                        <td colSpan={7} className="px-6 py-20 text-center flex flex-col items-center">
                           <Package size={40} className="text-slate-200 mb-2" />
-                          <p className="text-sm font-bold text-slate-400 uppercase tracking-widest italic opacity-50">Empty Manifest detected in current Sector.</p>
+                          <p className="text-sm font-bold text-slate-400 tracking-widest  opacity-50">Empty Manifest detected in current Sector.</p>
                        </td>
                     </tr>
                   )}
@@ -210,9 +210,10 @@ function MetricCard({ label, value, icon: Icon, color }: any) {
     <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
        <div className={`p-3 bg-slate-50 rounded-xl ${color}`}><Icon size={24}/></div>
        <div>
-          <p className="text-3xl font-black text-slate-900 tracking-tight">{value}</p>
-          <h3 className="text-sm font-black text-slate-400 capitalize mt-1">{label}</h3>
+          <p className="text-3xl font-black text-slate-900">{value}</p>
+          <h3 className="app-h3 mt-1">{label}</h3>
        </div>
     </div>
   );
 }
+

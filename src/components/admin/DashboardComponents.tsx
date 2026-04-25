@@ -34,7 +34,7 @@ export const StatCard = ({ label, value, change, trend, icon: Icon }: StatCardPr
         </div>
       </div>
       <div>
-        <h3 className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">{label}</h3>
+        <h3 className="app-h3 mb-1.5">{label}</h3>
         <p className="text-3xl font-bold text-slate-900">{value}</p>
       </div>
     </div>
@@ -65,8 +65,9 @@ export const StatusBadge = ({ status }: StatusBadgeProps) => {
   };
 
   return (
-    <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border ${getStatusStyles(status)}`}>
+    <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold tracking-widest border ${getStatusStyles(status)}`}>
       {status.replace(/_/g, ' ')}
     </span>
   );
 };
+

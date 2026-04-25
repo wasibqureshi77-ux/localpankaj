@@ -93,7 +93,7 @@ export default function AppointmentDetailPage({ params }: { params: Promise<{ id
   if (!appointment) return (
      <div className="h-[70vh] flex flex-col items-center justify-center space-y-4 text-slate-400">
         <ArrowLeft className="cursor-pointer hover:text-slate-900 transition-colors" size={32} onClick={() => router.back()} />
-        <p className="text-sm font-bold uppercase tracking-widest">Appointment Not Found</p>
+        <p className="text-sm font-bold tracking-widest">Appointment Not Found</p>
      </div>
   );
 
@@ -107,13 +107,13 @@ export default function AppointmentDetailPage({ params }: { params: Promise<{ id
             <ArrowLeft size={18} className="text-slate-600" />
          </button>
          <div>
-            <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+            <div className="flex items-center gap-2 text-[11px] font-bold tracking-wider text-slate-400">
                <span>Management</span> <ChevronRight size={10}/> <span>Dispatch</span> <ChevronRight size={10}/> <span className="text-blue-600">Request Details</span>
             </div>
             <h1 className="text-2xl font-bold text-slate-900 mt-1">Order {appointment?.requestId || "Detail"}</h1>
          </div>
          {appointmentData?.status && (
-            <div className={`ml-auto px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest border border-slate-100 bg-slate-50 text-slate-600`}>
+            <div className={`ml-auto px-4 py-1.5 rounded-full text-[10px] font-bold tracking-widest border border-slate-100 bg-slate-50 text-slate-600`}>
                Status: {appointmentData.status}
             </div>
          )}
@@ -127,7 +127,7 @@ export default function AppointmentDetailPage({ params }: { params: Promise<{ id
                   <User size={150} />
                </div>
                
-               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600 mb-8 flex items-center gap-3">
+               <h2 className="text-xs font-bold tracking-[0.2em] text-blue-600 mb-8 flex items-center gap-3">
                   <div className="w-6 h-0.5 bg-blue-600 rounded-full" />
                   <span>Customer Profile</span>
                </h2>
@@ -151,7 +151,7 @@ export default function AppointmentDetailPage({ params }: { params: Promise<{ id
                   <ShieldCheck size={150} />
                </div>
 
-               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-600 mb-8 flex items-center gap-3">
+               <h2 className="text-xs font-bold tracking-[0.2em] text-emerald-600 mb-8 flex items-center gap-3">
                   <div className="w-6 h-0.5 bg-emerald-600 rounded-full" />
                   <span>Service Details</span>
                </h2>
@@ -170,11 +170,11 @@ export default function AppointmentDetailPage({ params }: { params: Promise<{ id
          {/* Right: Dispatch Control */}
          <div className="space-y-6">
             <aside className="bg-white border border-slate-200 p-8 rounded-3xl shadow-sm h-fit sticky top-8">
-               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500 mb-6">Assignment Center</h2>
+               <h2 className="text-xs font-bold tracking-[0.2em] text-slate-500 mb-6">Assignment Center</h2>
                
                <div className="space-y-6">
                   <div className="space-y-3">
-                     <label className="text-[11px] font-bold text-slate-400 uppercase tracking-wider ml-1">Assign Technician</label>
+                     <label className="text-[11px] font-bold text-slate-400 tracking-wider ml-1">Assign Technician</label>
                      <div className="relative group">
                         <select 
                            disabled={assigning}
@@ -198,7 +198,7 @@ export default function AppointmentDetailPage({ params }: { params: Promise<{ id
                   {appointment.assignedTechnician ? (
                      <div className="p-5 bg-emerald-50 border border-emerald-100 rounded-2xl space-y-3 animate-in zoom-in-95 duration-300">
                         <div className="flex items-center justify-between">
-                           <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600">Personnel Assigned</span>
+                           <span className="text-[10px] font-bold tracking-wider text-emerald-600">Personnel Assigned</span>
                            <CheckCircle size={16} className="text-emerald-500" />
                         </div>
                         <div>
@@ -216,11 +216,11 @@ export default function AppointmentDetailPage({ params }: { params: Promise<{ id
                      <div className="pt-6 border-t border-slate-100 space-y-4">
                         <div className="flex items-center gap-2 text-orange-600">
                            <AlertCircle size={16} />
-                           <p className="text-[11px] font-bold uppercase tracking-wider">Approval Required</p>
+                           <p className="text-[11px] font-bold tracking-wider">Approval Required</p>
                         </div>
                         <button 
                            onClick={() => handleStatusUpdate("COMPLETED")}
-                           className="w-full py-3.5 bg-emerald-600 text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-emerald-700 transition-all shadow-sm active:scale-95"
+                           className="w-full py-3.5 bg-emerald-600 text-white rounded-xl font-bold text-xs tracking-widest hover:bg-emerald-700 transition-all shadow-sm active:scale-95"
                         >
                            Approve Job
                         </button>
@@ -230,7 +230,7 @@ export default function AppointmentDetailPage({ params }: { params: Promise<{ id
                   <div className="pt-6 border-t border-slate-100 space-y-3">
                      <button 
                         onClick={() => handleStatusUpdate("COMPLETED")}
-                        className="w-full py-4 bg-blue-600 text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-blue-700 transition-all shadow-md active:scale-95 flex items-center justify-center gap-3"
+                        className="w-full py-4 bg-blue-600 text-white rounded-xl font-bold text-xs tracking-widest hover:bg-blue-700 transition-all shadow-md active:scale-95 flex items-center justify-center gap-3"
                      >
                         <Truck size={16}/>
                         <span>complete task </span>
@@ -247,7 +247,7 @@ export default function AppointmentDetailPage({ params }: { params: Promise<{ id
 function DetailItem({ icon, label, value, highlight }: any) {
    return (
       <div className="space-y-2">
-         <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+         <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400 tracking-widest">
             {icon && <span className="text-slate-300">{React.cloneElement(icon as any, { size: 12 })}</span>}
             <span>{label}</span>
          </div>

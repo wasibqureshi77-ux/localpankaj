@@ -33,7 +33,7 @@ const StatsBanner: React.FC = () => {
             className="inline-flex items-center gap-2.5 px-4 py-2 bg-blue-600/20 text-blue-400 rounded-full border border-blue-500/30 backdrop-blur-sm shadow-lg"
           >
             <ShieldCheck size={18} />
-            <span className="text-[10px] sm:text-xs font-bold uppercase tracking-widest leading-none">
+            <span className="text-[10px] sm:text-xs font-bold tracking-widest leading-none">
               Trusted Home Service Partner in Jaipur
             </span>
           </motion.div>
@@ -44,7 +44,7 @@ const StatsBanner: React.FC = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-4xl sm:text-7xl lg:text-8xl font-black text-white leading-[1.05] tracking-tight"
+            className="text-4xl sm:text-7xl lg:text-8xl font-black text-white leading-[1.05]"
           >
             Expert Service <br />
             <span className="text-blue-500">Delivered Fast.</span>
@@ -56,7 +56,7 @@ const StatsBanner: React.FC = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4 }}
-            className="text-lg sm:text-xl text-slate-300 max-w-2xl leading-relaxed font-medium"
+            className="text-lg sm:text-xl text-slate-300 max-w-2xl leading-loose font-medium"
           >
             Providing premium technical solutions with certified professionals. From AC repair to RO service, we ensure top-quality results with genuine spare parts and transparent pricing.
           </motion.p>
@@ -73,7 +73,7 @@ const StatsBanner: React.FC = () => {
               <div className="text-4xl sm:text-6xl font-bold text-white flex items-baseline gap-1">
                 24<span className="text-xl sm:text-2xl text-blue-500">/7</span>
               </div>
-              <div className="text-[10px] sm:text-xs font-bold text-blue-400 uppercase tracking-widest pl-1">
+              <div className="text-[10px] sm:text-xs font-bold text-blue-400 tracking-widest pl-1">
                 Field Support
               </div>
             </motion.div>
@@ -88,7 +88,7 @@ const StatsBanner: React.FC = () => {
               <div className="text-4xl sm:text-6xl font-bold text-white flex items-baseline gap-1">
                 60<span className="text-xl sm:text-2xl text-blue-500">min</span>
               </div>
-              <div className="text-[10px] sm:text-xs font-bold text-blue-400 uppercase tracking-widest pl-1">
+              <div className="text-[10px] sm:text-xs font-bold text-blue-400 tracking-widest pl-1">
                 Average Response
               </div>
             </motion.div>
@@ -100,4 +100,5 @@ const StatsBanner: React.FC = () => {
 };
 
 export default StatsBanner;
+
 

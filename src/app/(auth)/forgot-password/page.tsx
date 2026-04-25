@@ -79,14 +79,14 @@ export default function ForgotPasswordPage() {
            <div className="inline-flex p-4 bg-blue-50 text-blue-600 rounded-2xl mb-6">
               <ShieldCheck size={32} />
            </div>
-           <h1 className="text-3xl font-black text-gray-900 tracking-tight italic uppercase">Account <span className="text-blue-600">Recovery.</span></h1>
-           <p className="text-gray-500 font-bold uppercase tracking-widest text-[10px] mt-4">Secure Password Reset Protocol</p>
+           <h1 className="app-h1 ">Account <span className="text-blue-600">Recovery.</span></h1>
+           <p className="text-gray-500 font-bold tracking-widest text-[10px] mt-4">Secure Password Reset Protocol</p>
         </div>
 
         {step === 1 && (
            <div className="space-y-6">
               <div>
-                 <label className="block text-xs font-black text-gray-700 uppercase tracking-widest mb-3 pl-1">Email or Mobile Number</label>
+                 <label className="block text-xs font-black text-gray-700 tracking-widest mb-3 pl-1">Email or Mobile Number</label>
                  <div className="relative">
                     <ShieldCheck className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                     <input 
@@ -104,7 +104,7 @@ export default function ForgotPasswordPage() {
                  <button 
                     onClick={() => handleAction("OTP")}
                     disabled={loading}
-                    className="w-full py-5 bg-blue-600 text-white rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-blue-700 transition shadow-xl shadow-blue-600/20 flex items-center justify-center space-x-3 active:scale-95 disabled:opacity-50"
+                    className="w-full py-5 bg-blue-600 text-white rounded-2xl font-black text-[10px] tracking-[0.2em] hover:bg-blue-700 transition shadow-xl shadow-blue-600/20 flex items-center justify-center space-x-3 active:scale-95 disabled:opacity-50"
                  >
                     {loading && method === "OTP" ? <Loader2 className="animate-spin" size={20} /> : (
                        <>
@@ -117,7 +117,7 @@ export default function ForgotPasswordPage() {
                  <button 
                     onClick={() => handleAction("LINK")}
                     disabled={loading}
-                    className="w-full py-5 bg-gray-900 text-white rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-black transition shadow-xl flex items-center justify-center space-x-3 active:scale-95 disabled:opacity-50"
+                    className="w-full py-5 bg-gray-900 text-white rounded-2xl font-black text-[10px] tracking-[0.2em] hover:bg-black transition shadow-xl flex items-center justify-center space-x-3 active:scale-95 disabled:opacity-50"
                  >
                     {loading && method === "LINK" ? <Loader2 className="animate-spin" size={20} /> : (
                        <>
@@ -133,7 +133,7 @@ export default function ForgotPasswordPage() {
         {step === 2 && (
            <form onSubmit={handleVerifyOtp} className="space-y-6 animate-in fade-in slide-in-from-right-10 duration-500">
               <div>
-                 <label className="block text-xs font-black text-gray-700 uppercase tracking-widest mb-3 pl-1">Enter 6-Digit Code</label>
+                 <label className="block text-xs font-black text-gray-700 tracking-widest mb-3 pl-1">Enter 6-Digit Code</label>
                  <div className="relative">
                     <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                     <input 
@@ -150,7 +150,7 @@ export default function ForgotPasswordPage() {
               <button 
                  type="submit" 
                  disabled={loading}
-                 className="w-full py-5 bg-gray-900 text-white rounded-2xl font-black text-[11px] uppercase tracking-[0.3em] hover:bg-black transition shadow-xl flex items-center justify-center space-x-3 active:scale-95 disabled:opacity-50"
+                 className="w-full py-5 bg-gray-900 text-white rounded-2xl font-black text-[11px] tracking-[0.3em] hover:bg-black transition shadow-xl flex items-center justify-center space-x-3 active:scale-95 disabled:opacity-50"
               >
                  {loading ? <Loader2 className="animate-spin" size={20} /> : (
                     <>
@@ -172,7 +172,7 @@ export default function ForgotPasswordPage() {
         {step === 3 && (
            <form onSubmit={handleResetPassword} className="space-y-6 animate-in zoom-in-95 duration-500">
               <div>
-                 <label className="block text-xs font-black text-gray-700 uppercase tracking-widest mb-3 pl-1">New Secure Password</label>
+                 <label className="block text-xs font-black text-gray-700 tracking-widest mb-3 pl-1">New Secure Password</label>
                  <div className="relative">
                     <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                     <input 
@@ -188,7 +188,7 @@ export default function ForgotPasswordPage() {
               <button 
                  type="submit" 
                  disabled={loading}
-                 className="w-full py-5 bg-emerald-600 text-white rounded-2xl font-black text-[11px] uppercase tracking-[0.3em] hover:bg-emerald-700 transition shadow-xl shadow-emerald-600/20 flex items-center justify-center space-x-3 active:scale-95 disabled:opacity-50"
+                 className="w-full py-5 bg-emerald-600 text-white rounded-2xl font-black text-[11px] tracking-[0.3em] hover:bg-emerald-700 transition shadow-xl shadow-emerald-600/20 flex items-center justify-center space-x-3 active:scale-95 disabled:opacity-50"
               >
                  {loading ? <Loader2 className="animate-spin" size={20} /> : (
                     <>
@@ -203,3 +203,4 @@ export default function ForgotPasswordPage() {
     </div>
   );
 }
+

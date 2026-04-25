@@ -26,7 +26,7 @@ export default function SuperAdminRolesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-8">
         <div>
-           <h1 className="text-3xl font-bold tracking-tight text-slate-900">Privilege & Security</h1>
+           <h1 className="text-3xl font-bold text-slate-900">Privilege & Security</h1>
            <p className="text-sm text-slate-500 mt-1">System permission matrix, security tokens, and identity access management.</p>
         </div>
         <div className="flex items-center gap-3">
@@ -80,12 +80,12 @@ export default function SuperAdminRolesPage() {
             <Fingerprint size={32} />
          </div>
          <div className="max-w-2xl mx-auto space-y-3">
-            <h3 className="text-xl font-bold text-white tracking-tight uppercase">Encryption Standard: Level 4 Secure</h3>
-            <p className="text-sm font-medium text-slate-400 leading-relaxed uppercase tracking-wider italic">
+            <h3 className="app-h3 text-white">Encryption Standard: Level 4 Secure</h3>
+            <p className="text-sm font-medium text-slate-400 leading-loose tracking-wider">
                The Local Pankaj Command Center utilizes proprietary token-based security. All privilege modifications are logged by the <span className="text-white">Strategic Security Engine</span> and require multi-factor biometric authorization.
             </p>
          </div>
-         <button className="px-6 py-2 bg-white/5 border border-white/10 rounded-lg text-xs font-bold text-slate-300 hover:bg-white/10 transition-all uppercase tracking-[0.2em]">View Security Audit Logs</button>
+         <button className="px-6 py-2 bg-white/5 border border-white/10 rounded-lg text-xs font-bold text-slate-300 hover:bg-white/10 transition-all tracking-[0.2em]">View Security Audit Logs</button>
       </div>
     </div>
   );
@@ -105,23 +105,23 @@ function RoleDefinitionCard({ title, desc, perms, icon, color }: any) {
           <div className="flex items-center justify-between">
              <div className="flex items-center gap-3">
                 <div className={`p-2.5 rounded-lg border shadow-sm ${colors[color]}`}>{icon}</div>
-                <h3 className="text-lg font-bold text-slate-900 uppercase tracking-tight">{title}</h3>
+                <h3 className="app-h3 ">{title}</h3>
              </div>
              <button className="p-1.5 text-slate-300 hover:text-slate-900 transition-colors"><MoreVertical size={18}/></button>
           </div>
 
-          <p className="text-xs font-bold text-slate-400 uppercase tracking-[0.15em] leading-relaxed italic">{desc}</p>
+          <p className="text-xs font-bold text-slate-400 tracking-[0.15em] leading-loose">{desc}</p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 border-t border-slate-50">
              {perms.map((p: string, i: number) => (
-                <div key={i} className="flex items-center gap-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                <div key={i} className="flex items-center gap-2 text-[10px] font-bold text-slate-500 tracking-widest">
                    <CheckSquare size={12} className="text-blue-500" />
                    {p}
                 </div>
              ))}
           </div>
 
-          <button className="w-full mt-4 py-2.5 bg-slate-900 text-white rounded-lg text-[10px] font-bold uppercase tracking-[0.3em] flex items-center justify-center gap-2 shadow-lg shadow-slate-200 hover:bg-black transition-all active:scale-95">
+          <button className="w-full mt-4 py-2.5 bg-slate-900 text-white rounded-lg text-[10px] font-bold tracking-[0.3em] flex items-center justify-center gap-2 shadow-lg shadow-slate-200 hover:bg-black transition-all active:scale-95">
              <Key size={14} />
              Configure Permissions
           </button>
@@ -134,3 +134,4 @@ function RoleDefinitionCard({ title, desc, perms, icon, color }: any) {
     </div>
   );
 }
+

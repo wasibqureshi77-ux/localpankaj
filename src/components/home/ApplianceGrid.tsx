@@ -25,7 +25,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ iconName, label, href, isBest
       {isBestSeller && (
         <div className="absolute top-4 right-4 flex items-center gap-1 px-2 py-1 bg-orange-50 text-orange-600 rounded-full border border-orange-100 shadow-sm animate-pulse-subtle">
           <Star size={10} fill="currentColor" />
-          <span className="text-[10px] font-bold uppercase tracking-wider">Top Rated</span>
+          <span className="text-[10px] font-bold tracking-wider">Top Rated</span>
         </div>
       )}
 
@@ -36,11 +36,11 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ iconName, label, href, isBest
 
       {/* Content */}
       <div className="text-center">
-        <h3 className="text-sm sm:text-base font-bold text-gray-900 uppercase tracking-wide group-hover:text-blue-600 transition-colors duration-200">
+        <h3 className="app-h3 ">
           {label}
         </h3>
         {isBestSeller && (
-           <div className="mt-2 text-[10px] sm:text-[11px] font-medium text-orange-500 uppercase tracking-[0.2em] opacity-80">
+           <div className="mt-2 text-[10px] sm:text-[11px] font-medium text-orange-500 tracking-[0.2em] opacity-80">
              Best Seller
            </div>
         )}
@@ -61,12 +61,12 @@ const ApplianceGrid: React.FC<ApplianceGridProps> = ({ services }) => {
         <header className="max-w-3xl mx-auto text-center mb-12 sm:mb-20">
           <div className="inline-flex items-center gap-3 mb-6">
             <div className="h-px w-8 bg-orange-200" />
-            <span className="text-xs font-bold text-orange-500 uppercase tracking-[0.4em]">
+            <span className="text-xs font-bold text-orange-500 tracking-[0.4em]">
               Expert Solutions
             </span>
             <div className="h-px w-8 bg-orange-200" />
           </div>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-gray-900 uppercase tracking-tighter leading-[0.95] mb-4">
+          <h2 className="app-h2 md:text-6xl mb-4">
             Appliance <span className="text-blue-600">Repair</span>
           </h2>
           <p className="text-gray-500 text-sm sm:text-base font-medium max-w-lg mx-auto">
@@ -102,3 +102,4 @@ const ApplianceGrid: React.FC<ApplianceGridProps> = ({ services }) => {
 };
 
 export default ApplianceGrid;
+

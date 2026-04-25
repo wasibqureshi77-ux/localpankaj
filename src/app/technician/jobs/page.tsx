@@ -64,11 +64,11 @@ export default function TechnicianJobsPage() {
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-           <h1 className="text-xl font-bold text-gray-900 tracking-tight">Active Assignments</h1>
+           <h1 className="text-xl font-bold text-gray-900">Active Assignments</h1>
            <p className="text-xs text-gray-500 mt-1">Registry of all pending field operations and deployment requests.</p>
         </div>
         <div className="flex items-center gap-2">
-           <div className="px-3 py-1 bg-gray-100 border border-gray-200 rounded text-[10px] font-bold text-gray-600 uppercase">
+           <div className="px-3 py-1 bg-gray-100 border border-gray-200 rounded text-[10px] font-bold text-gray-600">
               Current Load: {jobs.length}
            </div>
         </div>
@@ -79,10 +79,10 @@ export default function TechnicianJobsPage() {
             <table className="w-full text-left border-collapse">
                <thead>
                   <tr className="bg-gray-50 border-b border-gray-200">
-                     <th className="px-6 py-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest w-[30%]">Deployment Identity</th>
-                     <th className="px-6 py-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest w-[20%]">Customer</th>
-                     <th className="px-6 py-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest w-[25%]">Target Schedule</th>
-                     <th className="px-6 py-3 text-right text-[10px] font-bold text-gray-400 uppercase tracking-widest">Controls</th>
+                     <th className="px-6 py-3 text-[10px] font-bold text-gray-400 tracking-widest w-[30%]">Deployment Identity</th>
+                     <th className="px-6 py-3 text-[10px] font-bold text-gray-400 tracking-widest w-[20%]">Customer</th>
+                     <th className="px-6 py-3 text-[10px] font-bold text-gray-400 tracking-widest w-[25%]">Target Schedule</th>
+                     <th className="px-6 py-3 text-right text-[10px] font-bold text-gray-400 tracking-widest">Controls</th>
                   </tr>
                </thead>
                <tbody className="divide-y divide-gray-100">
@@ -94,7 +94,7 @@ export default function TechnicianJobsPage() {
                                  <div className={`w-1.5 h-1.5 rounded-full ${job.status === 'IN_PROGRESS' ? 'bg-indigo-600 animate-pulse' : 'bg-gray-300'}`} />
                                  <div className="space-y-0.5">
                                     <p className="text-sm font-bold text-gray-900 leading-tight">{job.leadId?.service}</p>
-                                    <p className="text-[10px] font-medium text-gray-400 uppercase tracking-tighter line-clamp-1">{job.leadId?.address}</p>
+                                    <p className="text-[10px] font-medium text-gray-400 line-clamp-1">{job.leadId?.address}</p>
                                  </div>
                               </div>
                            </td>
@@ -104,8 +104,8 @@ export default function TechnicianJobsPage() {
                            </td>
                            <td className="px-6 py-4">
                               <div className="flex flex-col">
-                                 <span className="text-sm text-gray-700 font-semibold italic">{job.leadId?.bookingDate}</span>
-                                 <span className="text-[11px] text-indigo-600 font-bold uppercase">{job.leadId?.bookingTime}</span>
+                                 <span className="text-sm text-gray-700 font-semibold">{job.leadId?.bookingDate}</span>
+                                 <span className="text-[11px] text-indigo-600 font-bold">{job.leadId?.bookingTime}</span>
                               </div>
                            </td>
                            <td className="px-6 py-4 text-right">
@@ -155,3 +155,4 @@ export default function TechnicianJobsPage() {
     </div>
   );
 }
+

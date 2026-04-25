@@ -1,30 +1,20 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { 
-  User, 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Lock, 
-  Edit2, 
   Camera,
-  Loader2
+  Loader2,
+  ShieldCheck,
+  CheckCircle2
 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
-import Link from "next/link";
-import { toast } from "react-hot-toast";
+import { ProfileCard } from "@/components/dashboard/ProfileCard";
+import { PasswordChangeCard } from "@/components/dashboard/PasswordChangeCard";
 
 export default function ProfilePage() {
   const { data: session }: any = useSession();
   const [leads, setLeads] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [passwords, setPasswords] = useState({
-    old: "",
-    new: "",
-    confirm: ""
-  });
-  const [isUpdatingPassword, setIsUpdatingPassword] = useState(false);
 
   const fetchProfileData = async () => {
     if (!session?.user?.email && !session?.user?.phone) return;
@@ -38,163 +28,91 @@ export default function ProfilePage() {
     }
   };
 
-
-
   useEffect(() => {
     if (session) fetchProfileData();
   }, [session]);
 
   const initials = session?.user?.name
-    ? session.user.name.split(" ").map((n: string) => n[0]).join("").toUpperCase()
-    : "JD";
+    ? session.user.name.split(" ").map((n: string) => n[0]).join("").toUpperCase().slice(0, 2)
+    : "U";
 
-  const firstLeadAddress = leads.length > 0 ? leads[0].address : "N/A";
+  const firstLeadAddress = leads.length > 0 ? leads[0].address : "";
 
   if (loading && !session) {
     return (
-       <div className="min-h-[50vh] flex flex-col items-center justify-center space-y-6">
-          <Loader2 className="animate-spin text-blue-600" size={50} />
-          <p className="text-[10px] font-black text-blue-900 uppercase tracking-[0.5em] italic">Accessing Identity Vault...</p>
+       <div className="min-h-[50vh] flex flex-col items-center justify-center space-y-4">
+          <Loader2 className="animate-spin text-[#155dfc]" size={40} strokeWidth={1.5} />
+          <p className="text-sm font-bold text-gray-900 tracking-tight">Loading your profile...</p>
        </div>
     );
   }
 
   return (
-    <div className="max-w-6xl mx-auto animate-in fade-in slide-in-from-bottom-5 duration-700 pb-20">
-      <div className="mb-16">
-        <h1 className="text-6xl font-extrabold text-gray-900 mb-4 tracking-tighter italic shadow-sm bg-blue-600 inline-block px-4 py-1 text-white uppercase uppercase">Your <span className="text-gray-900">Profile.</span></h1>
-        <p className="text-gray-500 font-bold uppercase tracking-[0.4em] text-[10px] mt-4 italic">Secure Repository & Identity Calibration</p>
+    <div className="space-y-12 animate-in fade-in duration-500 pb-20">
+      {/* Header Section */}
+      <div>
+        <h1 className="text-3xl font-black text-gray-900 tracking-tight">Profile Settings</h1>
+        <p className="text-sm font-medium text-gray-500 mt-1">Manage your identity and security credentials.</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
-        {/* Left Column: Avatar & Basic Stats */}
-        <div className="lg:col-span-1 space-y-10">
-           <div className="bg-white p-12 rounded-[3.5rem] border border-gray-100 shadow-2xl shadow-blue-500/[0.03] relative group overflow-hidden">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        
+        {/* Left: Avatar and Identity Card */}
+        <div className="lg:col-span-4 space-y-8">
+           <div className="bg-white p-10 rounded-[32px] border border-gray-100 shadow-sm text-center relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-              <div className="relative w-44 h-44 mx-auto mb-10 p-2 bg-gradient-to-tr from-blue-600 to-blue-400 rounded-full shadow-2xl">
-                 <div className="w-full h-full bg-white rounded-full flex items-center justify-center text-5xl font-black text-blue-600 shadow-inner group-hover:scale-95 transition-transform duration-700 uppercase italic">
-                    {initials}
+              
+              <div className="relative w-40 h-40 mx-auto mb-8 group/avatar">
+                 <div className="w-full h-full bg-gradient-to-tr from-[#155dfc] to-blue-400 rounded-full p-1 shadow-xl">
+                    <div className="w-full h-full bg-white rounded-full flex items-center justify-center text-5xl font-black text-[#155dfc]">
+                       {initials}
+                    </div>
                  </div>
-                 <button className="absolute bottom-2 right-2 p-5 bg-gray-950 text-white rounded-[2rem] hover:bg-blue-600 transition-all shadow-2xl active:scale-90 border-4 border-white">
-                    <Camera size={24} />
+                 <button className="absolute bottom-1 right-1 p-3 bg-gray-950 text-white rounded-xl border-4 border-white shadow-lg hover:bg-[#155dfc] transition-all active:scale-90">
+                    <Camera size={18} />
                  </button>
               </div>
-              <div className="text-center relative z-10">
-                 <h2 className="text-3xl font-black text-gray-900 mb-2 uppercase italic tracking-tighter">{session?.user?.name || "Member Identity"}</h2>
-                 <p className="text-[9px] font-black text-blue-600 uppercase tracking-[0.3em] mb-10 bg-blue-50 inline-block px-3 py-1 rounded-full border border-blue-100 italic">VERIFIED MEMBER ALPHA-1</p>
+
+              <h2 className="text-xl font-bold text-gray-900 leading-tight mb-1">{session?.user?.name || "Member"}</h2>
+              <div className="flex items-center justify-center gap-1.5 text-emerald-600 font-bold text-[10px] tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100 w-max mx-auto uppercase">
+                 <ShieldCheck size={12} />
+                 <span>Verified Account</span>
               </div>
               
-
+              <div className="mt-10 pt-8 border-t border-gray-50 grid grid-cols-2 gap-4 text-center">
+                 <div>
+                    <p className="text-xl font-black text-gray-900 leading-none mb-1">{leads.length}</p>
+                    <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Total Bookings</p>
+                 </div>
+                 <div>
+                    <p className="text-xl font-black text-gray-900 leading-none mb-1">
+                       {leads.filter(l => l.status === "COMPLETED").length}
+                    </p>
+                    <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Successful</p>
+                 </div>
+              </div>
            </div>
 
-           <div className="bg-white p-12 rounded-[3.5rem] border border-gray-100 shadow-2xl shadow-blue-500/[0.03] relative group overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-              
-              <div className="flex items-center space-x-5 mb-10 border-b border-gray-50 pb-8 italic uppercase">
-                 <div className="p-3 bg-blue-600 text-white rounded-2xl shadow-xl shadow-blue-600/20"><Lock size={24}/></div>
-                 <h3 className="text-2xl font-black text-gray-900 tracking-tighter">Change Password</h3>
-              </div>
-
-              <div className="space-y-6">
-                 <PasswordField 
-                    label="Old Password" 
-                    value={passwords.old} 
-                    onChange={(e: any) => setPasswords({...passwords, old: e.target.value})} 
-                 />
-                 <PasswordField 
-                    label="New Password" 
-                    value={passwords.new} 
-                    onChange={(e: any) => setPasswords({...passwords, new: e.target.value})} 
-                 />
-                 <PasswordField 
-                    label="Confirm New Password" 
-                    value={passwords.confirm} 
-                    onChange={(e: any) => setPasswords({...passwords, confirm: e.target.value})} 
-                 />
-                 
-                 <button 
-                    disabled={isUpdatingPassword}
-                    onClick={async () => {
-                       if (passwords.new !== passwords.confirm) return toast.error("Code Mismatch Detected");
-                       if (passwords.new.length < 6) return toast.error("Code Length Insufficient");
-                       
-                       setIsUpdatingPassword(true);
-                       try {
-                          await axios.post("/api/auth/change-password", { 
-                             oldPassword: passwords.old, 
-                             newPassword: passwords.new 
-                          });
-                          toast.success("Identity Credentials Synchronized");
-                          setPasswords({ old: "", new: "", confirm: "" });
-                       } catch (err: any) {
-                          toast.error(err.response?.data?.message || "Sync Failure");
-                       } finally {
-                          setIsUpdatingPassword(false);
-                       }
-                    }}
-                    className="w-full py-6 bg-blue-600 text-white rounded-[2rem] font-black text-[10px] uppercase tracking-[0.4em] italic shadow-xl shadow-blue-600/20 hover:bg-black transition-all active:scale-95 disabled:opacity-50 mt-4"
-                 >
-                    {isUpdatingPassword ? "Synchronizing..." : "Update Password"}
-                 </button>
-              </div>
+           {/* Quick Tips or Meta */}
+           <div className="bg-blue-600 text-white p-8 rounded-[32px] shadow-xl shadow-blue-600/10 relative overflow-hidden">
+              <CheckCircle2 size={60} className="absolute -bottom-4 -right-4 text-white/10 rotate-12" />
+              <p className="text-xs font-bold uppercase tracking-widest text-blue-100 mb-2">Service Grid</p>
+              <h4 className="text-lg font-bold mb-4 tracking-tight">Your data is secured with AES-256 encryption.</h4>
+              <p className="text-sm font-medium text-blue-50/80 leading-relaxed">
+                 We take your privacy seriously. Your details are only shared with assigned technicians during active service.
+              </p>
            </div>
         </div>
 
-        {/* Right Column: Information Forms */}
-        <div className="lg:col-span-2 space-y-12">
-           <div className="bg-white p-16 rounded-[4.5rem] border border-gray-50 shadow-2xl shadow-blue-950/[0.02] relative overflow-hidden group">
-              <div className="absolute top-0 right-0 p-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                 <Edit2 size={28} className="text-gray-100" />
-              </div>
-              
-              <h3 className="text-3xl font-black text-gray-900 mb-16 tracking-tighter border-b border-gray-50 pb-10 flex items-center space-x-5 italic uppercase">
-                 <span className="p-3 bg-blue-600 text-white rounded-2xl shadow-xl shadow-blue-600/20"><User size={24}/></span>
-                 <span>User Profile</span>
-              </h3>
-
-               <div className="space-y-6">
-                  <ProfileListItem label="Full Name" value={session?.user?.name || "N/A"} icon={<User size={20}/>} />
-                  <ProfileListItem label="Email Address" value={session?.user?.email || "N/A"} icon={<Mail size={20}/>} />
-                  <ProfileListItem label="Phone Number" value={session?.user?.phone || "N/A"} icon={<Phone size={20}/>} />
-                  <ProfileListItem label="Address & Pincode" value={firstLeadAddress} icon={<MapPin size={20}/>} />
-               </div>
-
-
-           </div>
+        {/* Right: Detailed Info and Security */}
+        <div className="lg:col-span-8 space-y-8">
+           <ProfileCard user={session?.user} address={firstLeadAddress} />
+           <PasswordChangeCard />
         </div>
+
       </div>
     </div>
   );
 }
 
-function ProfileListItem({ label, value, icon }: any) {
-   return (
-      <div className="flex flex-col md:flex-row md:items-center justify-between p-8 bg-white rounded-[2.5rem] border border-gray-100 hover:border-blue-100 hover:shadow-2xl hover:shadow-blue-900/[0.04] transition-all duration-500 group/item relative overflow-hidden">
-         <div className="absolute top-0 left-0 w-1.5 h-full bg-blue-600 opacity-0 group-hover/listitem:opacity-100 transition-opacity" />
-         <div className="flex items-center space-x-6 mb-4 md:mb-0">
-            <div className="p-4 bg-gray-50 text-gray-400 group-hover/item:text-blue-600 group-hover/item:bg-blue-50 transition-all duration-500 rounded-2xl shadow-inner flex shrink-0">
-               {icon}
-            </div>
-            <div>
-               <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] italic mb-1">{label}</p>
-               <h4 className="text-xl font-bold text-gray-900 tracking-tight italic uppercase break-all">{value}</h4>
-            </div>
-         </div>
-      </div>
-   );
-}
 
-function PasswordField({ label, value, onChange }: any) {
-   return (
-      <div className="space-y-4">
-         <label className="text-[9px] font-black text-gray-400 uppercase tracking-[0.3em] italic ml-4">{label}</label>
-         <input 
-            type="password" 
-            value={value}
-            onChange={onChange}
-            className="w-full bg-gray-50/50 p-6 rounded-3xl border border-gray-100 focus:border-blue-600 focus:bg-white transition-all outline-none text-sm font-bold tracking-widest"
-            placeholder="••••••••"
-         />
-      </div>
-   );
-}

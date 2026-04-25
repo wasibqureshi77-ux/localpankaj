@@ -78,23 +78,23 @@ export default function EditorDashboard() {
     <div className="max-w-6xl mx-auto space-y-20 animate-in slide-in-from-bottom-10 duration-1000">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20 animate-in fade-in duration-1000">
          <div>
-            <div className="flex items-center space-x-3 text-indigo-500 font-black text-[10px] uppercase tracking-[0.5em] mb-4">
+            <div className="flex items-center space-x-3 text-indigo-500 font-black text-[10px] tracking-[0.5em] mb-4">
                <Settings size={14} className="fill-current" />
                <span>Global Infrastructure</span>
             </div>
-            <h1 className="text-6xl font-black text-indigo-950 tracking-tighter leading-tight italic">
+            <h1 className="app-h1 ">
                Studio <span className="text-indigo-600">Core.</span>
             </h1>
          </div>
          <div className="flex items-center space-x-6">
-            <button className="px-10 py-6 bg-white border border-indigo-100 text-indigo-900 rounded-3xl font-black text-[10px] uppercase tracking-[0.3em] transition shadow-xl shadow-indigo-500/5 hover:bg-indigo-50 active:scale-95 flex items-center space-x-3">
+            <button className="px-10 py-6 bg-white border border-indigo-100 text-indigo-900 rounded-3xl font-black text-[10px] tracking-[0.3em] transition shadow-xl shadow-indigo-500/5 hover:bg-indigo-50 active:scale-95 flex items-center space-x-3">
                <RefreshCcw size={16} />
                <span>Discard Draft</span>
             </button>
             <button 
               onClick={handleSave}
               disabled={loading}
-              className="px-12 py-6 bg-indigo-600 text-white rounded-3xl font-black text-[10px] uppercase tracking-[0.3em] transition shadow-2xl shadow-indigo-600/30 transform hover:-translate-y-1 active:scale-95 flex items-center space-x-3"
+              className="px-12 py-6 bg-indigo-600 text-white rounded-3xl font-black text-[10px] tracking-[0.3em] transition shadow-2xl shadow-indigo-600/30 transform hover:-translate-y-1 active:scale-95 flex items-center space-x-3"
             >
                {loading ? <Loader2 className="animate-spin" size={16} /> : <Save size={16} />}
                <span>Commit Infrastructure</span>
@@ -107,7 +107,7 @@ export default function EditorDashboard() {
          <EditorCategory icon={<Palette size={20}/>} title="Brand & Identity" desc="Update your logos, colors and typography.">
             <div className="space-y-10 mt-10">
                <div>
-                  <label className="block text-[10px] font-black text-indigo-900/40 uppercase tracking-widest mb-4">Site Logo (Horizontal)</label>
+                  <label className="block text-[10px] font-black text-indigo-900/40 tracking-widest mb-4">Site Logo (Horizontal)</label>
                   <div className="flex justify-end mb-4 space-x-2">
                      <button 
                         onClick={() => setIsPreviewMobile(false)}
@@ -131,14 +131,14 @@ export default function EditorDashboard() {
                             style={{ height: `${isPreviewMobile ? config.logoSizeMobile : config.logoSizeDesktop}px` }}
                             className="max-w-full object-contain" 
                            />
-                           <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-bold text-xs uppercase tracking-widest">
+                           <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-bold text-xs tracking-widest">
                                Click to Replace
                            </div>
                         </div>
                      ) : (
                         <>
                            <Upload size={32} className={`mb-4 transition-colors ${uploading ? 'animate-bounce text-indigo-600' : 'text-indigo-200 group-hover:text-indigo-600'}`} />
-                           <p className="text-[10px] font-black text-indigo-400 uppercase tracking-widest">{uploading ? 'Uploading...' : 'CHOOSE SVG OR PNG'}</p>
+                           <p className="text-[10px] font-black text-indigo-400 tracking-widest">{uploading ? 'Uploading...' : 'CHOOSE SVG OR PNG'}</p>
                         </>
                      )}
                      <input type="file" className="hidden" accept="image/*" onChange={handleUpload} disabled={uploading} />
@@ -147,7 +147,7 @@ export default function EditorDashboard() {
                
                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div>
-                     <label className="block text-[10px] font-black text-indigo-900/40 uppercase tracking-widest mb-4">Desktop Size ({config.logoSizeDesktop}px)</label>
+                     <label className="block text-[10px] font-black text-indigo-900/40 tracking-widest mb-4">Desktop Size ({config.logoSizeDesktop}px)</label>
                      <input 
                         type="range" 
                         min="50" 
@@ -158,7 +158,7 @@ export default function EditorDashboard() {
                      />
                   </div>
                   <div>
-                     <label className="block text-[10px] font-black text-indigo-900/40 uppercase tracking-widest mb-4">Mobile Size ({config.logoSizeMobile}px)</label>
+                     <label className="block text-[10px] font-black text-indigo-900/40 tracking-widest mb-4">Mobile Size ({config.logoSizeMobile}px)</label>
                      <input 
                         type="range" 
                         min="30" 
@@ -176,19 +176,19 @@ export default function EditorDashboard() {
          <EditorCategory icon={<Type size={20}/>} title="System Aesthetics" desc="Define the core color palette and highlight strategies.">
              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
                   <div>
-                     <label className="block text-[10px] font-black text-indigo-900/40 uppercase tracking-widest mb-4">Primary Theme</label>
+                     <label className="block text-[10px] font-black text-indigo-900/40 tracking-widest mb-4">Primary Theme</label>
                      <div className="flex items-center space-x-4">
                         <div className="w-14 h-14 rounded-2xl shadow-xl shadow-indigo-600/30 transition-colors" style={{ backgroundColor: config.themeColor }} />
                         <input 
                            type="text" 
                            value={config.themeColor} 
                            onChange={(e) => setConfig({ ...config, themeColor: e.target.value })}
-                           className="bg-indigo-50 border border-indigo-100 px-4 py-3 rounded-xl text-xs font-bold text-indigo-900 outline-none w-full uppercase" 
+                           className="bg-indigo-50 border border-indigo-100 px-4 py-3 rounded-xl text-xs font-bold text-indigo-900 outline-none w-full" 
                         />
                      </div>
                   </div>
                   <div>
-                     <label className="block text-[10px] font-black text-indigo-900/40 uppercase tracking-widest mb-4">Global Accent</label>
+                     <label className="block text-[10px] font-black text-indigo-900/40 tracking-widest mb-4">Global Accent</label>
                      <div className="flex items-center space-x-4">
                         <div className="w-14 h-14 bg-blue-500 rounded-2xl shadow-xl shadow-blue-500/30" />
                         <input type="text" value="#3B82F6" disabled className="bg-indigo-50 border border-indigo-100 px-4 py-3 rounded-xl text-xs font-bold text-indigo-900 outline-none w-full opacity-50" />
@@ -201,7 +201,7 @@ export default function EditorDashboard() {
          <EditorCategory icon={<Smartphone size={20}/>} title="System Reach" desc="Update phones, support emails and hours.">
             <div className="space-y-10 mt-10">
                <div>
-                  <label className="block text-[10px] font-black text-indigo-900/40 uppercase tracking-widest mb-4">Primary Hotline</label>
+                  <label className="block text-[10px] font-black text-indigo-900/40 tracking-widest mb-4">Primary Hotline</label>
                   <input 
                      type="text" 
                      value={config.phone} 
@@ -210,7 +210,7 @@ export default function EditorDashboard() {
                   />
                </div>
                <div>
-                  <label className="block text-[10px] font-black text-indigo-900/40 uppercase tracking-widest mb-4">Support Email</label>
+                  <label className="block text-[10px] font-black text-indigo-900/40 tracking-widest mb-4">Support Email</label>
                    <input 
                      type="text" 
                      value={config.email} 
@@ -219,7 +219,7 @@ export default function EditorDashboard() {
                   />
                </div>
                <div>
-                  <label className="block text-[10px] font-black text-indigo-900/40 uppercase tracking-widest mb-4">Operating Window</label>
+                  <label className="block text-[10px] font-black text-indigo-900/40 tracking-widest mb-4">Operating Window</label>
                    <input 
                      type="text" 
                      value={config.workingHours} 
@@ -234,15 +234,15 @@ export default function EditorDashboard() {
          <div className="lg:col-span-1 py-12 px-15 bg-indigo-600 rounded-[3rem] text-white flex flex-col items-center justify-between gap-10 shadow-2xl shadow-indigo-600/20 group cursor-pointer relative overflow-hidden text-center">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-125 transition-transform duration-700" />
             <div className="space-y-4">
-               <h4 className="text-3xl font-black italic tracking-tighter flex items-center justify-center space-x-4">
+               <h4 className="text-3xl font-black  flex items-center justify-center space-x-4">
                   <span className="p-3 bg-white text-indigo-600 rounded-2xl"><Info size={24}/></span>
                   <span>Core Hub Active</span>
                </h4>
-               <p className="text-indigo-100 font-bold max-w-md text-[13px] leading-relaxed uppercase tracking-widest opacity-80">
+               <p className="text-indigo-100 font-bold max-w-md text-[13px] leading-loose tracking-widest opacity-80">
                   You are currently in the Core Infrastructure portal. Use the sidebar to access wording, media or SEO settings.
                </p>
             </div>
-            <button className="px-10 py-6 bg-white text-indigo-600 rounded-2xl font-black text-[10px] uppercase tracking-[0.4em] flex items-center space-x-3 transition-all duration-500 shadow-xl group-hover:scale-105">
+            <button className="px-10 py-6 bg-white text-indigo-600 rounded-2xl font-black text-[10px] tracking-[0.4em] flex items-center space-x-3 transition-all duration-500 shadow-xl group-hover:scale-105">
                <span>Studio Overview</span>
                <ArrowRight size={20} />
             </button>
@@ -251,3 +251,4 @@ export default function EditorDashboard() {
     </div>
   );
 }
+

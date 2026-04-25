@@ -38,7 +38,7 @@ const HomeRepairCard: React.FC<HomeRepairCardProps> = ({ iconName, label, href, 
 
       {/* Content */}
       <div className="text-center group-hover:text-white transition-colors">
-        <h4 className="text-lg sm:text-xl font-bold text-white uppercase tracking-wider mb-2">
+        <h4 className="text-lg sm:text-xl font-bold text-white tracking-wider mb-2">
           {label}
         </h4>
         <div className="h-1 w-12 bg-white/20 mx-auto rounded-full group-hover:w-20 transition-all duration-300 group-hover:bg-blue-400" />
@@ -59,7 +59,7 @@ const HomeRepairGrid: React.FC<HomeRepairGridProps> = ({ services }) => {
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16 px-4">
-          <h2 className="text-4xl sm:text-5xl font-black text-white uppercase tracking-tighter italic mb-4">
+          <h2 className="app-h2 text-white mb-4">
             Reliable <span className="text-blue-200">Home Repairs</span>
           </h2>
           <div className="h-1.5 w-24 bg-white mx-auto rounded-full shadow-lg" />
@@ -77,7 +77,7 @@ const HomeRepairGrid: React.FC<HomeRepairGridProps> = ({ services }) => {
           ))}
           
           {services.length === 0 && (
-            <div className="w-full py-16 text-center text-white/50 animate-pulse uppercase tracking-[0.5em] font-black text-sm italic">
+            <div className="w-full py-16 text-center text-white/50 animate-pulse tracking-[0.5em] font-black text-sm">
                Configuring Home Registry...
             </div>
           )}
@@ -88,3 +88,4 @@ const HomeRepairGrid: React.FC<HomeRepairGridProps> = ({ services }) => {
 };
 
 export default HomeRepairGrid;
+

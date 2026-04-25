@@ -51,8 +51,8 @@ export default function BlogPage() {
       {/* Hero Section */}
       <section className="bg-neutral-900 pt-32 pb-24 px-4 shadow-xl">
          <div className="container mx-auto">
-            <h1 className="text-6xl font-black text-white italic uppercase tracking-tighter mb-6 animate-in fade-in slide-in-from-bottom-6 duration-700">Journal & Blog.</h1>
-            <p className="text-gray-400 font-bold uppercase tracking-[0.4em] text-xs">Professional Insights from the Service Bureau</p>
+            <h1 className="app-h1 mb-6 animate-in fade-in slide-in-from-bottom-6 duration-700">Journal & Blog.</h1>
+            <p className="text-gray-400 font-bold tracking-[0.4em] text-xs">Professional Insights from the Service Bureau</p>
          </div>
       </section>
 
@@ -76,14 +76,14 @@ export default function BlogPage() {
                            </div>
                            <div className="space-y-6">
                               <div className="flex items-center space-x-4">
-                                 <span className="bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest px-4 py-1 rounded-full">{post.category}</span>
-                                 <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest italic">{post.date}</span>
+                                 <span className="bg-blue-50 text-blue-600 text-[10px] font-black tracking-widest px-4 py-1 rounded-full">{post.category}</span>
+                                 <span className="text-[10px] font-black text-gray-400 tracking-widest">{post.date}</span>
                               </div>
-                              <h2 className="text-3xl font-black text-gray-950 uppercase italic tracking-tighter leading-none group-hover:text-blue-600 transition-colors">{post.title}</h2>
-                              <p className="text-gray-500 font-medium leading-relaxed leading-7 text-sm">
+                              <h2 className="app-h2 ">{post.title}</h2>
+                              <p className="text-gray-500 font-medium leading-loose leading-7 text-sm">
                                  {post.excerpt}
                               </p>
-                              <Link href={`/blog/${post.id}`} className="inline-flex items-center space-x-3 px-8 py-4 bg-gray-50 text-gray-950 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all shadow-sm active:scale-95">
+                              <Link href={`/blog/${post.id}`} className="inline-flex items-center space-x-3 px-8 py-4 bg-gray-50 text-gray-950 rounded-2xl font-black text-[10px] tracking-widest hover:bg-blue-600 hover:text-white transition-all shadow-sm active:scale-95">
                                  <span>Read Article</span>
                                  <ArrowRight size={16} />
                               </Link>
@@ -106,19 +106,19 @@ export default function BlogPage() {
                {/* Sidebar Widgets */}
                <div className="lg:col-span-4 space-y-12 sticky top-32">
                   <div className="bg-white p-10 rounded-[3rem] shadow-sm border border-gray-100 space-y-10">
-                     <h3 className="text-2xl font-black italic tracking-tighter uppercase border-b border-gray-100 pb-4">Dispatch Bureau.</h3>
+                     <h3 className="app-h3 pb-4">Dispatch Bureau.</h3>
                      <div className="space-y-4">
-                        <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest leading-relaxed mb-6">Receive strategic home maintenance alerts on your terminal.</p>
-                        <input className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 text-[10px] font-black uppercase tracking-widest outline-none focus:border-blue-600 transition-all" placeholder="USER EMAIL@DOMAIN.COM" />
-                        <button className="w-full py-4 bg-blue-600 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-xl shadow-blue-500/10 active:scale-95 transition-all">Subscribe</button>
+                        <p className="text-[10px] font-black text-gray-400 tracking-widest leading-loose mb-6">Receive strategic home maintenance alerts on your terminal.</p>
+                        <input className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 text-[10px] font-black tracking-widest outline-none focus:border-blue-600 transition-all" placeholder="USER EMAIL@DOMAIN.COM" />
+                        <button className="w-full py-4 bg-blue-600 text-white rounded-2xl font-black text-[10px] tracking-widest shadow-xl shadow-blue-500/10 active:scale-95 transition-all">Subscribe</button>
                      </div>
                   </div>
 
                   <div className="bg-neutral-900 p-10 rounded-[3rem] shadow-2xl text-white relative overflow-hidden">
                      <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/20 blur-3xl rounded-full -mr-16 -mt-16" />
-                     <h3 className="text-2xl font-black italic tracking-tighter uppercase mb-6 relative z-10">Need Support?</h3>
-                     <p className="text-gray-400 text-xs font-bold leading-relaxed mb-8 relative z-10">Connect with our Jaipur operations desk for immediate assistance.</p>
-                     <a href="tel:+919876543210" className="block text-center py-4 bg-white text-gray-950 rounded-2xl font-black text-[10px] uppercase tracking-widest relative z-10 hover:shadow-xl transition-all">Dispatch Call</a>
+                     <h3 className="app-h3 mb-6">Need Support?</h3>
+                     <p className="text-gray-400 text-xs font-bold leading-loose mb-8 relative z-10">Connect with our Jaipur operations desk for immediate assistance.</p>
+                     <a href="tel:+919876543210" className="block text-center py-4 bg-white text-gray-950 rounded-2xl font-black text-[10px] tracking-widest relative z-10 hover:shadow-xl transition-all">Dispatch Call</a>
                   </div>
                </div>
 
@@ -130,3 +130,4 @@ export default function BlogPage() {
     </main>
   );
 }
+

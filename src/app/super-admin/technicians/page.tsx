@@ -147,12 +147,12 @@ export default function SuperAdminTechniciansPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-8">
         <div>
-           <h1 className="text-3xl font-bold tracking-tight text-slate-900">Technicians</h1>
+           <h1 className="text-3xl font-bold text-slate-900">Technicians</h1>
            <p className="text-sm font-semibold text-slate-400 mt-1">Manage your team of service professionals and their expertise.</p>
         </div>
         <button 
           onClick={() => setIsAdding(true)}
-          className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-blue-700 shadow-md shadow-blue-100 transition-all active:scale-95"
+          className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-xl text-xs font-bold tracking-widest hover:bg-blue-700 shadow-md shadow-blue-100 transition-all active:scale-95"
         >
           <UserPlus size={16} />
           Add Technician
@@ -183,7 +183,7 @@ export default function SuperAdminTechniciansPage() {
                        {tech.name[0]}
                     </div>
                     <div>
-                       <h3 className="text-base font-bold text-slate-900">{tech.name}</h3>
+                       <h3 className="app-h3 ">{tech.name}</h3>
                        <div className="flex items-center gap-2 mt-1">
                           <StatusIndicator status={tech.status} onClick={() => toggleStatus(tech)} />
                        </div>
@@ -208,7 +208,7 @@ export default function SuperAdminTechniciansPage() {
               <div className="space-y-5">
                  <div className="flex flex-wrap gap-2">
                     {tech.specialties?.map((s: string) => (
-                       <span key={s} className="px-2.5 py-1 bg-slate-50 text-[10px] font-bold text-slate-500 rounded-lg border border-slate-100 uppercase tracking-wider">{s}</span>
+                       <span key={s} className="px-2.5 py-1 bg-slate-50 text-[10px] font-bold text-slate-500 rounded-lg border border-slate-100 tracking-wider">{s}</span>
                     ))}
                  </div>
                  
@@ -234,7 +234,7 @@ export default function SuperAdminTechniciansPage() {
             <div className="relative bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
                <div className="px-8 py-6 border-b border-slate-100 flex items-center justify-between">
                   <div>
-                    <h3 className="text-xl font-bold text-slate-900">{editingId ? "Edit Technician" : "Add Technician"}</h3>
+                    <h3 className="app-h3 ">{editingId ? "Edit Technician" : "Add Technician"}</h3>
                     <p className="text-xs font-semibold text-slate-400 mt-1">Configure professional profile and access</p>
                   </div>
                   <button onClick={() => { setIsAdding(false); setEditingId(null); }} className="p-2 hover:bg-slate-50 rounded-lg text-slate-400 hover:text-slate-900 transition-all"><X size={20}/></button>
@@ -242,7 +242,7 @@ export default function SuperAdminTechniciansPage() {
                <form onSubmit={handleSubmit} className="p-8 space-y-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                      <div className="space-y-2">
-                        <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-1">Full Name</label>
+                        <label className="text-[10px] font-bold text-slate-400 tracking-widest pl-1">Full Name</label>
                         <input 
                           required type="text" value={formData.name}
                           onChange={(e) => setFormData({...formData, name: e.target.value})}
@@ -250,7 +250,7 @@ export default function SuperAdminTechniciansPage() {
                         />
                      </div>
                      <div className="space-y-2">
-                        <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-1">Phone Number</label>
+                        <label className="text-[10px] font-bold text-slate-400 tracking-widest pl-1">Phone Number</label>
                         <input 
                           required type="text" value={formData.phone}
                           onChange={(e) => setFormData({...formData, phone: e.target.value})}
@@ -260,7 +260,7 @@ export default function SuperAdminTechniciansPage() {
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                      <div className="space-y-2">
-                        <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-1">Email Address</label>
+                        <label className="text-[10px] font-bold text-slate-400 tracking-widest pl-1">Email Address</label>
                         <input 
                            required type="email" value={formData.email}
                            onChange={(e) => setFormData({...formData, email: e.target.value})}
@@ -268,7 +268,7 @@ export default function SuperAdminTechniciansPage() {
                         />
                      </div>
                      <div className="space-y-2">
-                        <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-1">Login Password</label>
+                        <label className="text-[10px] font-bold text-slate-400 tracking-widest pl-1">Login Password</label>
                         <input 
                            required={!editingId} type="password" value={formData.password}
                            onChange={(e) => setFormData({...formData, password: e.target.value})}
@@ -279,7 +279,7 @@ export default function SuperAdminTechniciansPage() {
                   </div>
 
                   <div className="space-y-3">
-                     <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-1 flex items-center gap-2">
+                     <label className="text-[10px] font-bold text-slate-400 tracking-widest pl-1 flex items-center gap-2">
                         <Briefcase size={12} className="text-blue-500" />
                         Select Specialties
                      </label>
@@ -288,7 +288,7 @@ export default function SuperAdminTechniciansPage() {
                            <button
                               key={spec} type="button"
                               onClick={() => toggleSpecialty(spec)}
-                              className={`px-4 py-2 rounded-xl border text-[11px] font-bold uppercase transition-all ${
+                              className={`px-4 py-2 rounded-xl border text-[11px] font-bold transition-all ${
                                  formData.specialties.includes(spec)
                                     ? "bg-blue-600 border-blue-600 text-white shadow-md shadow-blue-100"
                                     : "bg-white border-slate-200 text-slate-600 hover:border-blue-300"
@@ -301,8 +301,8 @@ export default function SuperAdminTechniciansPage() {
                   </div>
 
                   <div className="pt-6 flex gap-4">
-                     <button type="button" onClick={() => { setIsAdding(false); setEditingId(null); }} className="flex-1 py-3 text-xs font-bold uppercase tracking-widest text-slate-400 border border-slate-200 rounded-xl hover:bg-slate-50 transition-all">Cancel</button>
-                     <button type="submit" className="flex-1 py-3 text-xs font-bold uppercase tracking-widest text-white bg-blue-600 rounded-xl hover:bg-blue-700 shadow-lg shadow-blue-100 transition-all active:scale-95">{editingId ? "Update Profile" : "Create Technician"}</button>
+                     <button type="button" onClick={() => { setIsAdding(false); setEditingId(null); }} className="flex-1 py-3 text-xs font-bold tracking-widest text-slate-400 border border-slate-200 rounded-xl hover:bg-slate-50 transition-all">Cancel</button>
+                     <button type="submit" className="flex-1 py-3 text-xs font-bold tracking-widest text-white bg-blue-600 rounded-xl hover:bg-blue-700 shadow-lg shadow-blue-100 transition-all active:scale-95">{editingId ? "Update Profile" : "Create Technician"}</button>
                   </div>
                </form>
             </div>
@@ -321,7 +321,7 @@ function StatusIndicator({ status, onClick }: any) {
   return (
      <button 
         onClick={onClick}
-        className={`px-3 py-1 rounded-full border text-[10px] font-bold uppercase tracking-widest flex items-center gap-1.5 transition-all hover:shadow-sm ${styles[status]}`}
+        className={`px-3 py-1 rounded-full border text-[10px] font-bold tracking-widest flex items-center gap-1.5 transition-all hover:shadow-sm ${styles[status]}`}
      >
         <div className={`h-1.5 w-1.5 rounded-full ${
            status === "ACTIVE" ? "bg-emerald-500 border-emerald-600" : status === "BUSY" ? "bg-amber-500 border-amber-600" : "bg-slate-400 border-slate-500"
@@ -330,3 +330,4 @@ function StatusIndicator({ status, onClick }: any) {
      </button>
   );
 }
+

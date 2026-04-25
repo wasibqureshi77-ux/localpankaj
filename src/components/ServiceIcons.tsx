@@ -148,3 +148,4 @@ export const ElectricianIcon = ({ size = 24, className, strokeWidth = 1.5 }: Ico
 export const CarpenterIcon = ({ size = 24, className, strokeWidth = 1.5 }: IconProps) => (
   <Hammer size={size} className={className || "text-blue-700"} strokeWidth={strokeWidth} />
 );
+

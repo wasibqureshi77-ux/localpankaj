@@ -24,7 +24,7 @@ function LoadingSpinner() {
 const loginStyles = {
   container: "w-full max-w-md bg-white p-12 rounded-[2.5rem] shadow-2xl shadow-blue-100 border border-gray-100",
   header: "mb-10 text-center",
-  title: "text-3xl font-extrabold text-gray-900 mb-2 tracking-tight",
+  title: "text-3xl font-extrabold text-gray-900 mb-2",
   subtitle: "text-gray-500 font-medium",
   form: "space-y-6",
   label: "block text-sm font-bold text-gray-700 mb-1 leading-8",
@@ -173,3 +173,4 @@ const LoginForm = (props: LoginFormProps) => {
 }
 
 export default LoginForm;
+

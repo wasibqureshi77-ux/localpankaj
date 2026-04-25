@@ -146,13 +146,13 @@ export default function LeadDetailsModal({ lead, onClose, onRefresh }: LeadDetai
                         </div>
                         <div>
                           <p className="text-sm font-bold text-slate-900">{tech.name}</p>
-                          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{tech.specialties?.join(" • ")}</p>
+                          <p className="text-[10px] font-bold text-slate-400 tracking-wider">{tech.specialties?.join(" • ")}</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-4">
                         <div className="text-right">
                            <p className="text-xs font-bold text-slate-900">{tech.phone}</p>
-                           <p className={`text-[10px] font-bold uppercase tracking-wider ${tech.status === 'Available' ? 'text-emerald-500' : 'text-slate-400'}`}>{tech.status}</p>
+                           <p className={`text-[10px] font-bold tracking-wider ${tech.status === 'Available' ? 'text-emerald-500' : 'text-slate-400'}`}>{tech.status}</p>
                         </div>
                         {assigning ? (
                            <Loader2 size={16} className="animate-spin text-blue-600" />
@@ -169,11 +169,11 @@ export default function LeadDetailsModal({ lead, onClose, onRefresh }: LeadDetai
               {/* Customer Metadata */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pb-8 border-b border-slate-50">
                 <div>
-                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-2">Customer Profile</div>
+                  <div className="text-[10px] font-bold text-slate-400 tracking-[0.2em] mb-2">Customer Profile</div>
                   <div className="flex items-center gap-2">
                     <div className="text-lg font-bold text-slate-900">{lead.name}</div>
                     {lead.verified && (
-                      <span className="flex items-center gap-1 px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded-full text-[9px] font-bold uppercase tracking-tighter border border-emerald-100">
+                      <span className="flex items-center gap-1 px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded-full text-[9px] font-bold border border-emerald-100">
                         <ShieldCheck size={10} />
                         <span>Verified</span>
                       </span>
@@ -183,11 +183,11 @@ export default function LeadDetailsModal({ lead, onClose, onRefresh }: LeadDetai
                   <div className="text-sm font-bold text-blue-600">{lead.phone}</div>
                 </div>
                 <div className="sm:text-right">
-                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-2">Current Status</div>
-                  <span className={`px-4 py-1.5 border rounded-full text-[10px] font-bold tracking-widest uppercase inline-block ${statusStyles[lead.status]}`}>
+                  <div className="text-[10px] font-bold text-slate-400 tracking-[0.2em] mb-2">Current Status</div>
+                  <span className={`px-4 py-1.5 border rounded-full text-[10px] font-bold tracking-widest inline-block ${statusStyles[lead.status]}`}>
                      {lead.status}
                   </span>
-                  <div className="text-[10px] font-bold text-slate-400 mt-4 uppercase tracking-widest">Captured At</div>
+                  <div className="text-[10px] font-bold text-slate-400 mt-4 tracking-widest">Captured At</div>
                   <div className="text-xs font-semibold text-slate-900">{new Date(lead.createdAt).toLocaleString()}</div>
                 </div>
               </div>
@@ -200,7 +200,7 @@ export default function LeadDetailsModal({ lead, onClose, onRefresh }: LeadDetai
                 
                 <div className="col-span-full pt-4 border-t border-slate-50 flex flex-col sm:flex-row sm:items-center gap-6">
                   <div className="flex-1">
-                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 ">Payment Instructions</div>
+                    <div className="text-[10px] font-bold text-slate-400 tracking-widest mb-1.5 ">Payment Instructions</div>
                     <div className="flex items-center gap-2">
                        {lead.paymentMethod === "ONLINE" ? (
                          <div className="flex items-center gap-2 text-blue-600 font-bold text-sm">
@@ -220,7 +220,7 @@ export default function LeadDetailsModal({ lead, onClose, onRefresh }: LeadDetai
 
               {/* Location Vector */}
               <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-6 flex items-center">
+                <div className="text-[10px] font-bold text-slate-400 tracking-[0.2em] mb-6 flex items-center">
                   <MapPin size={14} className="mr-2 text-blue-600" />
                   Service Location & Time
                 </div>
@@ -237,7 +237,7 @@ export default function LeadDetailsModal({ lead, onClose, onRefresh }: LeadDetai
 
               {/* Strategic Intelligence (Notes) */}
               <div className="space-y-4">
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] flex items-center">
+                <div className="text-[10px] font-bold text-slate-400 tracking-[0.2em] flex items-center">
                   <MessageSquare size={14} className="mr-2 text-blue-600" />
                   Administrative Notes
                 </div>
@@ -250,7 +250,7 @@ export default function LeadDetailsModal({ lead, onClose, onRefresh }: LeadDetai
                 <button 
                   onClick={handleUpdateNotes}
                   disabled={savingNotes}
-                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg text-xs font-bold uppercase tracking-widest flex items-center gap-2 transition-all disabled:opacity-50"
+                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg text-xs font-bold tracking-widest flex items-center gap-2 transition-all disabled:opacity-50"
                 >
                   {savingNotes ? <Loader2 size={12} className="animate-spin" /> : <ShieldCheck size={12} />}
                   Save Notes
@@ -266,7 +266,7 @@ export default function LeadDetailsModal({ lead, onClose, onRefresh }: LeadDetai
               {lead.status === "NEW" && (
                 <button 
                   onClick={() => handleStatusChange("CONTACTED")}
-                  className="px-5 py-2.5 bg-white border border-slate-200 text-slate-600 rounded-xl font-bold text-[10px] uppercase tracking-widest hover:bg-slate-50 transition-all flex items-center gap-2"
+                  className="px-5 py-2.5 bg-white border border-slate-200 text-slate-600 rounded-xl font-bold text-[10px] tracking-widest hover:bg-slate-50 transition-all flex items-center gap-2"
                 >
                   <Phone size={14} />
                   <span>Mark Contacted</span>
@@ -276,7 +276,7 @@ export default function LeadDetailsModal({ lead, onClose, onRefresh }: LeadDetai
               {lead.status !== "CLOSED" && (
                 <button 
                   onClick={() => handleStatusChange("CLOSED")}
-                  className="px-5 py-2.5 bg-white border border-slate-200 text-slate-400 rounded-xl font-bold text-[10px] uppercase tracking-widest hover:bg-slate-100 transition-all flex items-center gap-2"
+                  className="px-5 py-2.5 bg-white border border-slate-200 text-slate-400 rounded-xl font-bold text-[10px] tracking-widest hover:bg-slate-100 transition-all flex items-center gap-2"
                 >
                   <X size={14} />
                   <span>Close Lead</span>
@@ -287,7 +287,7 @@ export default function LeadDetailsModal({ lead, onClose, onRefresh }: LeadDetai
                 <button 
                   onClick={handleStartAssignment}
                   disabled={assigning}
-                  className="px-6 py-3 bg-blue-600 text-white rounded-xl font-bold text-[10px] uppercase tracking-widest shadow-lg shadow-blue-200 active:scale-95 transition-all flex items-center gap-2"
+                  className="px-6 py-3 bg-blue-600 text-white rounded-xl font-bold text-[10px] tracking-widest shadow-lg shadow-blue-200 active:scale-95 transition-all flex items-center gap-2"
                 >
                   <UserCheck size={14} />
                   <span>Assign Technician</span>
@@ -304,9 +304,10 @@ export default function LeadDetailsModal({ lead, onClose, onRefresh }: LeadDetai
 function DataBlock({ label, value }: any) {
   return (
     <div>
-      <div className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">{label}</div>
+      <div className="text-[9px] font-bold text-slate-400 tracking-widest mb-1">{label}</div>
       <div className="text-sm font-bold text-slate-800 ">{value || "---"}</div>
     </div>
   );
 }
+
 

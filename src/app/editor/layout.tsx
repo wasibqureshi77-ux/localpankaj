@@ -55,14 +55,14 @@ export default function EditorLayout({
         ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
       `}>
         <div className="p-12 border-b border-indigo-50 bg-gradient-to-br from-indigo-50 to-transparent mb-8">
-           <Link href="/editor" className="text-3xl font-extrabold tracking-tighter italic text-indigo-900 flex items-center space-x-2">
+           <Link href="/editor" className="text-3xl font-extrabold  text-indigo-900 flex items-center space-x-2">
               <span className="p-2 bg-indigo-600 rounded-2xl text-white shadow-xl shadow-indigo-500/30"><Edit3 size={32}/></span>
-              <span>EDITOR</span>
+              <span>Editor</span>
            </Link>
-           <p className="text-[10px] font-bold text-indigo-400 mt-6 tracking-[0.3em] uppercase pl-1">Creative Control</p>
+           <p className="text-[10px] font-bold text-indigo-400 mt-6 tracking-[0.3em] pl-1">Creative Control</p>
         </div>
 
-        <nav className="flex-1 px-8 space-y-3 font-bold text-[10px] tracking-[0.15em] uppercase text-indigo-900/60">
+        <nav className="flex-1 px-8 space-y-3 font-bold text-[10px] tracking-[0.15em] text-indigo-900/60">
            <EditorSidebarLink href="/editor" icon={<Globe size={20}/>} label="Site Structure" active={pathname === "/editor"} />
            <EditorSidebarLink href="/editor/theme" icon={<Palette size={20}/>} label="Visual Identity" active={pathname === "/editor/theme"} />
            <EditorSidebarLink href="/editor/media" icon={<ImageIcon size={20}/>} label="Media Library" active={pathname === "/editor/media"} />
@@ -74,14 +74,14 @@ export default function EditorLayout({
            <div className="flex items-center space-x-4 mb-8 bg-indigo-600/5 p-4 rounded-3xl border border-indigo-600/10">
               <div className="w-12 h-12 rounded-2xl bg-indigo-600 flex items-center justify-center font-extrabold text-white text-lg shadow-lg">EP</div>
                <div>
-                  <div className="text-[11px] font-extrabold tracking-tight text-indigo-900 mb-0.5">Pankaj Sharma</div>
-                  <div className="text-[8px] font-bold text-indigo-400 uppercase tracking-widest">Chief Editor</div>
+                  <div className="text-[11px] font-extrabold text-indigo-900 mb-0.5">Pankaj Sharma</div>
+                  <div className="text-[8px] font-bold text-indigo-400 tracking-widest">Chief Editor</div>
                </div>
            </div>
            
            <button 
               onClick={() => signOut({ callbackUrl: "/" })}
-              className="w-full flex items-center justify-center space-x-3 text-indigo-600 hover:text-indigo-800 transition-all px-5 py-4 rounded-2xl bg-indigo-600/5 hover:bg-indigo-600/10 font-bold text-[10px] uppercase tracking-widest border border-indigo-600/10 shadow-sm"
+              className="w-full flex items-center justify-center space-x-3 text-indigo-600 hover:text-indigo-800 transition-all px-5 py-4 rounded-2xl bg-indigo-600/5 hover:bg-indigo-600/10 font-bold text-[10px] tracking-widest border border-indigo-600/10 shadow-sm"
            >
               <LogOut size={16} />
               <span>Leave Studio</span>
@@ -95,16 +95,16 @@ export default function EditorLayout({
           <header className="sticky top-0 z-30 bg-white/70 backdrop-blur-3xl border-b border-indigo-50 px-12 py-8 flex items-center justify-between">
              <div className="flex items-center space-x-4">
                 <span className="p-2 bg-indigo-50 text-indigo-600 rounded-xl"><Eye size={20}/></span>
-                <span className="text-[11px] font-black text-indigo-900 uppercase tracking-widest">Preview Mode: Jaipur Live</span>
+                <span className="text-[11px] font-black text-indigo-900 tracking-widest">Preview Mode: Jaipur Live</span>
              </div>
              
              <div className="flex items-center space-x-6">
-                <button className="flex items-center space-x-2 px-6 py-3 bg-indigo-600 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-xl shadow-indigo-600/20 transform hover:-translate-y-0.5 transition-all">
+                <button className="flex items-center space-x-2 px-6 py-3 bg-indigo-600 text-white rounded-2xl font-black text-[10px] tracking-widest shadow-xl shadow-indigo-600/20 transform hover:-translate-y-0.5 transition-all">
                    <Settings size={16}/>
                    <span>Global Config</span>
                 </button>
                 <div className="w-[1px] h-8 bg-indigo-100" />
-                <div className="flex items-center space-x-2 text-green-500 font-bold text-[10px] uppercase tracking-widest">
+                <div className="flex items-center space-x-2 text-green-500 font-bold text-[10px] tracking-widest">
                    <CheckCircle size={16} />
                    <span>Draft Saved</span>
                 </div>
@@ -135,3 +135,4 @@ function EditorSidebarLink({ href, icon, label, active }: any) {
     </Link>
   );
 }
+

@@ -29,3 +29,4 @@ export const EmptyState = ({ title, description, actionLabel, onAction, icon: Ic
     </div>
   );
 };
+

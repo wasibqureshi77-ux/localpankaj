@@ -67,7 +67,7 @@ export default function SuperAdminUsersPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-8">
         <div>
-           <h1 className="text-3xl font-bold tracking-tight text-slate-900">User Command Center</h1>
+           <h1 className="text-3xl font-bold text-slate-900">User Command Center</h1>
            <p className="text-sm text-slate-500 mt-1">Holistic identity management and cross-module access control.</p>
         </div>
         <div className="flex items-center gap-3">
@@ -102,10 +102,10 @@ export default function SuperAdminUsersPage() {
             <table className="w-full text-left">
                <thead>
                   <tr className="bg-slate-50/50 border-b border-slate-100">
-                     <th className="px-6 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-widest px-6">Identity Profile</th>
-                     <th className="px-6 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-widest">Access Level</th>
-                     <th className="px-6 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-widest">Verification</th>
-                     <th className="px-6 py-3 text-[11px] font-bold text-slate-500 uppercase tracking-widest">Registration</th>
+                     <th className="px-6 py-3 text-[11px] font-bold text-slate-500 tracking-widest px-6">Identity Profile</th>
+                     <th className="px-6 py-3 text-[11px] font-bold text-slate-500 tracking-widest">Access Level</th>
+                     <th className="px-6 py-3 text-[11px] font-bold text-slate-500 tracking-widest">Verification</th>
+                     <th className="px-6 py-3 text-[11px] font-bold text-slate-500 tracking-widest">Registration</th>
                      <th className="px-6 py-3"></th>
                   </tr>
                </thead>
@@ -119,20 +119,20 @@ export default function SuperAdminUsersPage() {
                                     {user.name ? user.name[0] : "U"}
                                  </div>
                                  <div className="min-w-0">
-                                    <div className="font-bold text-slate-900 uppercase tracking-tight truncate">{user.name}</div>
+                                    <div className="font-bold text-slate-900 truncate">{user.name}</div>
                                     <div className="text-[10px] font-bold text-slate-400 lowercase truncate">{user.email}</div>
                                  </div>
                               </div>
                            </td>
                            <td className="px-6 py-4">
-                              <span className={`px-2.5 py-1 rounded-md text-[10px] font-bold tracking-widest border uppercase ${
+                              <span className={`px-2.5 py-1 rounded-md text-[10px] font-bold tracking-widest border ${
                                  user.role !== "USER" ? "bg-blue-50 text-blue-700 border-blue-100" : "bg-slate-50 text-slate-500 border-slate-100"
                               }`}>
                                  {user.role}
                               </span>
                            </td>
                            <td className="px-6 py-4">
-                              <div className={`flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider ${
+                              <div className={`flex items-center gap-1.5 text-[10px] font-bold tracking-wider ${
                                  user.role !== "USER" ? "text-emerald-600" : "text-amber-500"
                               }`}>
                                  {user.role !== "USER" ? <ShieldCheck size={14} /> : <Activity size={14} />}
@@ -140,7 +140,7 @@ export default function SuperAdminUsersPage() {
                               </div>
                            </td>
                            <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+                              <div className="text-[11px] font-bold text-slate-400 tracking-widest">
                                  {new Date(user.createdAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}
                               </div>
                            </td>
@@ -153,7 +153,7 @@ export default function SuperAdminUsersPage() {
                      ))
                   ) : (
                      <tr>
-                        <td colSpan={5} className="px-6 py-20 text-center text-slate-400 text-sm font-medium italic">No identities found in the command registry.</td>
+                        <td colSpan={5} className="px-6 py-20 text-center text-slate-400 text-sm font-medium">No identities found in the command registry.</td>
                      </tr>
                   )}
                </tbody>
@@ -163,3 +163,4 @@ export default function SuperAdminUsersPage() {
     </div>
   );
 }
+

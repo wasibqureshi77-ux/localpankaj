@@ -4,6 +4,7 @@ const AppointmentSchema = new Schema(
   {
     userId: { type: Schema.Types.ObjectId, ref: "User" },
     leadId: { type: Schema.Types.ObjectId, ref: "Lead" },
+    orderId: { type: Schema.Types.ObjectId, ref: "Order" },
     technicianId: { type: Schema.Types.ObjectId, ref: "User" },
     date: { type: Date, required: true },
     status: {

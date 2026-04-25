@@ -124,13 +124,13 @@ export const OrderDetailsDrawer = ({ order, isOpen, onClose, onRefresh }: OrderD
     <div className="flex gap-4 w-full">
       <button 
         onClick={onClose}
-        className="flex-1 px-4 py-3 border border-slate-200 rounded-xl text-xs font-bold text-slate-500 hover:bg-slate-50 transition-all uppercase tracking-widest"
+        className="flex-1 px-4 py-3 border border-slate-200 rounded-xl text-xs font-bold text-slate-500 hover:bg-slate-50 transition-all tracking-widest"
       >
         Close
       </button>
       <button 
         onClick={() => setShowAssignModal(true)}
-        className="flex-1 px-4 py-3 bg-blue-600 text-white rounded-xl text-xs font-bold hover:bg-blue-700 transition-all flex items-center justify-center gap-2 uppercase tracking-widest shadow-lg shadow-blue-100"
+        className="flex-1 px-4 py-3 bg-blue-600 text-white rounded-xl text-xs font-bold hover:bg-blue-700 transition-all flex items-center justify-center gap-2 tracking-widest shadow-lg shadow-blue-100"
       >
         <Wrench size={14} /> {order.assignedTechnician ? "Reassign" : "Assign Technician"}
       </button>
@@ -155,10 +155,10 @@ export const OrderDetailsDrawer = ({ order, isOpen, onClose, onRefresh }: OrderD
         {/* Status Section */}
         <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 flex items-center justify-between group">
            <div className="space-y-1">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Order Status</p>
+              <p className="text-[10px] font-bold text-slate-400 tracking-widest">Order Status</p>
               <div className="flex items-center gap-2">
                  <div className={`h-2.5 w-2.5 rounded-full ${order.orderStatus === "COMPLETED" ? "bg-emerald-500" : "bg-blue-500"} animate-pulse`} />
-                 <p className="text-xl font-bold text-slate-900 tracking-tight">{order.orderStatus.replace(/_/g, ' ')}</p>
+                 <p className="text-xl font-bold text-slate-900">{order.orderStatus.replace(/_/g, ' ')}</p>
               </div>
            </div>
            
@@ -177,7 +177,7 @@ export const OrderDetailsDrawer = ({ order, isOpen, onClose, onRefresh }: OrderD
                           <button 
                             key={status}
                             onClick={() => handleUpdateStatus(status)}
-                            className="w-full text-left px-5 py-2.5 text-[10px] font-bold text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-colors uppercase tracking-widest flex items-center justify-between"
+                            className="w-full text-left px-5 py-2.5 text-[10px] font-bold text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-colors tracking-widest flex items-center justify-between"
                           >
                              {status}
                              {order.orderStatus === status && <CheckCircle2 size={12} className="text-emerald-500" />}
@@ -195,7 +195,7 @@ export const OrderDetailsDrawer = ({ order, isOpen, onClose, onRefresh }: OrderD
            <section className="space-y-4">
               <div className="flex items-center gap-2 text-slate-900">
                  <UserCheck size={18} className="text-blue-600" />
-                 <h3 className="text-sm font-bold uppercase tracking-widest">Assigned Technician</h3>
+                 <h3 className="app-h3 ">Assigned Technician</h3>
               </div>
               <div className="bg-white rounded-2xl border border-slate-200 p-5 flex items-center justify-between shadow-sm group hover:border-blue-200 transition-all">
                  <div className="flex items-center gap-4">
@@ -204,14 +204,14 @@ export const OrderDetailsDrawer = ({ order, isOpen, onClose, onRefresh }: OrderD
                     </div>
                     <div>
                        <p className="text-base font-bold text-slate-900">{order.assignedTechnician.name}</p>
-                       <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest flex items-center gap-1 mt-1">
+                       <p className="text-[10px] font-bold text-emerald-600 tracking-widest flex items-center gap-1 mt-1">
                           <ShieldCheck size={10} /> Verified Professional
                        </p>
                     </div>
                  </div>
                  <div className="text-right">
                     <p className="text-sm font-bold text-slate-900 tabular-nums">{order.assignedTechnician.phone}</p>
-                    <button className="text-[10px] font-bold text-blue-600 hover:underline uppercase tracking-widest mt-1">Contact</button>
+                    <button className="text-[10px] font-bold text-blue-600 hover:underline tracking-widest mt-1">Contact</button>
                  </div>
               </div>
            </section>
@@ -222,7 +222,7 @@ export const OrderDetailsDrawer = ({ order, isOpen, onClose, onRefresh }: OrderD
               </div>
               <div className="space-y-1">
                  <p className="text-sm font-bold text-slate-900">No Technician Assigned</p>
-                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Assign a professional to handle this request</p>
+                 <p className="text-[10px] font-bold text-slate-400 tracking-widest">Assign a professional to handle this request</p>
               </div>
            </div>
         )}
@@ -231,31 +231,31 @@ export const OrderDetailsDrawer = ({ order, isOpen, onClose, onRefresh }: OrderD
         <section className="space-y-4">
            <div className="flex items-center gap-2 text-slate-900">
               <User size={18} className="text-blue-600" />
-              <h3 className="text-sm font-bold uppercase tracking-widest">Customer Details</h3>
+              <h3 className="app-h3 ">Customer Details</h3>
            </div>
            <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-6 shadow-sm">
               <div className="flex items-center gap-4">
-                 <div className="h-16 w-16 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-400 text-2xl font-bold uppercase border border-slate-100">
+                 <div className="h-16 w-16 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-400 text-2xl font-bold border border-slate-100">
                     {order.name[0]}
                  </div>
                  <div>
-                    <h4 className="text-xl font-bold text-slate-900 tracking-tight">{order.name}</h4>
+                    <h4 className="text-xl font-bold text-slate-900">{order.name}</h4>
                     <div className="flex items-center gap-2 text-slate-400 mt-1">
                        <MapPin size={12} />
-                       <p className="text-[10px] font-bold uppercase tracking-widest">{order.city || "JAIPUR"}</p>
+                       <p className="text-[10px] font-bold tracking-widest">{order.city || "JAIPUR"}</p>
                     </div>
                  </div>
               </div>
               
               <div className="grid grid-cols-2 gap-6 pt-6 border-t border-slate-50">
                  <div className="space-y-1.5">
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                    <p className="text-[10px] font-bold text-slate-400 tracking-widest flex items-center gap-2">
                        <Phone size={10} className="text-blue-600"/> Phone
                     </p>
                     <p className="text-sm font-bold text-slate-800 tabular-nums">{order.phone}</p>
                  </div>
                  <div className="space-y-1.5">
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                    <p className="text-[10px] font-bold text-slate-400 tracking-widest flex items-center gap-2">
                        <Mail size={10} className="text-blue-600"/> Email
                     </p>
                     <p className="text-sm font-bold text-slate-800 truncate">{order.email || "---"}</p>
@@ -268,7 +268,7 @@ export const OrderDetailsDrawer = ({ order, isOpen, onClose, onRefresh }: OrderD
         <section className="space-y-4">
            <div className="flex items-center gap-2 text-slate-900">
               <Package size={18} className="text-blue-600" />
-              <h3 className="text-sm font-bold uppercase tracking-widest">Service Overview</h3>
+              <h3 className="app-h3 ">Service Overview</h3>
            </div>
            <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
               <div className="divide-y divide-slate-100">
@@ -281,7 +281,7 @@ export const OrderDetailsDrawer = ({ order, isOpen, onClose, onRefresh }: OrderD
                              </div>
                              <div>
                                 <p className="text-sm font-bold text-slate-900">{item.name}</p>
-                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Qty: {item.quantity}</p>
+                                <p className="text-[10px] font-bold text-slate-400 tracking-widest">Qty: {item.quantity}</p>
                              </div>
                           </div>
                           <p className="text-base font-bold text-slate-900 tabular-nums">₹{item.price}</p>
@@ -290,13 +290,13 @@ export const OrderDetailsDrawer = ({ order, isOpen, onClose, onRefresh }: OrderD
                  ) : (
                     <div className="p-10 text-center text-slate-300 flex flex-col items-center">
                        <ClipboardList size={32} className="mb-2 opacity-50" />
-                       <p className="text-[10px] font-bold uppercase tracking-widest">No items found</p>
+                       <p className="text-[10px] font-bold tracking-widest">No items found</p>
                     </div>
                  )}
               </div>
               <div className="p-6 bg-slate-900 text-white flex items-center justify-between">
-                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-60">Total Bill Amount</p>
-                 <p className="text-2xl font-bold tracking-tight">₹{order.totalAmount || 0}</p>
+                 <p className="text-[10px] font-bold tracking-[0.2em] opacity-60">Total Bill Amount</p>
+                 <p className="text-2xl font-bold">₹{order.totalAmount || 0}</p>
               </div>
            </div>
         </section>
@@ -305,15 +305,15 @@ export const OrderDetailsDrawer = ({ order, isOpen, onClose, onRefresh }: OrderD
         <section className="space-y-4">
            <div className="flex items-center gap-2 text-slate-900">
               <CreditCard size={18} className="text-blue-600" />
-              <h3 className="text-sm font-bold uppercase tracking-widest">Payment Info</h3>
+              <h3 className="app-h3 ">Payment Info</h3>
            </div>
            <div className="grid grid-cols-2 gap-6">
               <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Method</p>
-                 <p className="text-sm font-bold text-slate-800 uppercase tracking-widest">{order.paymentMethod?.replace(/_/g, ' ') || "---"}</p>
+                 <p className="text-[10px] font-bold text-slate-400 tracking-widest mb-2">Method</p>
+                 <p className="text-sm font-bold text-slate-800 tracking-widest">{order.paymentMethod?.replace(/_/g, ' ') || "---"}</p>
               </div>
               <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Status</p>
+                 <p className="text-[10px] font-bold text-slate-400 tracking-widest mb-2">Status</p>
                  <StatusBadge status={order.paymentStatus} />
               </div>
            </div>
@@ -323,11 +323,11 @@ export const OrderDetailsDrawer = ({ order, isOpen, onClose, onRefresh }: OrderD
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-10 border-t border-slate-100 opacity-60">
            <div className="flex items-center gap-2 text-slate-500">
               <Clock size={14} />
-              <p className="text-[10px] font-bold uppercase tracking-widest">{new Date(order.createdAt).toLocaleString()}</p>
+              <p className="text-[10px] font-bold tracking-widest">{new Date(order.createdAt).toLocaleString()}</p>
            </div>
            <div className="flex items-center gap-2 text-blue-600">
               <ShieldCheck size={14} />
-              <p className="text-[10px] font-bold uppercase tracking-widest">Secure Dashboard Protocol</p>
+              <p className="text-[10px] font-bold tracking-widest">Secure Dashboard Protocol</p>
            </div>
         </div>
       </div>
@@ -341,7 +341,7 @@ export const OrderDetailsDrawer = ({ order, isOpen, onClose, onRefresh }: OrderD
              <div className="flex-1 p-8 overflow-y-auto border-r border-slate-100 flex flex-col">
                 <div className="flex items-center justify-between mb-8">
                    <div>
-                      <h3 className="text-2xl font-bold text-slate-900">Select Technician</h3>
+                      <h3 className="app-h3 ">Select Technician</h3>
                       <p className="text-xs font-semibold text-slate-400 mt-1">Available service professionals for assignment</p>
                    </div>
                    <button 
@@ -367,7 +367,7 @@ export const OrderDetailsDrawer = ({ order, isOpen, onClose, onRefresh }: OrderD
                    {fetchingTechs ? (
                       <div className="flex flex-col items-center justify-center h-48 space-y-4">
                          <Loader2 className="animate-spin text-blue-600" size={32} />
-                         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Loading Personnel...</p>
+                         <p className="text-[10px] font-bold text-slate-400 tracking-widest">Loading Personnel...</p>
                       </div>
                    ) : filteredTechs.length > 0 ? (
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -382,7 +382,7 @@ export const OrderDetailsDrawer = ({ order, isOpen, onClose, onRefresh }: OrderD
                                   <div className="h-10 w-10 bg-slate-100 rounded-xl flex items-center justify-center text-slate-600 font-bold group-hover:bg-blue-600 group-hover:text-white transition-all">
                                      {tech.name[0]}
                                   </div>
-                                  <div className={`px-2.5 py-1 rounded-full text-[9px] font-bold uppercase tracking-widest flex items-center gap-1.5 ${
+                                  <div className={`px-2.5 py-1 rounded-full text-[9px] font-bold tracking-widest flex items-center gap-1.5 ${
                                      tech.status === "ACTIVE" ? "bg-emerald-50 text-emerald-600" : "bg-slate-50 text-slate-400"
                                   }`}>
                                      <div className={`h-1.5 w-1.5 rounded-full ${tech.status === "ACTIVE" ? "bg-emerald-500" : "bg-slate-300"}`} />
@@ -394,7 +394,7 @@ export const OrderDetailsDrawer = ({ order, isOpen, onClose, onRefresh }: OrderD
                                   <p className="text-xs font-semibold text-slate-400">{tech.phone}</p>
                                   <div className="flex gap-1.5 mt-2">
                                      {tech.specialties?.slice(0, 2).map((s: string) => (
-                                        <span key={s} className="px-2 py-0.5 bg-slate-50 text-slate-400 rounded text-[9px] font-bold uppercase tracking-widest">{s}</span>
+                                        <span key={s} className="px-2 py-0.5 bg-slate-50 text-slate-400 rounded text-[9px] font-bold tracking-widest">{s}</span>
                                      ))}
                                   </div>
                                </div>
@@ -405,7 +405,7 @@ export const OrderDetailsDrawer = ({ order, isOpen, onClose, onRefresh }: OrderD
                    ) : (
                       <div className="h-64 flex flex-col items-center justify-center text-slate-400 border-2 border-dashed border-slate-100 rounded-3xl">
                          <UserCheck size={40} className="mb-2 opacity-10" />
-                         <p className="text-[10px] font-bold uppercase tracking-widest">No technicians found</p>
+                         <p className="text-[10px] font-bold tracking-widest">No technicians found</p>
                       </div>
                    )}
                 </div>
@@ -421,14 +421,14 @@ export const OrderDetailsDrawer = ({ order, isOpen, onClose, onRefresh }: OrderD
                 </button>
 
                 <div className="mb-8 mt-4">
-                   <h4 className="text-sm font-bold uppercase tracking-widest text-slate-900">Manual Assignment</h4>
-                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">For unlisted or temporary agents</p>
+                   <h4 className="text-sm font-bold tracking-widest text-slate-900">Manual Assignment</h4>
+                   <p className="text-[10px] font-bold text-slate-400 tracking-widest mt-1">For unlisted or temporary agents</p>
                 </div>
                 
                 <form onSubmit={handleAssignTechnician} className="space-y-6">
                    <div className="space-y-4">
                       <div className="space-y-2">
-                         <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-1">Name</label>
+                         <label className="text-[10px] font-bold text-slate-400 tracking-widest pl-1">Name</label>
                          <input 
                             type="text" 
                             required
@@ -439,7 +439,7 @@ export const OrderDetailsDrawer = ({ order, isOpen, onClose, onRefresh }: OrderD
                          />
                       </div>
                       <div className="space-y-2">
-                         <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-1">Phone</label>
+                         <label className="text-[10px] font-bold text-slate-400 tracking-widest pl-1">Phone</label>
                          <input 
                             type="tel" 
                             required
@@ -454,12 +454,12 @@ export const OrderDetailsDrawer = ({ order, isOpen, onClose, onRefresh }: OrderD
                    <button 
                       type="submit"
                       disabled={updating}
-                      className="w-full px-4 py-4 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-black transition-all flex items-center justify-center gap-2 uppercase tracking-widest shadow-xl shadow-slate-200 mt-4 disabled:opacity-50"
+                      className="w-full px-4 py-4 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-black transition-all flex items-center justify-center gap-2 tracking-widest shadow-xl shadow-slate-200 mt-4 disabled:opacity-50"
                    >
                       {updating ? <Clock size={16} className="animate-spin" /> : "Manual Assign"}
                    </button>
                    
-                   <p className="text-[9px] text-slate-400 font-bold uppercase leading-relaxed text-center px-4 italic mt-auto">
+                   <p className="text-[9px] text-slate-400 font-bold leading-loose text-center px-4  mt-auto">
                      Manual assignment bypasses the personnel registry validation.
                    </p>
                 </form>
@@ -470,3 +470,4 @@ export const OrderDetailsDrawer = ({ order, isOpen, onClose, onRefresh }: OrderD
     </>
   );
 };
+
