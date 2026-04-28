@@ -4,8 +4,12 @@ import React, { useEffect, useState } from "react";
 import { Phone, ShoppingCart } from "lucide-react";
 import axios from "axios";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
 
 const FloatingActions = () => {
+  const { data: session } = useSession();
+  const pathname = usePathname();
   const [phone, setPhone] = useState("8000023359");
   const [cartCount, setCartCount] = useState(0);
 
@@ -46,6 +50,10 @@ const FloatingActions = () => {
   const whatsappUrl = `https://wa.me/${phone.includes("+") ? phone : "+91" + phone}`;
   const callUrl = `tel:${phone.includes("+") ? phone : "+91" + phone}`;
 
+  if (session?.user?.role === "ADMIN" || session?.user?.role === "TECHNICIAN") {
+    return null;
+  }
+
   return (
     <div className="fixed bottom-6 left-0 right-0 z-[99] pointer-events-none px-6 flex items-end justify-between">
       {/* WhatsApp Button - Left Corner */}
@@ -70,7 +78,7 @@ const FloatingActions = () => {
       {/* Cart Button - Center */}
       <Link
         href="/cart"
-        className={`pointer-events-auto flex items-center space-x-2 px-6 h-12 bg-[#155dfc] text-white rounded-full shadow-2xl hover:bg-blue-700 transition-all hover:scale-105 active:scale-95 group ${cartCount === 0 ? "opacity-0 invisible translate-y-10" : "opacity-100 visible translate-y-0"}`}
+        className={`pointer-events-auto flex items-center space-x-2 px-6 h-12 bg-[#155dfc] text-white rounded-full shadow-2xl hover:bg-blue-700 transition-all hover:scale-105 active:scale-95 group ${(cartCount === 0 || pathname === "/checkout") ? "opacity-0 invisible translate-y-10" : "opacity-100 visible translate-y-0"}`}
       >
         <div className="relative">
           <ShoppingCart size={20} />

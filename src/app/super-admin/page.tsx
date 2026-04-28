@@ -145,7 +145,7 @@ export default function SuperAdminDashboard() {
                <div className="flex items-center justify-between px-2">
                   <div className="flex items-center gap-3">
                      <Users size={18} className="text-slate-400" />
-                     <h3 className="app-h3 ">Unit Operators</h3>
+                     <h3 className="app-h3 ">Technicians</h3>
                   </div>
                   <Link href="/super-admin/technicians" className="text-[9px] font-black text-slate-400 tracking-widest hover:text-blue-600">Manage All</Link>
                </div>
@@ -166,10 +166,7 @@ export default function SuperAdminDashboard() {
                </div>
             </div>
 
-            <button className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black text-[11px] tracking-[0.2em] flex items-center justify-center gap-3 hover:bg-blue-600 transition-all shadow-xl shadow-slate-900/10 active:scale-95">
-               <Activity size={16} />
-               Deploy All Units
-            </button>
+
          </div>
       </div>
     </div>

@@ -50,27 +50,46 @@ export default function SuperAdminLayout({
   const userRole = (session?.user as any)?.role || "USER";
 
   const allNavItems = [
-    { name: "Executive Analytics", href: "/super-admin", icon: LayoutDashboard },
-    { name: "Leads Pipeline", href: "/super-admin/leads", icon: FileText },
-    { name: "Orders Management", href: "/super-admin/orders", icon: ShoppingBag },
-    { name: "Operational Approvals", href: "/super-admin/appointments?filter=PENDING_APPROVAL", icon: ShieldCheck },
+    { name: "Dashboard", href: "/super-admin", icon: LayoutDashboard },
+    { name: "Leads", href: "/super-admin/leads", icon: FileText },
+    { name: "Orders", href: "/super-admin/orders", icon: ShoppingBag },
+    { name: "Technician Approval", href: "/super-admin/appointments?filter=PENDING_APPROVAL", icon: ShieldCheck },
     { name: "Manage Technicians", href: "/super-admin/technicians", icon: UserCog },
     { name: "Website Users", href: "/super-admin/website-users", icon: Users },
     { name: "Services Catalog", href: "/super-admin/services", icon: Settings },
-    { name: "Product Inventory", href: "/super-admin/products", icon: Package },
+    { name: "Product", href: "/super-admin/products", icon: Package },
   ];
 
   const navItems = allNavItems;
 
-  const handlePasswordChange = (e: React.FormEvent) => {
+  const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
     if (passwordData.new !== passwordData.confirm) {
        return toast.error("New passwords do not match");
     }
-    // API logic would go here
-    toast.success("Identity credentials updated");
-    setIsPasswordModalOpen(false);
-    setPasswordData({ old: "", new: "", confirm: "" });
+    
+    try {
+      const res = await fetch("/api/auth/change-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          oldPassword: passwordData.old,
+          newPassword: passwordData.new,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Failed to update password");
+      }
+
+      toast.success("Identity credentials updated");
+      setIsPasswordModalOpen(false);
+      setPasswordData({ old: "", new: "", confirm: "" });
+    } catch (err: any) {
+      toast.error(err.message || "Something went wrong");
+    }
   };
 
   return (
@@ -190,11 +209,7 @@ export default function SuperAdminLayout({
           </div>
 
           <div className="flex items-center gap-4">
-             <button className="relative p-2 text-slate-500 hover:text-slate-900 rounded-full hover:bg-slate-50">
-               <Bell size={20} />
-               <span className="absolute top-2.5 right-2.5 h-2 w-2 rounded-full bg-blue-600 border-2 border-white"></span>
-             </button>
-             <div className="h-6 w-px bg-slate-200 hidden sm:block"></div>
+
              <div className="flex items-center gap-3 pl-1 relative">
                 <button 
                   onClick={() => setIsProfileOpen(!isProfileOpen)}

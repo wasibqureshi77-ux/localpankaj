@@ -31,6 +31,11 @@ const LeadSchema = new Schema(
     verified: { type: Boolean, default: false },
     assignedTo: { type: Schema.Types.ObjectId, ref: "User" },
     assignedTechnician: { type: Schema.Types.ObjectId, ref: "User" },
+    technicianDetails: {
+      name: { type: String },
+      phone: { type: String },
+      id: { type: String }
+    },
   },
   { timestamps: true }
 );

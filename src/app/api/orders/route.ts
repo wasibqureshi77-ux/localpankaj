@@ -29,7 +29,7 @@ export async function GET(req: Request) {
         { source: "ORDER" },
         { paymentMethod: { $exists: true } }
       ]
-    }).sort({ createdAt: -1 });
+    }).sort({ createdAt: -1 }).lean();
 
     // Merged results for admin view
     const formattedLegacy = legacyOrders.map((l: any) => ({
@@ -41,10 +41,15 @@ export async function GET(req: Request) {
       totalAmount: l.price || 0,
       paymentMethod: l.paymentMethod || "PAY_ON_VISIT",
       paymentStatus: l.paymentStatus || "PENDING",
-      orderStatus: l.status === "COMPLETED" ? "COMPLETED" : "CONFIRMED",
+      orderStatus: ["PENDING", "CONFIRMED", "IN_PROGRESS", "COMPLETED", "CANCELLED"].includes(l.status) 
+        ? l.status 
+        : (l.status === "COMPLETED" ? "COMPLETED" : 
+           l.status === "CLOSED" ? "CANCELLED" : 
+           l.status === "NEW" ? "PENDING" : "CONFIRMED"),
       createdAt: l.createdAt,
       items: [{ name: l.service, price: l.price || 0, quantity: 1 }],
-      isLegacy: true
+      isLegacy: true,
+      assignedTechnician: l.technicianDetails || null
     }));
 
     const allOrders = [...mainOrders, ...formattedLegacy].sort(
@@ -90,6 +95,44 @@ export async function POST(req: Request) {
     });
 
     console.log("Order created successfully:", order.orderId);
+
+    const { sendEmail } = await import("@/lib/email/sendEmail");
+    const { bookingTemplate, adminTemplate } = await import("@/lib/email/templates");
+
+    try {
+      if (order.email) {
+        await sendEmail({
+          to: order.email,
+          subject: `Service Order Confirmed [${order.orderId}] - Local Pankaj ✅`,
+          html: bookingTemplate({
+            service: `${order.items?.[0]?.name || "Service"} (Order ID: ${order.orderId})`,
+            date: order.date ? `${order.date} at ${order.time}` : "Reviewing Schedule",
+            location: order.address || "Jaipur"
+          })
+        });
+      }
+
+      await sendEmail({
+        to: process.env.ADMIN_EMAIL || "admin@localpankaj.com",
+        subject: `New Order Generated - ${order.orderId} 📞`,
+        html: adminTemplate({
+          message: `New service order captured: <strong>${order.items?.[0]?.name || "Service Order"}</strong>`,
+          details: `
+            Order ID: <strong style="color: #2563eb;">${order.orderId}</strong><br>
+            Name: <strong>${order.name}</strong><br>
+            Email: <strong>${order.email || "N/A"}</strong><br>
+            Phone: <strong>${order.phone}</strong><br>
+            Service: <strong>${order.items?.map((i: any) => i.name).join(', ') || "Service"}</strong><br>
+            Total Amount: <strong>₹${order.totalAmount}</strong><br>
+            Booking Date: <strong>${order.date} (${order.time})</strong><br>
+            Address: <strong>${order.address}, ${order.city}, ${order.state} - ${order.pincode}</strong><br>
+            Payment Method: <strong style="color: #10b981;">${order.paymentMethod === "PAY_ON_VISIT" ? "Pay on Visit" : "Paid Online"}</strong>
+          `
+        })
+      });
+    } catch (emailError) {
+      console.error("Order confirmation email failure:", emailError);
+    }
 
     return NextResponse.json({ 
       success: true, 

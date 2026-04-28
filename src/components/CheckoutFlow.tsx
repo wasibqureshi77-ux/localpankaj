@@ -335,7 +335,7 @@ export default function CheckoutFlow({ cartItems = [] }: { cartItems: any[] }) {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                 <div>
-                  <FormLabel required>Technician Contact Name</FormLabel>
+                  <FormLabel required>Full Name</FormLabel>
                   <Input 
                     placeholder="Rahul Sharma" 
                     value={form.name}
@@ -344,7 +344,7 @@ export default function CheckoutFlow({ cartItems = [] }: { cartItems: any[] }) {
                   />
                 </div>
                 <div>
-                  <FormLabel required>Cellular Reference</FormLabel>
+                  <FormLabel required>Mobile Number</FormLabel>
                   <Input 
                     placeholder="9XXXXXXXXX" 
                     maxLength={10}
@@ -356,7 +356,7 @@ export default function CheckoutFlow({ cartItems = [] }: { cartItems: any[] }) {
               </div>
 
               <div className="mb-5">
-                <FormLabel meta="(Optional)">Electronic Mail</FormLabel>
+                <FormLabel meta="(Optional)">Mail id</FormLabel>
                 <Input 
                   placeholder="contact@example.com" 
                   value={form.email}
@@ -376,7 +376,7 @@ export default function CheckoutFlow({ cartItems = [] }: { cartItems: any[] }) {
 
               <div className="grid grid-cols-3 gap-5 mb-8">
                 <div>
-                  <FormLabel required>Postal Code</FormLabel>
+                  <FormLabel required>Pin Code</FormLabel>
                   <Input 
                     placeholder="302001" 
                     maxLength={6}

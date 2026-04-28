@@ -22,7 +22,7 @@ export async function PATCH(
           const { User } = await import("@/models/User");
           const { sendEmail } = await import("@/lib/email/sendEmail");
 
-          const technician = await User.findById(body.assignedTechnician);
+          const technician = body.assignedTechnician.id.startsWith("MANUAL-") ? null : await User.findById(body.assignedTechnician.id);
           
           if (technician) {
              // Update or Create Appointment for Order
@@ -52,6 +52,7 @@ export async function PATCH(
                             <p><strong>Contact:</strong> ${order.phone}</p>
                             <p><strong>Address:</strong> ${order.address}</p>
                             <p><strong>Schedule:</strong> ${order.date} at ${order.time}</p>
+                            <p><strong>Payment Status:</strong> ${order.paymentMethod === 'ONLINE' ? '<span style="color: #10b981;">Payment Collected</span>' : '<span style="color: #ef4444; font-weight: bold;">Collect Cash on Visit</span>'}</p>
                          </div>
                          <p>Please log in to your portal to start the job.</p>
                       </div>
@@ -89,15 +90,67 @@ export async function PATCH(
       
       if (body.orderStatus) updateData.status = body.orderStatus;
       if (body.assignedTechnician) {
-         // Lead model doesn't have assignedTechnician natively, we store in notes or ignore for now
-         // Actually let's assume Super Admin only manages new Orders correctly
-         // But for legacy compatibility, we just update what we can
+         updateData.technicianDetails = body.assignedTechnician;
       }
 
-      const lead = await Lead.findByIdAndUpdate(id, updateData, { new: true });
+      const lead = await Lead.findByIdAndUpdate(id, updateData, { new: true, strict: false });
       
       if (!lead) {
         return NextResponse.json({ error: "Reference not found" }, { status: 404 });
+      }
+      
+      // TECHNICIAN ASSIGNMENT LOGIC for Legacy Leads
+      if (body.assignedTechnician) {
+         const { User } = await import("@/models/User");
+         const { sendEmail } = await import("@/lib/email/sendEmail");
+
+         const technician = body.assignedTechnician.id.startsWith("MANUAL-") ? null : await User.findById(body.assignedTechnician.id);
+         
+         if (technician) {
+            try {
+               // To Technician
+               await sendEmail({
+                  to: technician.email,
+                  subject: `New Order Assigned: ${lead.service || 'Service'} 🛠️`,
+                  html: `
+                     <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 20px;">
+                        <h2 style="color: #2563eb;">New Assignment Received</h2>
+                        <p>Hello <strong>${technician.name}</strong>, a new service order has been assigned to you.</p>
+                        <div style="background: #f8fafc; padding: 20px; border-radius: 15px; margin: 20px 0;">
+                           <p><strong>Customer:</strong> ${lead.name}</p>
+                           <p><strong>Service:</strong> ${lead.service || 'Professional Service'}</p>
+                           <p><strong>Contact:</strong> ${lead.phone}</p>
+                           <p><strong>Address:</strong> ${lead.address || 'Address not provided'}</p>
+                           <p><strong>Schedule:</strong> ${lead.bookingDate || ''} at ${lead.bookingTime || ''}</p>
+                           <p><strong>Payment Status:</strong> ${lead.paymentMethod === 'ONLINE' ? '<span style="color: #10b981;">Payment Collected</span>' : '<span style="color: #ef4444; font-weight: bold;">Collect Cash on Visit</span>'}</p>
+                        </div>
+                        <p>Please log in to your portal to start the job.</p>
+                     </div>
+                  `
+               });
+
+               // To User
+               if (lead.email) {
+                  await sendEmail({
+                     to: lead.email,
+                     subject: "Your Service Expert is Assigned! 👨‍🔧",
+                     html: `
+                        <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 20px;">
+                           <h2 style="color: #2563eb;">Specialist Assigned</h2>
+                           <p>Hi <strong>${lead.name}</strong>, we have assigned an expert for your service.</p>
+                           <div style="background: #f8fafc; padding: 20px; border-radius: 15px; margin: 20px 0;">
+                              <p><strong>Expert Name:</strong> ${technician.name}</p>
+                              <p><strong>Contact:</strong> ${technician.phone}</p>
+                           </div>
+                           <p>The expert will reach your location as per the scheduled time.</p>
+                        </div>
+                     `
+                  });
+               }
+            } catch (mailErr) {
+               console.error("Order assignment email failure:", mailErr);
+            }
+         }
       }
       
       return NextResponse.json({ message: "Legacy Lead updated successfully" });

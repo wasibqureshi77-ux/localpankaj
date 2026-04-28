@@ -32,6 +32,10 @@ export default function SuperAdminOrdersPage() {
     try {
       const { data } = await axios.get("/api/orders");
       setOrders(data);
+      setSelectedOrder((prev: any) => {
+        if (!prev) return null;
+        return data.find((o: any) => o._id === prev._id) || prev;
+      });
     } catch (err) {
       toast.error("Failed to load orders");
     } finally {
