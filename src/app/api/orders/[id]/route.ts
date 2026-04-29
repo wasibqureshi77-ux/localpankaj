@@ -12,8 +12,13 @@ export async function PATCH(
     const body = await request.json();
     const { id } = await params;
 
+    let updateBody = { ...body };
+    if (updateBody.assignedTechnician && !updateBody.orderStatus) {
+      updateBody.orderStatus = "ASSIGNED";
+    }
+
     // Check if it's a new Order or a legacy Lead
-    const order = await Order.findByIdAndUpdate(id, body, { new: true });
+    const order = await Order.findByIdAndUpdate(id, updateBody, { new: true });
     
     if (order) {
        // 1. TECHNICIAN ASSIGNMENT LOGIC for Orders
@@ -88,7 +93,7 @@ export async function PATCH(
       // We map status and potentially technician info back to Lead schema
       const updateData: any = {};
       
-      if (body.orderStatus) updateData.status = body.orderStatus;
+      if (updateBody.orderStatus) updateData.status = updateBody.orderStatus;
       if (body.assignedTechnician) {
          updateData.technicianDetails = body.assignedTechnician;
       }

@@ -20,11 +20,21 @@ export async function POST(req: Request) {
       receipt,
     };
 
+    if (options.amount < 100) {
+      return NextResponse.json({ error: "Amount must be at least INR 1.00 (100 paise)" }, { status: 400 });
+    }
+
     const order = await razorpay.orders.create(options);
 
     return NextResponse.json(order);
   } catch (error: any) {
     console.error("Razorpay order error:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    
+    // Handle Razorpay auth failures
+    if (error.statusCode === 401) {
+      return NextResponse.json({ error: "Razorpay authentication failed" }, { status: 401 });
+    }
+    
+    return NextResponse.json({ error: error.message || "Failed to create order" }, { status: 500 });
   }
 }

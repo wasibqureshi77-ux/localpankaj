@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Calendar, UserCheck, ArrowRight, MapPin, CreditCard, Banknote, Phone, Clock } from "lucide-react";
+import { Calendar, UserCheck, ArrowRight, MapPin, CreditCard, Banknote, Phone, Clock, Check } from "lucide-react";
 import { UserBookingModal } from "./UserBookingModal";
 
 interface BookingCardProps {
@@ -25,7 +25,30 @@ export const BookingCard = ({ booking }: BookingCardProps) => {
     }
   };
 
-  const technician = booking.assignedTechnician;
+  const technician = booking.assignedTechnician || booking.technicianDetails;
+
+  const currentStep = (() => {
+    const stat = (booking.status || booking.orderStatus || "").toUpperCase();
+    if (stat === "COMPLETED" || stat === "CLOSED") return 4;
+    if (stat === "IN_PROGRESS" || stat === "CONVERTED") return 3;
+    if (stat === "ASSIGNED" || (technician && (technician.name || technician.id))) return 2;
+    return 1;
+  })();
+
+  const displayStatus = (() => {
+    const stat = (booking.status || booking.orderStatus || "UNASSIGNED").toUpperCase();
+    if (stat === "UNASSIGNED" && technician && (technician.name || technician.id)) {
+      return "ASSIGNED";
+    }
+    return stat;
+  })();
+
+  const steps = [
+    { num: 1, label: "Placed" },
+    { num: 2, label: "Assigned" },
+    { num: 3, label: "In Progress" },
+    { num: 4, label: "Completed" }
+  ];
 
   return (
     <>
@@ -41,8 +64,8 @@ export const BookingCard = ({ booking }: BookingCardProps) => {
                 ORDER ID: {booking.requestId}
               </p>
               <div className="flex items-center gap-3">
-                <div className={`px-3 py-1 rounded-lg text-[10px] font-bold tracking-widest uppercase border ${getStatusStyles(booking.status)}`}>
-                {booking.status}
+                <div className={`px-3 py-1 rounded-lg text-[10px] font-bold tracking-widest uppercase border ${getStatusStyles(displayStatus)}`}>
+                {displayStatus}
               </div>
               {booking.paymentMethod === "ONLINE" ? (
                 <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-widest bg-gray-50 px-2 py-1 rounded-lg">
@@ -102,18 +125,42 @@ export const BookingCard = ({ booking }: BookingCardProps) => {
                 </a>
               </div>
             ) : (
-              <div className="flex flex-col gap-3">
-                <div className="p-4 bg-gray-50 rounded-2xl border border-gray-100 text-center">
-                   <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Assigning Specialist</p>
-                   <div className="mt-2 w-full h-1 bg-gray-200 rounded-full overflow-hidden">
-                      <div className="h-full bg-blue-500 w-1/3 animate-[loading_2s_ease-in-out_infinite]" />
-                   </div>
-                </div>
+              <div className="flex flex-col justify-center h-full">
                 <button className="w-full h-11 border border-gray-200 text-gray-500 rounded-xl text-[10px] font-bold tracking-widest hover:border-gray-900 hover:text-gray-900 transition-all uppercase">
-                  Track Status
+                  View Details
                 </button>
               </div>
             )}
+          </div>
+        </div>
+
+        {/* Status Stepper */}
+        <div className="mt-8 pt-6 border-t border-gray-50 pb-2">
+          <div className="relative flex items-center justify-between w-full max-w-2xl mx-auto px-4 sm:px-8">
+            {/* Lines Container (starts at center of first dot, ends at center of last dot) */}
+            <div className="absolute left-[28px] sm:left-[44px] right-[28px] sm:right-[44px] top-3 h-[2px] z-0">
+              <div className="absolute inset-0 bg-gray-100 w-full h-full"></div>
+              <div className="absolute left-0 top-0 h-full bg-[#155dfc] transition-all duration-500" style={{ width: `${((currentStep - 1) / 3) * 100}%` }}></div>
+            </div>
+            
+            {steps.map((step) => {
+              const isActive = step.num <= currentStep;
+              const isCompleted = step.num < currentStep;
+              return (
+                <div key={step.num} className="relative z-10 flex flex-col items-center">
+                  <div className={`w-6 h-6 rounded-full flex items-center justify-center border-2 transition-colors duration-500 bg-white ${isActive ? 'border-[#155dfc]' : 'border-gray-200'}`}>
+                    {isCompleted ? (
+                      <Check size={12} className="text-[#155dfc]" strokeWidth={4} />
+                    ) : isActive ? (
+                      <div className="w-2 h-2 bg-[#155dfc] rounded-full"></div>
+                    ) : null}
+                  </div>
+                  <span className={`absolute top-8 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest whitespace-nowrap transition-colors duration-500 ${isActive ? 'text-gray-900' : 'text-gray-400'}`}>
+                    {step.label}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

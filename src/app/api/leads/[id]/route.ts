@@ -37,6 +37,9 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
 
     // 1. TECHNICIAN ASSIGNMENT LOGIC & NOTIFICATIONS
     if (data.assignedTechnician) {
+       if (!data.status) {
+          data.status = "ASSIGNED";
+       }
        const { Appointment } = await import("@/models/Appointment");
        const { User } = await import("@/models/User");
        const { sendEmail } = await import("@/lib/email/sendEmail");
@@ -72,6 +75,12 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
                          <p><strong>Address:</strong> ${lead.address}</p>
                          <p><strong>Schedule:</strong> ${lead.bookingDate} at ${lead.bookingTime}</p>
                       </div>
+                      ${lead.paymentMethod === 'PAY_ON_VISIT' ? `
+                      <div style="background: #fffbeb; border: 1px solid #fde68a; padding: 15px; border-radius: 12px; margin: 20px 0;">
+                         <p style="margin: 0; color: #d97706; font-weight: bold; font-size: 16px;">⚠️ Action Required: Collect Cash on Visit</p>
+                         <p style="margin: 5px 0 0 0; color: #92400e;">Please collect <strong>₹${lead.price || "the service amount"}</strong> from the customer upon completion.</p>
+                      </div>
+                      ` : ''}
                       <p>Please log in to your portal to start the job.</p>
                    </div>
                 `

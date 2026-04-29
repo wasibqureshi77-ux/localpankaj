@@ -296,6 +296,7 @@ const LeadPopup = ({ isOpen: controlledIsOpen, onClose: controlledOnClose, initi
          email: formData.email,
          phone: formData.phone,
          verified: false,
+         paymentMethod: "PAY_ON_VISIT",
          source: "LEAD"
       };
       const res = await axios.post("/api/leads", payload);

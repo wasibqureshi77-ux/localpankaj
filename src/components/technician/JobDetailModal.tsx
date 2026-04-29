@@ -128,7 +128,7 @@ export default function JobDetailModal({ job, onClose, onUpdateStatus }: JobDeta
                     onClick={() => { onUpdateStatus(job._id, job.status === "ASSIGNED" ? "IN_PROGRESS" : "COMPLETED"); onClose(); }}
                     className="px-4 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-md transition-all shadow-sm shadow-indigo-100"
                  >
-                    {job.status === "ASSIGNED" ? "Initialize Job" : "Mark Complete"}
+                    {job.status === "ASSIGNED" ? "Start Job" : "Mark Complete"}
                  </button>
               </>
            )}

@@ -52,7 +52,15 @@ export const UserBookingModal = ({ booking, onClose }: UserBookingModalProps) =>
     }
   };
 
-  const statusInfo = getStatusInfo(booking.status);
+  const displayStatus = (() => {
+    const stat = (booking.status || booking.orderStatus || "UNASSIGNED").toUpperCase();
+    if (stat === "UNASSIGNED" && technician && (technician.name || technician.id)) {
+      return "ASSIGNED";
+    }
+    return stat;
+  })();
+
+  const statusInfo = getStatusInfo(displayStatus);
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-gray-900/60 backdrop-blur-sm animate-in fade-in duration-200">

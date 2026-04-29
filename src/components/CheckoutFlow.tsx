@@ -179,13 +179,37 @@ export default function CheckoutFlow({ cartItems = [] }: { cartItems: any[] }) {
           description: "Service Booking",
           order_id: rpOrder.id,
           handler: async function (response: any) {
-            await finalizeOrder(rpOrder.id, response.razorpay_payment_id, "COMPLETED");
+            try {
+              const verifyRes = await axios.post("/api/payment/verify", {
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+              });
+
+              if (verifyRes.data.success) {
+                await finalizeOrder(response.razorpay_order_id, response.razorpay_payment_id, "COMPLETED");
+              } else {
+                toast.error("Payment verification failed");
+                await finalizeOrder(response.razorpay_order_id, response.razorpay_payment_id, "FAILED");
+              }
+            } catch (err: any) {
+              toast.error("Payment verification failed");
+              await finalizeOrder(response.razorpay_order_id, response.razorpay_payment_id, "FAILED");
+            }
           },
           prefill: { name: form.name, email: form.email, contact: form.phone },
           theme: { color: "#2563eb" },
+          modal: {
+            ondismiss: function() {
+              toast.error("Payment cancelled by user");
+            }
+          }
         };
 
         const paymentObject = new (window as any).Razorpay(options);
+        paymentObject.on('payment.failed', function(response: any) {
+          toast.error(response.error.description || "Payment failed");
+        });
         paymentObject.open();
         setIsSubmitting(false);
         return;
